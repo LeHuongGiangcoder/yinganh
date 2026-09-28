@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ying & Anh — 20 December 2026
 
-## Getting Started
+Wedding invitation site for **Liao Ying-Chuan & Nguyễn Trần Minh Anh**,
+Saigon, 20 December 2026. Built on the `tung-trang` invitation template,
+re-dressed in the couple's blue-and-gold moodboard.
 
-First, run the development server:
+## Running it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `/` — the full invitation, opening on the sketch entrance
+- `/schedule` — the same page with the entrance skipped, for direct links
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How it's put together
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Path | What's in it |
+| --- | --- |
+| `src/lib/constants.ts` | Every word on the site, in English and Vietnamese. Edit here, not in the components. |
+| `src/components/sections/` | One file per section: Hero, Gallery, EventDetails (venue + schedule + dresscode), Families, Visa, Travel, RSVP, ThankYou. |
+| `src/components/interactive/Entrance.tsx` | The scratch-to-reveal opening: veil → drawing → photograph → montage. |
+| `src/components/ui/` | Buttons, headings, the language toggle, the nav and the Y&A monogram. |
+| `scripts/build-assets.py` | Turns the originals in `assets-source/` into what `public/` serves. |
 
-## Learn More
+## Artwork
 
-To learn more about Next.js, take a look at the following resources:
+The couple's originals live in `assets-source/` and are **not committed** —
+they are full-size camera files. `scripts/build-assets.py` re-inks the pencil
+line art in navy on a transparent background (reds become gold), trims it to
+the drawing, and downscales the photographs to webp:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+python3 scripts/build-assets.py
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run it again after adding or swapping an original.
 
-## Deploy on Vercel
+## Still to do
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The RSVP form is deliberately plain: it collects answers and thanks the
+  guest in the browser. Wire `handleSubmit` in `src/components/sections/RSVP.tsx`
+  up to a sheet or API when the guest list is ready.
+- The lunar (âm lịch) dates were left blank on the invitation form, so they are
+  not on the site yet.
+- Reception times after 19:00 (dinner, after party) are placeholders.

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Original full-size photography & artwork (processed into public/images & public/component)
+/assets-source
