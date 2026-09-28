@@ -17,12 +17,12 @@ const PALETTE = [
 // Ink sketch illustrating each agenda moment (public/component)
 const MOMENT_ART: Record<AgendaMoment, string> = {
   vows: '/component/7.png',
-  teaceremony: '/component/gifts.png',
+  teaceremony: '/component/12.png',
   photos: '/component/8.png',
   welcome: '/component/14.png',
   ceremony: '/component/15.png',
   dinner: '/component/table.png',
-  party: '/component/dancers.png',
+  party: '/component/16.png',
 };
 
 // Sparkles (✦) and dots scattered around the venue cloud, as % of the illustration.
@@ -108,7 +108,7 @@ export default function EventDetails() {
   return (
     <section
       id="event-details"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 border-t border-ink/10"
+      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32"
     >
       <div className="max-w-xl mx-auto px-4 md:px-0 flex flex-col items-center text-center gap-16">
         {/* Venue */}

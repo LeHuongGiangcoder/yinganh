@@ -44,7 +44,17 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         <Nav />
         <Hero startAnimation={revealContent} />
         <Gallery />
+
+        <div className="w-full flex justify-center pb-8 pt-4 md:pb-12 md:pt-4 -mt-8 md:-mt-16 opacity-85 mix-blend-multiply pointer-events-none select-none relative z-10">
+          <img src="/component/dancers.png" alt="" className="w-64 md:w-96 h-auto" />
+        </div>
+
         <EventDetails />
+
+        <div className="w-full flex justify-center pb-8 pt-4 md:pb-12 md:pt-4 -mt-12 md:-mt-20 opacity-85 mix-blend-multiply pointer-events-none select-none relative z-10">
+          <img src="/component/gifts.png" alt="" className="w-64 md:w-96 h-auto" />
+        </div>
+
         <Visa />
         <Travel />
         <RSVP />
