@@ -167,7 +167,7 @@ export default function Travel() {
               src="/component/ribbon.webp"
               alt=""
               draggable={false}
-              className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 md:w-40 z-10 select-none drop-shadow-md"
+              className="absolute -top-6 -left-6 w-32 md:w-40 z-10 select-none drop-shadow-md -rotate-[15deg]"
             />
           </div>
         </div>
