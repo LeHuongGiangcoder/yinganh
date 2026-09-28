@@ -74,11 +74,13 @@ export default function Hero({ startAnimation }: HeroProps) {
         </Heading>
 
         {/* The champagne tower the couple drew — their toast, at the top of the page */}
-        <div style={revealStyle(3)} className="relative mt-8 md:mt-10 w-[18rem] md:w-[22rem]">
+        <div style={revealStyle(3)} className="relative mt-8 md:mt-10 w-[18rem] md:w-[22rem] translate-x-4">
+          {/* Soft white glow behind the illustration so it stands out against the sky */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white/50 blur-3xl rounded-full pointer-events-none -z-10" />
           <img
             src="/component/champagne.png"
             alt="Illustration of the couple toasting above a champagne tower"
-            className="w-full h-auto select-none block"
+            className="w-full h-auto select-none block relative z-10"
             style={{ animation: 'floatToast 5s ease-in-out infinite' }}
             draggable={false}
           />
