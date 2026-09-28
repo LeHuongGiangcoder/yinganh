@@ -1,7 +1,7 @@
 # Ying & Anh — 20 December 2026
 
 Wedding invitation site for **Liao Ying-Chuan & Nguyễn Trần Minh Anh**,
-Saigon, 20 December 2026. Built on the `tung-trang` invitation template,
+Ho Chi Minh, 20 December 2026. Built on the `tung-trang` invitation template,
 re-dressed in the couple's blue-and-gold moodboard.
 
 ## Running it

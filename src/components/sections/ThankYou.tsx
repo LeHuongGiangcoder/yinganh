@@ -53,7 +53,7 @@ export default function ThankYou() {
         <span className="block w-10 h-px bg-ink/20" />
       </div>
       <span className="mt-3 font-body text-[10px] tracking-[0.4em] uppercase text-ink-muted">
-        20.12.2026 · Saigon
+        20.12.2026 · Ho Chi Minh
       </span>
     </section>
   );

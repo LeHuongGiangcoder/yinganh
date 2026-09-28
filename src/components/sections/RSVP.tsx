@@ -22,14 +22,16 @@ export default function RSVP() {
   };
 
   const fieldClass =
-    'w-full bg-transparent border-b border-ink/25 focus:border-ink outline-none py-2.5 font-body text-sm md:text-base text-ink placeholder:text-ink-muted/60 font-light transition-colors';
+    'w-full bg-white/70 border border-ink/15 rounded-xl focus:border-ink/60 focus:bg-white outline-none px-4 py-3 font-body text-sm md:text-base text-ink placeholder:text-ink-muted/60 font-light transition-colors';
 
   return (
     <section
       id="rsvp"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 border-t border-ink/10 scroll-mt-20"
+      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 scroll-mt-20"
     >
-      <div className="max-w-xl mx-auto flex flex-col items-center text-center">
+      {/* Sits on its own frosted card: the form was disappearing into the sky
+          backdrop when it shared the page's transparent background. */}
+      <div className="max-w-xl mx-auto flex flex-col items-center text-center rounded-[2rem] border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_24px_60px_-28px_rgba(18,48,91,0.45)] px-6 sm:px-10 md:px-14 py-14 md:py-16">
         <Subtitle as="div" className="mb-6">
           {copy.subtitle}
         </Subtitle>

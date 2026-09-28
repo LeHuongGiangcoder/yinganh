@@ -6,7 +6,6 @@ import Nav from '@/components/ui/Nav';
 import Hero from '@/components/sections/Hero';
 import Gallery from '@/components/sections/Gallery';
 import EventDetails from '@/components/sections/EventDetails';
-import Families from '@/components/sections/Families';
 import Visa from '@/components/sections/Visa';
 import Travel from '@/components/sections/Travel';
 import RSVP from '@/components/sections/RSVP';
@@ -46,7 +45,6 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         <Hero startAnimation={revealContent} />
         <Gallery />
         <EventDetails />
-        <Families />
         <Visa />
         <Travel />
         <RSVP />

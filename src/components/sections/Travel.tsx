@@ -153,13 +153,23 @@ export default function Travel() {
             </div>
           </div>
 
-          <img
-            src="/images/portrait-hug.webp"
-            alt=""
-            loading="lazy"
-            draggable={false}
-            className="mt-10 w-full max-w-md aspect-[4/5] object-cover rounded-3xl border border-ink/10 select-none"
-          />
+          <div className="relative mt-12 w-full max-w-sm mx-auto">
+            <div className="bg-white p-3 md:p-4 pb-12 md:pb-16 shadow-[0_15px_35px_-10px_rgba(18,48,91,0.2)] border border-ink/5 rotate-2">
+              <img
+                src="/images/portrait-hug.webp"
+                alt=""
+                loading="lazy"
+                draggable={false}
+                className="w-full aspect-[4/5] object-cover border border-ink/10 select-none"
+              />
+            </div>
+            <img
+              src="/component/ribbon.webp"
+              alt=""
+              draggable={false}
+              className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 md:w-40 z-10 select-none drop-shadow-md"
+            />
+          </div>
         </div>
       </div>
     </section>

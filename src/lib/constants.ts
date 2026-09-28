@@ -13,7 +13,7 @@ export const WEDDING = {
   groom: 'Ying-Chuan',
   bride: 'Minh Anh',
   dateISO: '2026-12-20T18:00:00+07:00',
-  city: 'Saigon',
+  city: 'Ho Chi Minh',
   country: 'Vietnam',
   venue: 'The Reverie Saigon',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=The+Reverie+Saigon+57-69F+Dong+Khoi',
@@ -40,7 +40,6 @@ export const COPY: Record<
     hero: { eyebrow: string; dateLine: string; location: string; month: string };
     nav: {
       venue: string;
-      families: string;
       schedule: string;
       dresscode: string;
       visa: string;
@@ -134,12 +133,11 @@ export const COPY: Record<
     hero: {
       eyebrow: 'save the date',
       dateLine: 'Sunday, 20 December 2026',
-      location: 'Saigon, Vietnam',
+      location: 'Ho Chi Minh, Vietnam',
       month: 'december',
     },
     nav: {
       venue: 'Venue',
-      families: 'Families',
       schedule: 'Schedule',
       dresscode: 'Dresscode',
       visa: 'Visa',
@@ -150,7 +148,7 @@ export const COPY: Record<
       subtitle: 'WITH THE BLESSING OF',
       title: 'Our Two Families',
       intro:
-        'Two families, one from Taipei and one from Saigon, would be honoured to welcome you on the day their only son and only daughter are married.',
+        'Two families, one from Taipei and one from Ho Chi Minh, would be honoured to welcome you on the day their only son and only daughter are married.',
       groom: {
         side: "The Groom's Family",
         father: 'Liao Ming-Chang',
@@ -216,8 +214,8 @@ export const COPY: Record<
     },
     travel: {
       subtitle: 'TRAVEL GUIDE',
-      title: 'Saigon',
-      body: 'Ho Chi Minh City — still Saigon to everyone who lives here. Ten million people, a river, and <strong><em>the best iced coffee on Earth</em></strong> on every corner.',
+      title: 'Ho Chi Minh',
+      body: 'Ho Chi Minh City. Ten million people, a river, and <strong><em>the best iced coffee on Earth</em></strong> on every corner.',
       placesTitle: 'While you are here',
       places: [
         {
@@ -242,7 +240,7 @@ export const COPY: Record<
         },
         {
           name: 'Binh Tay Market & Cho Lon',
-          desc: "Saigon's Chinatown, 20 minutes west. Temples thick with incense coils and the best com tam in town.",
+          desc: "Ho Chi Minh's Chinatown, 20 minutes west. Temples thick with incense coils and the best com tam in town.",
         },
       ],
       stay: {
@@ -276,12 +274,12 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Thank You',
-      body: "For being part of our story. We can't wait to see you in Saigon.",
+      body: "For being part of our story. We can't wait to see you in Ho Chi Minh.",
     },
     eventDetails: {
       venueLabel: 'The Venue',
       venueLines: ['The', 'Reverie', 'Saigon'],
-      venueAddress: 'La Scala Ballroom, Floor 5 · 57-69F Đồng Khởi, Sài Gòn Ward, Ho Chi Minh City',
+      venueAddress: 'La Scala Ballroom, Floor 5 · 57-69F Đồng Khởi, Bến Nghé Ward, Ho Chi Minh City',
       mapsBtn: 'Open in Google Maps',
       guestCountLabel: 'Guests',
       guestCount: '180',
@@ -351,12 +349,11 @@ export const COPY: Record<
     hero: {
       eyebrow: 'lưu lại ngày',
       dateLine: 'Chủ nhật, 20 tháng 12 năm 2026',
-      location: 'Sài Gòn, Việt Nam',
+      location: 'Hồ Chí Minh, Việt Nam',
       month: 'tháng 12',
     },
     nav: {
       venue: 'Địa điểm',
-      families: 'Gia đình',
       schedule: 'Lịch trình',
       dresscode: 'Trang phục',
       visa: 'Visa',
@@ -367,7 +364,7 @@ export const COPY: Record<
       subtitle: 'TRÂN TRỌNG BÁO TIN',
       title: 'Hai Gia Đình',
       intro:
-        'Hai gia đình, một từ Đài Bắc và một từ Sài Gòn, hân hạnh được đón tiếp bạn trong ngày vui của quý nam và quý nữ.',
+        'Hai gia đình, một từ Đài Bắc và một từ Hồ Chí Minh, hân hạnh được đón tiếp bạn trong ngày vui của quý nam và quý nữ.',
       groom: {
         side: 'Nhà Trai',
         father: 'Ông Liao Ming-Chang',
@@ -433,8 +430,8 @@ export const COPY: Record<
     },
     travel: {
       subtitle: 'HƯỚNG DẪN DU LỊCH',
-      title: 'Sài Gòn',
-      body: 'Thành phố Hồ Chí Minh — nhưng với người sống ở đây thì vẫn luôn là Sài Gòn. Mười triệu người, một dòng sông, và <strong><em>ly cà phê sữa đá ngon nhất hành tinh</em></strong> ở mọi góc phố.',
+      title: 'Hồ Chí Minh',
+      body: 'Thành phố Hồ Chí Minh. Mười triệu người, một dòng sông, và <strong><em>ly cà phê sữa đá ngon nhất hành tinh</em></strong> ở mọi góc phố.',
       placesTitle: 'Ghé thăm khi bạn đến',
       places: [
         {
@@ -493,12 +490,12 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Cảm Ơn Bạn',
-      body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn ở Sài Gòn.',
+      body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn ở Hồ Chí Minh.',
     },
     eventDetails: {
       venueLabel: 'Địa điểm',
       venueLines: ['The', 'Reverie', 'Saigon'],
-      venueAddress: 'La Scala Ballroom, Tầng 5 · 57-69F Đồng Khởi, Phường Sài Gòn, TP. Hồ Chí Minh',
+      venueAddress: 'La Scala Ballroom, Tầng 5 · 57-69F Đồng Khởi, Phường Bến Nghé, TP. Hồ Chí Minh',
       mapsBtn: 'Xem trên Google Maps',
       guestCountLabel: 'Số lượng khách',
       guestCount: '180',

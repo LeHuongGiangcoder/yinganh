@@ -155,14 +155,7 @@ export default function EventDetails() {
             {copy.venueAddress}
           </Body>
 
-          <div className="mt-5 flex items-center gap-3 text-ink-muted">
-            <span className="block w-6 h-px bg-ink/20" />
-            <Subtitle as="span" className="!tracking-[0.25em]">
-              {copy.guestCountLabel}
-            </Subtitle>
-            <span className="font-display italic text-xl text-ink-soft font-light">{copy.guestCount}</span>
-            <span className="block w-6 h-px bg-ink/20" />
-          </div>
+
 
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <a href={WEDDING.mapsUrl} target="_blank" rel="noopener noreferrer">

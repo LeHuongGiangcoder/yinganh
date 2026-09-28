@@ -5,10 +5,10 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Ying & Anh — 20.12.2026',
-  description: 'We are getting married in Saigon, Vietnam.',
+  description: 'We are getting married in Ho Chi Minh, Vietnam.',
   openGraph: {
     title: 'Ying & Anh',
-    description: 'Save the date — 20 December 2026, Saigon.',
+    description: 'Save the date — 20 December 2026, Ho Chi Minh.',
     type: 'website',
     images: [
       {

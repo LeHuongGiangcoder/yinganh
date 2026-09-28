@@ -32,39 +32,39 @@ export default function Hero({ startAnimation }: HeroProps) {
       id="hero"
       className="relative min-h-[100svh] w-full flex items-center justify-center px-5 md:px-10 pt-24 md:pt-28 pb-20"
     >
-      <div className="w-full max-w-3xl flex flex-col items-center text-center">
+      <div className="w-full max-w-4xl flex flex-col items-center text-center">
         <div style={revealStyle(0)} className="flex items-center justify-center gap-2 md:gap-3 w-full">
           <img
             src="/component/left.png"
             alt=""
-            className="h-10 md:h-14 w-auto opacity-85 select-none"
+            className="h-14 md:h-20 w-auto opacity-85 select-none"
             draggable={false}
           />
-          <Subtitle as="span" className="shrink-0 tracking-[0.45em]">
+          <Subtitle as="span" className="shrink-0 tracking-[0.45em] !text-xs md:!text-base">
             {copy.eyebrow}
           </Subtitle>
           <img
             src="/component/right.png"
             alt=""
-            className="h-10 md:h-14 w-auto opacity-85 select-none"
+            className="h-14 md:h-20 w-auto opacity-85 select-none"
             draggable={false}
           />
         </div>
 
         <div style={revealStyle(1)} className="mt-5 flex items-center gap-3">
-          <span className="block w-10 md:w-16 h-px bg-ink/30" />
+          <span className="block w-16 md:w-24 h-px bg-ink/30" />
           <Ornament />
-          <span className="block w-10 md:w-16 h-px bg-ink/30" />
+          <span className="block w-16 md:w-24 h-px bg-ink/30" />
         </div>
 
         <Heading variant="h1" style={revealStyle(2)} className="mt-6 md:mt-5 text-center">
-          <span className="block" style={{ fontSize: 'clamp(2.6rem, 8.5vw, 5.5rem)' }}>
+          <span className="block" style={{ fontSize: 'clamp(3.6rem, 13vw, 8rem)' }}>
             Ying <span className="italic font-light text-ink-soft">&amp;</span> Anh
           </span>
         </Heading>
 
         {/* The champagne tower the couple drew — their toast, at the top of the page */}
-        <div style={revealStyle(3)} className="relative mt-6 md:mt-8 w-[13rem] md:w-[15rem]">
+        <div style={revealStyle(3)} className="relative mt-8 md:mt-10 w-[18rem] md:w-[22rem]">
           <img
             src="/component/champagne.png"
             alt="Illustration of the couple toasting above a champagne tower"
@@ -78,21 +78,21 @@ export default function Hero({ startAnimation }: HeroProps) {
           <div className="flex items-center gap-4 text-ink-soft">
             {/* Left column: month & year */}
             <div className="flex flex-col text-right font-display leading-tight">
-              <span className="text-[clamp(1.2rem,2.8vw,1.5rem)] italic font-light lowercase">
+              <span className="text-[clamp(1.6rem,4vw,2.1rem)] italic font-light lowercase">
                 {copy.month}
               </span>
-              <span className="text-[clamp(0.95rem,2.2vw,1.2rem)] font-light tracking-wider opacity-85">
+              <span className="text-[clamp(1.25rem,3vw,1.6rem)] font-light tracking-wider opacity-85">
                 2026
               </span>
             </div>
 
-            <div className="h-10 w-px bg-ink/25" />
+            <div className="h-14 md:h-16 w-px bg-ink/25" />
 
             {/* Right column: day */}
-            <div className="font-display text-[clamp(2.2rem,5.5vw,3.2rem)] leading-none font-light">20</div>
+            <div className="font-display text-[clamp(3rem,8vw,4.5rem)] leading-none font-light">20</div>
           </div>
 
-          <Subtitle className="mt-2">{copy.location}</Subtitle>
+          <Subtitle className="mt-3 !text-xs md:!text-base !tracking-[0.35em]">{copy.location}</Subtitle>
         </div>
       </div>
 
@@ -125,7 +125,7 @@ export default function Hero({ startAnimation }: HeroProps) {
 
 function Ornament() {
   return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" className="text-ink" aria-hidden>
+    <svg width="30" height="30" viewBox="0 0 22 22" fill="none" className="text-ink" aria-hidden>
       <circle cx="11" cy="11" r="1.6" fill="currentColor" />
       <path
         d="M11 3 Q12 7 11 11 Q10 7 11 3 Z M11 19 Q10 15 11 11 Q12 15 11 19 Z M3 11 Q7 10 11 11 Q7 12 3 11 Z M19 11 Q15 12 11 11 Q15 10 19 11 Z"

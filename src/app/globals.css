@@ -19,33 +19,70 @@
   --section-py: clamp(3rem, 8vh, 6rem);
 }
 
-html, body {
+html {
   background: var(--bg);
+}
+
+html, body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
+  background: transparent;
   font-family: var(--font-body), system-ui, sans-serif;
   font-feature-settings: 'kern' 1, 'liga' 1;
   overflow-x: hidden;
 }
 
-/* The uploaded sky layer, held still behind the whole page, with a wash of
-   cloud over it so long sections don't read as flat colour. */
+/* Two fixed backdrop layers behind the whole page:
+   the uploaded sky sits underneath, the uploaded cloud plate is multiplied over
+   it so the blue picks up real cloud shape instead of reading as flat colour.
+   Both live on <html> so body::after stays free for the paper grain. */
+html::before,
+html::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Base: the sky photograph */
+html::before {
+  z-index: -3;
+  background-color: var(--bg);
+  background-image: url("/images/bg-sky.webp");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Over it: the cloud plate, multiplied so its whites drop out and only the
+   cloud shading tints the sky. Anchored to the bottom, where the clouds sit. */
+html::after {
+  z-index: -2;
+  background-image: url("/images/bg-cloud.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+}
+
+/* A soft wash of the page tint so text always has something calm to sit on. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-color: var(--bg);
-  background-image: url("/images/bg-cloud.webp"), url("/images/bg-sky.webp");
-  background-size: cover, cover;
-  background-position: center top, center center;
-  background-repeat: no-repeat, no-repeat;
-  opacity: 0.85;
+  background: linear-gradient(
+    180deg,
+    rgba(247, 250, 253, 0.55) 0%,
+    rgba(234, 241, 249, 0.3) 45%,
+    rgba(247, 250, 253, 0.6) 100%
+  );
 }
 
 /* Paper grain on top of everything */

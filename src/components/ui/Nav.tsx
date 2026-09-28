@@ -45,7 +45,6 @@ export default function Nav() {
   // Section anchors, in page order
   const links = [
     { href: '#venue', label: nav.venue },
-    { href: '#families', label: nav.families },
     { href: '#schedule', label: nav.schedule },
     { href: '#dresscode', label: nav.dresscode },
     { href: '#visa', label: nav.visa },
