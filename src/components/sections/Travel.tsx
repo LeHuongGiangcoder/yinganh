@@ -6,6 +6,16 @@ import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Decor from '@/components/ui/Decor';
 
+// Sparkles around the postcard, as % of its box — kept to the empty corners
+const POSTCARD_SPARKS = [
+  { x: 4, y: 16, size: 12, gold: true, delay: 0 },
+  { x: 14, y: 34, size: 7, delay: 1.4 },
+  { x: 86, y: 14, size: 8, delay: 2.1 },
+  { x: 95, y: 34, size: 11, gold: true, delay: 0.8 },
+  { x: 8, y: 82, size: 9, delay: 1.7 },
+  { x: 20, y: 94, size: 6, gold: true, delay: 2.5 },
+];
+
 export default function Travel() {
   const { lang } = useLang();
   const copy = COPY[lang].travel;
@@ -40,7 +50,7 @@ export default function Travel() {
     <section
       id="travel"
       ref={sectionRef}
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 overflow-hidden border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y overflow-hidden border-t border-ink/10 scroll-mt-20"
     >
       <Decor
         name="cat-heart"
@@ -80,7 +90,7 @@ export default function Travel() {
             {copy.placesTitle}
           </Subtitle>
 
-          <ul className="w-full max-w-md flex flex-col divide-y divide-ink/10 border-y border-ink/10 text-left">
+          <ul className="w-full max-w-md flex flex-col divide-y divide-ink/10 text-left text-panel !py-2">
             {copy.places.map((place, idx) => {
               const open = openPlace === idx;
               return (
@@ -90,11 +100,11 @@ export default function Travel() {
                     className="w-full flex items-center justify-between gap-4 py-4 text-left group"
                     aria-expanded={open}
                   >
-                    <span className="font-display text-[clamp(1.05rem,2.6vw,1.25rem)] font-light text-ink group-hover:text-ink-soft transition-colors">
+                    <Heading variant="h4" as="span" className="group-hover:text-ink-soft transition-colors">
                       {place.name}
-                    </span>
+                    </Heading>
                     <span
-                      className="shrink-0 text-ink-muted text-lg font-light transition-transform duration-300"
+                      className="shrink-0 text-ink-soft text-xl font-normal transition-transform duration-300"
                       style={{ transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}
                       aria-hidden
                     >
@@ -160,17 +170,18 @@ export default function Travel() {
                     <span className="text-gold text-[8px]" aria-hidden>
                       ✦
                     </span>
-                    <span className="font-display text-[clamp(1rem,2.4vw,1.15rem)] font-light text-ink">
+                    <Heading variant="h4" as="span">
                       {area}
-                    </span>
+                    </Heading>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          {/* A postcard from the city, held down by a pin and a wax seal */}
-          <div className="relative mt-14 w-full max-w-lg mx-auto md:-mr-4 lg:-mr-10">
+          {/* A postcard from the city: pin through the top-left corner, wax seal
+              closing the bottom-right, sparkles scattered around the pair */}
+          <div className="relative mt-10 w-full max-w-lg mx-auto md:-mr-4 lg:-mr-10">
             <img
               src="/component/travel-postcard.webp"
               alt="Postcard from Ho Chi Minh, Vietnam"
@@ -184,7 +195,7 @@ export default function Travel() {
               aria-hidden
               loading="lazy"
               draggable={false}
-              className="absolute top-2 right-[18%] w-12 md:w-16 rotate-12 select-none pointer-events-none"
+              className="absolute top-[4%] left-[6%] w-11 md:w-14 -rotate-12 select-none pointer-events-none"
             />
             <img
               src="/component/blue-seal.webp"
@@ -192,8 +203,23 @@ export default function Travel() {
               aria-hidden
               loading="lazy"
               draggable={false}
-              className="absolute top-[44%] left-[6%] w-14 md:w-20 -rotate-6 select-none pointer-events-none"
+              className="absolute bottom-[4%] right-[4%] w-12 md:w-16 -rotate-6 select-none pointer-events-none"
             />
+            {POSTCARD_SPARKS.map((sp, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+                style={{ left: `${sp.x}%`, top: `${sp.y}%` }}
+              >
+                <span
+                  className={`block animate-twinkle leading-none ${sp.gold ? 'text-gold' : 'text-ink-muted'}`}
+                  style={{ fontSize: sp.size, animationDelay: `${sp.delay}s` }}
+                >
+                  ✦
+                </span>
+              </span>
+            ))}
           </div>
         </div>
       </div>

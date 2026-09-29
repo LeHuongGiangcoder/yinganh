@@ -29,7 +29,7 @@ export default function ThankYou() {
   return (
     <section
       id="thank-you"
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 flex flex-col items-center justify-center text-center border-t border-ink/10"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y flex flex-col items-center justify-center text-center border-t border-ink/10"
     >
       {SPARKS.map((s, i) => (
         <span
@@ -82,7 +82,7 @@ export default function ThankYou() {
 
       <div className="mt-16 flex items-center gap-3 text-ink-muted">
         <span className="block w-10 h-px bg-ink/20" />
-        <span className="font-display italic text-lg font-light">Ying &amp; Anh</span>
+        <span className="font-display italic text-[clamp(1.25rem,2.8vw,1.4rem)] font-normal">Ying &amp; Anh</span>
         <span className="block w-10 h-px bg-ink/20" />
       </div>
       <span className="mt-3 font-body text-[11px] md:text-xs font-medium tracking-[0.35em] uppercase text-ink-soft">

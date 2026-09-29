@@ -40,7 +40,7 @@ export default function Gallery() {
   return (
     <section ref={ref} className="w-full">
       {/* Title sits above the strip, centred over the full-bleed scroller */}
-      <div className="w-full max-w-7xl mx-auto px-5 md:px-10 pt-20 md:pt-28 flex flex-col items-center text-center">
+      <div className="w-full max-w-7xl mx-auto px-5 md:px-10 pt-8 md:pt-12 flex flex-col items-center text-center">
         <Subtitle as="div" className="mb-4" style={revealStyle(0)}>
           {copy.subtitle}
         </Subtitle>

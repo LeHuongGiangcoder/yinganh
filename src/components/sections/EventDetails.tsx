@@ -108,7 +108,7 @@ export default function EventDetails() {
   return (
     <section
       id="event-details"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32"
+      className="w-full max-w-7xl mx-auto px-5 md:px-10 section-y"
     >
       <div className="max-w-xl mx-auto px-4 md:px-0 flex flex-col items-center text-center gap-16">
         {/* Venue */}
@@ -198,7 +198,7 @@ export default function EventDetails() {
             {group.venue}
           </Subtitle>
 
-          <div ref={timelineRef} key={activeGroup} className="relative w-full mt-4 animate-fade-in">
+          <div ref={timelineRef} key={activeGroup} className="relative w-full mt-6 animate-fade-in text-panel">
             {/* The string */}
             <svg
               className="absolute inset-0 pointer-events-none text-ink/25"
@@ -215,7 +215,7 @@ export default function EventDetails() {
 
                 const text = (
                   <div className={`flex flex-col gap-1.5 ${textLeft ? 'items-end text-right' : 'items-start text-left'}`}>
-                    <span className="font-display italic text-[clamp(1.6rem,4.5vw,2.2rem)] text-ink-soft leading-none font-light">
+                    <span className="font-display italic text-[clamp(1.75rem,4.5vw,2.25rem)] text-ink-soft leading-none font-normal">
                       {item.time}
                       {item.end && (
                         <span className="font-body not-italic text-[11px] md:text-xs tracking-[0.2em] text-ink-soft ml-1.5 align-middle">
@@ -254,7 +254,7 @@ export default function EventDetails() {
                       ref={(el) => {
                         knotRefs.current[idx] = el;
                       }}
-                      className="relative z-10 mx-auto px-1 py-0.5 bg-sky text-ink-muted text-xs leading-none"
+                      className="relative z-10 mx-auto text-gold text-sm leading-none"
                       aria-hidden
                     >
                       ✦
@@ -301,7 +301,7 @@ export default function EventDetails() {
             ))}
           </div>
 
-          <Body variant="regular" className="mt-10 max-w-sm text-center italic">
+          <Body variant="regular" className="mt-6 max-w-sm text-center italic">
             {copy.dresscodeNote}
           </Body>
         </div>

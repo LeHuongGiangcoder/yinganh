@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
-  variant?: 'h1' | 'h2' | 'h3';
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'div';
+  variant?: 'h1' | 'h2' | 'h3' | 'h4';
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'span' | 'div';
   children?: React.ReactNode;
 }
 
@@ -13,10 +13,13 @@ export function Heading({ variant = 'h2', as, children, className = '', ...props
   if (variant === 'h1') {
     styleClass = 'font-display font-light leading-[0.95] text-ink';
   } else if (variant === 'h2') {
-    styleClass = 'font-display font-normal text-[clamp(2rem,5.5vw,3.5rem)] leading-tight text-ink';
+    styleClass = 'font-display font-normal text-[clamp(2.5rem,6.5vw,3.75rem)] leading-tight text-ink';
   } else if (variant === 'h3') {
     styleClass =
-      'font-display font-normal text-[clamp(1.4rem,3.8vw,2rem)] leading-normal text-ink-soft';
+      'font-display font-normal text-[clamp(1.75rem,4.5vw,2.25rem)] leading-normal text-ink-soft';
+  } else if (variant === 'h4') {
+    // Row titles: place names, area names, anything that heads a list item
+    styleClass = 'font-display font-normal text-[clamp(1.25rem,2.8vw,1.4rem)] leading-snug text-ink';
   }
 
   return (

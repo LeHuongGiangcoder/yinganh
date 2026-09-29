@@ -11,6 +11,7 @@ import Travel from '@/components/sections/Travel';
 import RSVP from '@/components/sections/RSVP';
 import ThankYou from '@/components/sections/ThankYou';
 import Decor from '@/components/ui/Decor';
+import OrnamentRow from '@/components/ui/OrnamentRow';
 
 // The whole invitation page. skipIntro opens straight on the hero with no sketch entrance,
 // for direct links like /schedule.
@@ -36,7 +37,7 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         <div className="backdrop-band backdrop-sky" />
         <div className="backdrop-band backdrop-cloud" />
         {/* Gentle wash so body copy stays legible over both */}
-        <div className="absolute inset-0 bg-[#EAF1F9]/35" />
+        <div className="absolute inset-0 bg-[#EAF1F9]/55" />
       </div>
 
       {!entranceDone && (
@@ -55,22 +56,46 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         <Hero startAnimation={revealContent} />
         <Gallery />
 
-        <div className="w-full flex justify-center pb-8 pt-4 md:pb-12 md:pt-4 -mt-8 md:-mt-16 opacity-85 mix-blend-multiply pointer-events-none select-none relative z-10">
-          <img src="/component/dancers.png" alt="" className="w-64 md:w-96 h-auto" />
-        </div>
+        <OrnamentRow className="section-tail relative z-10">
+          <div className="flex items-center justify-center gap-2 md:gap-4">
+            <img
+              src="/component/left.png"
+              alt=""
+              aria-hidden
+              className="w-6 md:w-10 h-auto opacity-85 mix-blend-multiply pointer-events-none select-none"
+            />
+            <img
+              src="/component/dancers.png"
+              alt=""
+              aria-hidden
+              className="w-56 md:w-80 h-auto opacity-85 mix-blend-multiply pointer-events-none select-none"
+            />
+            <img
+              src="/component/right.png"
+              alt=""
+              aria-hidden
+              className="w-6 md:w-10 h-auto opacity-85 mix-blend-multiply pointer-events-none select-none"
+            />
+          </div>
+        </OrnamentRow>
 
         <EventDetails />
 
-        <div className="w-full flex justify-center pb-8 pt-4 md:pb-12 md:pt-4 -mt-12 md:-mt-20 opacity-85 mix-blend-multiply pointer-events-none select-none relative z-10">
-          <img src="/component/gifts.png" alt="" className="w-64 md:w-96 h-auto" />
-        </div>
+        <OrnamentRow className="section-tail relative z-10">
+          <img
+            src="/component/gifts.png"
+            alt=""
+            aria-hidden
+            className="w-56 md:w-80 h-auto opacity-85 mix-blend-multiply pointer-events-none select-none"
+          />
+        </OrnamentRow>
 
         <Visa />
 
         {/* Breather between the visa guide and the travel notes */}
-        <div className="w-full flex justify-center py-4 md:py-8 relative z-10">
+        <OrnamentRow className="section-tail relative z-10">
           <Decor name="cat-heart" className="w-24 md:w-32" tilt={-7} opacity={0.6} />
-        </div>
+        </OrnamentRow>
 
         <Travel />
 

@@ -14,7 +14,7 @@ export default function Visa() {
   return (
     <section
       id="visa"
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y border-t border-ink/10 scroll-mt-20"
     >
       {/* A cat rides an arrow in, a cupid toasts on the way out */}
       <Decor
@@ -50,7 +50,7 @@ export default function Visa() {
             {copy.keyDetails.items.map((item, idx) => (
               <div key={idx} className="flex items-center gap-6 md:gap-10">
                 <div className="w-16 md:w-20 shrink-0 text-center">
-                  <span className="font-display italic text-[clamp(2.2rem,5.5vw,3.2rem)] text-ink-soft leading-[0.85] font-light">
+                  <span className="font-display italic text-[clamp(2.25rem,5.5vw,3rem)] text-ink-soft leading-[0.85] font-normal">
                     {item.value}
                   </span>
                 </div>
@@ -91,10 +91,10 @@ export default function Visa() {
         </div>
       </div>
 
-      <div className="relative max-w-2xl mx-auto flex flex-col px-4 md:px-0 divide-y divide-ink/10 border-y border-ink/10">
+      <div className="relative max-w-2xl mx-auto flex flex-col divide-y divide-ink/10 text-panel">
         <Decor
           name="cupid-glass"
-          className="absolute -top-14 md:-top-20 right-2 md:-right-16 w-16 md:w-24"
+          className="absolute -top-16 md:-top-24 right-4 md:right-8 w-20 md:w-28"
           tilt={8}
           delay={0.8}
           opacity={0.6}
@@ -117,7 +117,7 @@ function InfoBlock({ title, items }: { title: string; items: string[] }) {
           {title}
         </Heading>
         <span
-          className="text-ink-soft text-2xl font-light w-8 h-8 flex items-center justify-center transition-transform duration-300"
+          className="text-ink-soft text-xl font-normal w-8 h-8 flex items-center justify-center transition-transform duration-300"
           style={{ transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)' }}
         >
           +
