@@ -107,13 +107,16 @@ export const COPY: Record<
     };
     thankYou: { title: string; body: string };
     eventDetails: {
+      venueSubLabel: string;
       venueLabel: string;
       venueLines: string[];
       venueAddress: string;
       mapsBtn: string;
       guestCountLabel: string;
       guestCount: string;
+      scheduleSubLabel: string;
       schedule: string;
+      dresscodeSubLabel: string;
       dresscode: string;
       agenda: {
         title: string;
@@ -287,13 +290,16 @@ export const COPY: Record<
       body: "For being part of our story. We can't wait to see you in Ho Chi Minh.",
     },
     eventDetails: {
+      venueSubLabel: 'WHERE TO FIND US',
       venueLabel: 'The Venue',
       venueLines: ['The', 'Reverie', 'Saigon'],
       venueAddress: 'La Scala Ballroom, Floor 5 · 57-69F Đồng Khởi, Bến Nghé Ward, Ho Chi Minh City',
       mapsBtn: 'Open in Google Maps',
       guestCountLabel: 'Guests',
       guestCount: '180',
+      scheduleSubLabel: 'THE RUN OF THE DAY',
       schedule: 'Schedule',
+      dresscodeSubLabel: 'WHAT TO WEAR',
       dresscode: 'Dresscode',
       agenda: [
         {
@@ -508,13 +514,16 @@ export const COPY: Record<
       body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn ở Hồ Chí Minh.',
     },
     eventDetails: {
+      venueSubLabel: 'ĐỊA ĐIỂM TỔ CHỨC',
       venueLabel: 'Địa điểm',
       venueLines: ['The', 'Reverie', 'Saigon'],
       venueAddress: 'La Scala Ballroom, Tầng 5 · 57-69F Đồng Khởi, Phường Bến Nghé, TP. Hồ Chí Minh',
       mapsBtn: 'Xem trên Google Maps',
       guestCountLabel: 'Số lượng khách',
       guestCount: '180',
+      scheduleSubLabel: 'CHƯƠNG TRÌNH',
       schedule: 'Lịch trình',
+      dresscodeSubLabel: 'GỢI Ý TRANG PHỤC',
       dresscode: 'Trang phục',
       agenda: [
         {

@@ -113,6 +113,9 @@ export default function EventDetails() {
       <div className="max-w-xl mx-auto px-4 md:px-0 flex flex-col items-center text-center gap-16">
         {/* Venue */}
         <div id="venue" className="w-full flex flex-col items-center scroll-mt-28">
+          <Subtitle as="div" className="mb-4">
+            {copy.venueSubLabel}
+          </Subtitle>
           <Heading variant="h2" className="text-center">
             {copy.venueLabel}
           </Heading>
@@ -167,6 +170,9 @@ export default function EventDetails() {
 
         {/* Schedule */}
         <div id="schedule" className="w-full pt-16 border-t border-ink/10 flex flex-col items-center scroll-mt-16">
+          <Subtitle as="div" className="mb-4">
+            {copy.scheduleSubLabel}
+          </Subtitle>
           <div className="flex items-end justify-center gap-3 md:gap-5 mb-4">
             <img
               src="/component/left.png"
@@ -269,6 +275,9 @@ export default function EventDetails() {
 
         {/* Dresscode */}
         <div id="dresscode" className="w-full pt-16 border-t border-ink/10 flex flex-col items-center scroll-mt-16">
+          <Subtitle as="div" className="mb-4">
+            {copy.dresscodeSubLabel}
+          </Subtitle>
           <div className="flex items-center justify-center gap-4 md:gap-6 mb-4">
             <img
               src="/component/13.png"
