@@ -23,7 +23,7 @@ export default function RSVP() {
   };
 
   const fieldClass =
-    'w-full bg-white/70 border border-ink/15 rounded-xl focus:border-ink/60 focus:bg-white outline-none px-4 py-3 font-body text-base md:text-lg text-ink placeholder:text-ink-muted font-normal transition-colors';
+    'w-full bg-white/70 border border-ink/15 focus:border-ink/60 focus:bg-white outline-none px-4 py-3 font-body text-base md:text-lg text-ink placeholder:text-ink-muted font-normal transition-colors';
 
   return (
     <section
@@ -33,7 +33,7 @@ export default function RSVP() {
       {/* Two cupids perch on the corners of the card */}
       {/* Sits on its own frosted card: the form was disappearing into the sky
           backdrop when it shared the page's transparent background. */}
-      <div className="relative max-w-xl mx-auto flex flex-col items-center text-center rounded-[2rem] border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_24px_60px_-28px_rgba(18,48,91,0.45)] px-6 sm:px-10 md:px-14 py-14 md:py-16">
+      <div className="relative max-w-xl mx-auto flex flex-col items-center text-center border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_24px_60px_-28px_rgba(18,48,91,0.45)] px-6 sm:px-10 md:px-14 py-14 md:py-16">
         <Decor
           name="cat-arrow"
           className="absolute -top-16 -right-1 md:-top-20 md:-right-20 w-28 md:w-40"

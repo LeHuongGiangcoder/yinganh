@@ -130,7 +130,7 @@ export default function Travel() {
 
         {/* Right column: where to stay */}
         <div style={revealStyle(200)} className="md:col-span-6 w-full flex flex-col items-center">
-          <div className="relative w-full max-w-md border border-ink/15 rounded-3xl bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
+          <div className="relative w-full max-w-md border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
             <Decor
               name="cupid-bottle"
               className="absolute -top-12 -right-4 md:-top-14 md:-right-10 w-20 md:w-24 z-10"

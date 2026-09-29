@@ -198,7 +198,7 @@ export default function EventDetails() {
             {group.venue}
           </Subtitle>
 
-          <div ref={timelineRef} key={activeGroup} className="relative w-full mt-6 animate-fade-in text-panel">
+          <div ref={timelineRef} key={activeGroup} className="relative w-full mt-6 animate-fade-in">
             {/* The string */}
             <svg
               className="absolute inset-0 pointer-events-none text-ink/25"
