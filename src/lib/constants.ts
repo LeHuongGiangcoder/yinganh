@@ -46,6 +46,11 @@ export const COPY: Record<
       travel: string;
       rsvp: string;
     };
+    gallery: {
+      subtitle: string;
+      title: string;
+      hint: string;
+    };
     families: {
       subtitle: string;
       title: string;
@@ -144,6 +149,11 @@ export const COPY: Record<
       travel: 'Travel',
       rsvp: 'RSVP',
     },
+    gallery: {
+      subtitle: 'MOMENTS OF US',
+      title: 'Our Gallery',
+      hint: 'scroll to view',
+    },
     families: {
       subtitle: 'WITH THE BLESSING OF',
       title: 'Our Two Families',
@@ -169,7 +179,7 @@ export const COPY: Record<
         childName: 'Nguyễn Trần Minh Anh',
         rank: 'Their only daughter',
         rite: 'Lễ Vu Quy',
-        riteNote: 'The bride is received at her family home, 08:30 on 20 December 2026',
+        riteNote: 'The bride is received at her family home, 09:00 on 20 December 2026',
       },
     },
     visa: {
@@ -291,19 +301,19 @@ export const COPY: Record<
           venue: 'Sunday, 20 December · 284/8 Nguyễn Trọng Tuyến, Phú Nhuận',
           items: [
             {
-              time: '08:30',
+              time: '09:00',
               moment: 'vows',
               title: 'Lễ Vu Quy',
               description: "The wedding rite at the bride's family home",
             },
             {
-              time: '09:30',
+              time: '10:00',
               moment: 'teaceremony',
               title: 'Tea Ceremony',
               description: 'Tea and gifts exchanged between the two families',
             },
             {
-              time: '10:00',
+              time: '10:30',
               moment: 'photos',
               title: 'Photos',
               description: 'Pictures with family and all of you',
@@ -360,6 +370,11 @@ export const COPY: Record<
       travel: 'Du lịch',
       rsvp: 'Xác nhận',
     },
+    gallery: {
+      subtitle: 'KHOẢNH KHẮC CỦA CHÚNG MÌNH',
+      title: 'Album Của Chúng Mình',
+      hint: 'lướt ngang để xem',
+    },
     families: {
       subtitle: 'TRÂN TRỌNG BÁO TIN',
       title: 'Hai Gia Đình',
@@ -385,7 +400,7 @@ export const COPY: Record<
         childName: 'Nguyễn Trần Minh Anh',
         rank: 'Quý Nữ (con gái duy nhất)',
         rite: 'Lễ Vu Quy',
-        riteNote: 'Cử hành tại tư gia nhà gái, 8:30 ngày 20/12/2026',
+        riteNote: 'Cử hành tại tư gia nhà gái, 9:00 ngày 20/12/2026',
       },
     },
     visa: {
@@ -507,19 +522,19 @@ export const COPY: Record<
           venue: 'Chủ nhật, 20/12 · 284/8 Nguyễn Trọng Tuyến, Phú Nhuận',
           items: [
             {
-              time: '08:30',
+              time: '09:00',
               moment: 'vows',
               title: 'Lễ Vu Quy',
               description: 'Hôn lễ được cử hành tại tư gia nhà gái',
             },
             {
-              time: '09:30',
+              time: '10:00',
               moment: 'teaceremony',
-              title: 'Lễ trà',
+              title: 'Trao quà',
               description: 'Hai gia đình dâng trà và trao lễ',
             },
             {
-              time: '10:00',
+              time: '10:30',
               moment: 'photos',
               title: 'Chụp ảnh',
               description: 'Chụp hình cùng gia đình và khách mời',
