@@ -29,6 +29,15 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
 
   return (
     <main className="relative text-ink">
+      {/* Sky and cloud alternate down the whole page (see .backdrop-band in
+          globals.css). Absolute, not fixed, so the bands scroll with the content. */}
+      <div className="absolute inset-0 -z-30 overflow-hidden pointer-events-none bg-sky" aria-hidden>
+        <div className="backdrop-band backdrop-sky" />
+        <div className="backdrop-band backdrop-cloud" />
+        {/* Gentle wash so body copy stays legible over both */}
+        <div className="absolute inset-0 bg-[#EAF1F9]/35" />
+      </div>
+
       {!entranceDone && (
         <Entrance onDone={() => setEntranceDone(true)} onReveal={() => setRevealContent(true)} />
       )}

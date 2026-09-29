@@ -113,9 +113,10 @@ export default function EventDetails() {
       <div className="max-w-xl mx-auto px-4 md:px-0 flex flex-col items-center text-center gap-16">
         {/* Venue */}
         <div id="venue" className="w-full flex flex-col items-center scroll-mt-28">
-          <Subtitle as="div" className="mb-1">
+          <Heading variant="h2" className="text-center">
             {copy.venueLabel}
-          </Subtitle>
+          </Heading>
+          <Divider className="mt-5 mb-2" />
 
           {/* Venue name set inside the cloud held by the two cupids (cloud centre ≈ 51.7% / 50%) */}
           <div className="relative w-full max-w-md">
@@ -268,18 +269,26 @@ export default function EventDetails() {
 
         {/* Dresscode */}
         <div id="dresscode" className="w-full pt-16 border-t border-ink/10 flex flex-col items-center scroll-mt-16">
-          <Heading variant="h2" className="mb-4 text-center">
-            {copy.dresscode}
-          </Heading>
-          <Divider className="mb-6" />
-
-          <img
-            src="/component/13.png"
-            alt=""
-            loading="lazy"
-            draggable={false}
-            className="w-16 h-auto mb-5"
-          />
+          <div className="flex items-center justify-center gap-4 md:gap-6 mb-4">
+            <img
+              src="/component/13.png"
+              alt=""
+              loading="lazy"
+              draggable={false}
+              className="w-12 md:w-16 h-auto -scale-x-100"
+            />
+            <Heading variant="h2" className="text-center">
+              {copy.dresscode}
+            </Heading>
+            <img
+              src="/component/13.png"
+              alt=""
+              loading="lazy"
+              draggable={false}
+              className="w-12 md:w-16 h-auto"
+            />
+          </div>
+          <Divider className="mb-8" />
 
           <div className="grid grid-cols-3 gap-3 md:gap-4 w-full max-w-[280px] md:max-w-xs">
             {PALETTE.map((color) => (

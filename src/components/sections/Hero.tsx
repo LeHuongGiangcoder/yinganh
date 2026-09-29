@@ -32,16 +32,8 @@ export default function Hero({ startAnimation }: HeroProps) {
       id="hero"
       className="relative min-h-[100svh] w-full flex items-center justify-center px-5 md:px-10 pt-24 md:pt-28 pb-20"
     >
-      {/* Background layers specific to Hero */}
-      <div 
-        className="absolute inset-0 -z-30 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: 'url(/images/bg-sky.webp)' }}
-      />
-      <div 
-        className="absolute inset-0 -z-20 bg-cover bg-bottom bg-no-repeat mix-blend-multiply opacity-75"
-        style={{ backgroundImage: 'url(/images/bg-cloud.webp)' }}
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/55 via-[#EAF1F9]/30 to-[#EAF1F9] pointer-events-none" />
+      {/* A little extra light at the top of the hero, over the page-wide sky backdrop */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-white/55 via-transparent to-transparent pointer-events-none" />
       <div className="w-full max-w-4xl flex flex-col items-center text-center">
         <div style={revealStyle(0)} className="flex items-center justify-center gap-2 md:gap-3 w-full">
           <img

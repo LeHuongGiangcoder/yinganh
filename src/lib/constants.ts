@@ -372,8 +372,8 @@ export const COPY: Record<
     },
     gallery: {
       subtitle: 'KHOẢNH KHẮC CỦA CHÚNG MÌNH',
-      title: 'Album Của Chúng Mình',
-      hint: 'lướt ngang để xem',
+      title: 'Album ảnh',
+      hint: 'lướt ngang nhé',
     },
     families: {
       subtitle: 'TRÂN TRỌNG BÁO TIN',

@@ -101,3 +101,43 @@ body.entrance-locked {
 @media (prefers-reduced-motion: reduce) {
   .animate-nudge { animation: none; opacity: 0.7; }
 }
+
+/* ---- Page backdrop -------------------------------------------------------
+   The sky and the cloud photograph take turns down the length of the page.
+   Each is tiled at one band height and masked with a triangular ramp —
+   transparent where its own tile wraps, opaque at the middle of the band.
+   The two ramps are offset by half a band, so they are exactly complementary:
+   one image is always fading in as the other fades out, and neither the tile
+   seam nor the handover between them ever shows as an edge. */
+.backdrop-band {
+  --band: 200vh;
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat-y;
+  background-size: 100% var(--band);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 50%, transparent 100%);
+  -webkit-mask-size: 100% var(--band);
+  mask-size: 100% var(--band);
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+}
+
+/* Half a band out of phase, so the page opens on open sky */
+.backdrop-sky {
+  background-image: url(/images/bg-sky.webp);
+  background-position: 0 calc(var(--band) / -2);
+  -webkit-mask-position: 0 calc(var(--band) / -2);
+  mask-position: 0 calc(var(--band) / -2);
+}
+
+.backdrop-cloud {
+  background-image: url(/images/bg-cloud.webp);
+  background-position: 0 0;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+@media (max-width: 767px) {
+  .backdrop-band { --band: 160vh; }
+}
