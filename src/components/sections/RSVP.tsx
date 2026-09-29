@@ -6,6 +6,7 @@ import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
 import Toggle from '@/components/ui/Toggle';
+import Decor from '@/components/ui/Decor';
 
 // Plain form for now: it collects the answers and thanks the guest locally.
 // No list lookup, no webhook — wire `handleSubmit` up to a sheet or API when ready.
@@ -22,16 +23,32 @@ export default function RSVP() {
   };
 
   const fieldClass =
-    'w-full bg-white/70 border border-ink/15 rounded-xl focus:border-ink/60 focus:bg-white outline-none px-4 py-3 font-body text-sm md:text-base text-ink placeholder:text-ink-muted/60 font-light transition-colors';
+    'w-full bg-white/70 border border-ink/15 rounded-xl focus:border-ink/60 focus:bg-white outline-none px-4 py-3 font-body text-base md:text-lg text-ink placeholder:text-ink-muted font-normal transition-colors';
 
   return (
     <section
       id="rsvp"
       className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 scroll-mt-20"
     >
+      {/* Two cupids perch on the corners of the card */}
       {/* Sits on its own frosted card: the form was disappearing into the sky
           backdrop when it shared the page's transparent background. */}
-      <div className="max-w-xl mx-auto flex flex-col items-center text-center rounded-[2rem] border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_24px_60px_-28px_rgba(18,48,91,0.45)] px-6 sm:px-10 md:px-14 py-14 md:py-16">
+      <div className="relative max-w-xl mx-auto flex flex-col items-center text-center rounded-[2rem] border border-white/60 bg-white/70 backdrop-blur-md shadow-[0_24px_60px_-28px_rgba(18,48,91,0.45)] px-6 sm:px-10 md:px-14 py-14 md:py-16">
+        <Decor
+          name="cupid-dive"
+          className="absolute -top-20 -left-1 md:-top-24 md:-left-20 w-24 md:w-36"
+          tilt={-8}
+          opacity={0.65}
+        />
+        <Decor
+          name="cat-arrow"
+          className="absolute -top-16 -right-1 md:-top-20 md:-right-20 w-28 md:w-40"
+          tilt={6}
+          flip
+          delay={1.6}
+          opacity={0.65}
+        />
+
         <Subtitle as="div" className="mb-6">
           {copy.subtitle}
         </Subtitle>

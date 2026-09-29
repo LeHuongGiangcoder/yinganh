@@ -15,7 +15,7 @@ const config: Config = {
         ink: {
           DEFAULT: '#12305B',
           soft: '#2A4C7D',
-          muted: '#6B86AC',
+          muted: '#5A78A3',
         },
         gold: {
           DEFAULT: '#C79A2E',

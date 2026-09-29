@@ -10,6 +10,7 @@ import Visa from '@/components/sections/Visa';
 import Travel from '@/components/sections/Travel';
 import RSVP from '@/components/sections/RSVP';
 import ThankYou from '@/components/sections/ThankYou';
+import Decor from '@/components/ui/Decor';
 
 // The whole invitation page. skipIntro opens straight on the hero with no sketch entrance,
 // for direct links like /schedule.
@@ -65,7 +66,14 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         </div>
 
         <Visa />
+
+        {/* Breather between the visa guide and the travel notes */}
+        <div className="w-full flex justify-center py-4 md:py-8 relative z-10">
+          <Decor name="cat-heart" className="w-24 md:w-32" tilt={-7} opacity={0.6} />
+        </div>
+
         <Travel />
+
         <RSVP />
         <ThankYou />
       </div>

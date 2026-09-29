@@ -34,7 +34,7 @@ export default function Toggle<T>({
             key={String(opt.value)}
             type="button"
             onClick={() => onChange(opt.value)}
-            className={`px-3.5 md:px-5 py-2 rounded-full font-body text-[10px] tracking-[0.2em] uppercase transition-all duration-300 select-none outline-none ${
+            className={`px-3.5 md:px-5 py-2 rounded-full font-body text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase transition-all duration-300 select-none outline-none ${
               value === opt.value
                 ? 'bg-ink text-sky-light'
                 : 'text-ink-soft hover:text-ink hover:bg-ink/5'
@@ -49,7 +49,7 @@ export default function Toggle<T>({
   }
 
   const inline = (
-    <div className="flex items-center gap-1.5 font-body text-[10px] tracking-[0.2em] uppercase">
+    <div className="flex items-center gap-1.5 font-body text-[11px] md:text-xs font-medium tracking-[0.2em] uppercase">
       {options.map((opt, idx) => (
         <React.Fragment key={String(opt.value)}>
           {idx > 0 && <span className="text-ink-muted">/</span>}

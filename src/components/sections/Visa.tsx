@@ -5,6 +5,7 @@ import { useLang } from '@/hooks/useLang';
 import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
+import Decor from '@/components/ui/Decor';
 
 export default function Visa() {
   const { lang } = useLang();
@@ -13,8 +14,23 @@ export default function Visa() {
   return (
     <section
       id="visa"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 border-t border-ink/10 scroll-mt-20"
     >
+      {/* A cat rides an arrow in, a cupid toasts on the way out */}
+      <Decor
+        name="cat-arrow"
+        className="hidden lg:block absolute top-16 left-2 xl:left-10 w-28 xl:w-36"
+        tilt={-8}
+        opacity={0.55}
+      />
+      <Decor
+        name="cupid-coupe"
+        className="hidden lg:block absolute top-52 right-4 xl:right-12 w-20 xl:w-24"
+        tilt={6}
+        delay={1.4}
+        opacity={0.55}
+      />
+
       <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-16 md:mb-24">
         <Subtitle as="div" className="mb-6">
           {copy.subtitle}
@@ -75,7 +91,14 @@ export default function Visa() {
         </div>
       </div>
 
-      <div className="max-w-2xl mx-auto flex flex-col px-4 md:px-0 divide-y divide-ink/10 border-y border-ink/10">
+      <div className="relative max-w-2xl mx-auto flex flex-col px-4 md:px-0 divide-y divide-ink/10 border-y border-ink/10">
+        <Decor
+          name="cupid-glass"
+          className="absolute -top-14 md:-top-20 right-2 md:-right-16 w-16 md:w-24"
+          tilt={8}
+          delay={0.8}
+          opacity={0.6}
+        />
         <InfoBlock title={copy.whatYouNeed.title} items={copy.whatYouNeed.items} />
         <InfoBlock title={copy.afterApproval.title} items={copy.afterApproval.items} />
         <InfoBlock title={copy.arrivalTips.title} items={copy.arrivalTips.items} />

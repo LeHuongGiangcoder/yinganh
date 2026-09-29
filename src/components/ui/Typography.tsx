@@ -13,10 +13,10 @@ export function Heading({ variant = 'h2', as, children, className = '', ...props
   if (variant === 'h1') {
     styleClass = 'font-display font-light leading-[0.95] text-ink';
   } else if (variant === 'h2') {
-    styleClass = 'font-display font-light text-[clamp(1.75rem,5vw,3rem)] leading-tight text-ink';
+    styleClass = 'font-display font-normal text-[clamp(2rem,5.5vw,3.5rem)] leading-tight text-ink';
   } else if (variant === 'h3') {
     styleClass =
-      'font-display font-light text-[clamp(1.25rem,3.5vw,1.75rem)] leading-normal text-ink-soft';
+      'font-display font-normal text-[clamp(1.4rem,3.8vw,2rem)] leading-normal text-ink-soft';
   }
 
   return (
@@ -34,7 +34,7 @@ interface SubtitleProps extends React.HTMLAttributes<HTMLParagraphElement> {
 export function Subtitle({ as: Component = 'p', children, className = '', ...props }: SubtitleProps) {
   return (
     <Component
-      className={`font-body text-[10px] md:text-xs tracking-[0.4em] uppercase text-ink-muted ${className}`}
+      className={`font-body text-[11px] md:text-[13px] font-medium tracking-[0.35em] uppercase text-ink-soft ${className}`}
       {...props}
     >
       {children}
@@ -55,11 +55,11 @@ export function Body({
   className = '',
   ...props
 }: BodyProps) {
-  let sizeClass = 'text-sm md:text-base leading-relaxed text-ink-soft font-light';
+  let sizeClass = 'text-base md:text-lg leading-relaxed text-ink-soft font-normal';
   if (variant === 'small') {
-    sizeClass = 'text-xs md:text-sm leading-normal text-ink-muted font-light';
+    sizeClass = 'text-sm md:text-base leading-normal text-ink-soft font-normal';
   } else if (variant === 'large') {
-    sizeClass = 'text-base md:text-lg leading-relaxed text-ink font-light';
+    sizeClass = 'text-lg md:text-xl leading-relaxed text-ink font-normal';
   }
 
   return (

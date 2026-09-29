@@ -218,7 +218,7 @@ export default function EventDetails() {
                     <span className="font-display italic text-[clamp(1.6rem,4.5vw,2.2rem)] text-ink-soft leading-none font-light">
                       {item.time}
                       {item.end && (
-                        <span className="font-body not-italic text-[10px] tracking-[0.2em] text-ink-muted ml-1.5 align-middle">
+                        <span className="font-body not-italic text-[11px] md:text-xs tracking-[0.2em] text-ink-soft ml-1.5 align-middle">
                           – {item.end}
                         </span>
                       )}

@@ -8,7 +8,7 @@
   --bg-light: #F7FAFD;
   --ink: #12305B;
   --ink-soft: #2A4C7D;
-  --ink-muted: #6B86AC;
+  --ink-muted: #5A78A3;
   --gold: #C79A2E;
   --gold-light: #E8C86A;
 
@@ -140,4 +140,17 @@ body.entrance-locked {
 
 @media (max-width: 767px) {
   .backdrop-band { --band: 160vh; }
+}
+
+/* Decorative ink drawings bob gently around their resting tilt */
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(var(--tilt, 0deg)); }
+  50% { transform: translateY(-10px) rotate(calc(var(--tilt, 0deg) + 1.5deg)); }
+}
+.animate-drift {
+  animation: drift 7s ease-in-out infinite;
+  transform: rotate(var(--tilt, 0deg));
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-drift { animation: none; }
 }

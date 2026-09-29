@@ -69,7 +69,7 @@ export default function Nav() {
 
         {/* Center links - desktop only */}
         <div className={`hidden lg:block ${pillClass}`}>
-          <ul className="flex items-center gap-4 xl:gap-7 whitespace-nowrap font-body text-[10px] tracking-[0.2em] xl:tracking-[0.28em] uppercase text-ink-soft">
+          <ul className="flex items-center gap-4 xl:gap-7 whitespace-nowrap font-body text-[11px] xl:text-xs font-medium tracking-[0.2em] xl:tracking-[0.26em] uppercase text-ink-soft">
             {links.map((link) => (
               <li key={link.href}>
                 <a href={link.href} className="hover:text-ink transition-colors">

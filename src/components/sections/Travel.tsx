@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useLang } from '@/hooks/useLang';
 import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
+import Decor from '@/components/ui/Decor';
 
 export default function Travel() {
   const { lang } = useLang();
@@ -39,17 +40,33 @@ export default function Travel() {
     <section
       id="travel"
       ref={sectionRef}
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 overflow-hidden border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 py-24 md:py-32 overflow-hidden border-t border-ink/10 scroll-mt-20"
     >
+      <Decor
+        name="cat-heart"
+        className="hidden lg:block absolute bottom-24 left-0 xl:left-6 w-24 xl:w-32"
+        tilt={-6}
+        delay={2}
+        opacity={0.5}
+      />
       <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
         {/* Left column: the city, and what to do in it */}
         <div style={revealStyle(0)} className="md:col-span-6 flex flex-col items-center md:items-start text-center md:text-left">
           <Subtitle as="div" className="mb-4">
             {copy.subtitle}
           </Subtitle>
-          <Heading variant="h2" className="mb-6">
-            {copy.title}
-          </Heading>
+          <div className="relative w-full flex items-center justify-center md:justify-start">
+            <Heading variant="h2" className="mb-6">
+              {copy.title}
+            </Heading>
+            <Decor
+              name="cupid-wine"
+              className="absolute -top-10 right-0 md:-top-8 md:-right-4 w-16 md:w-20"
+              tilt={10}
+              flip
+              opacity={0.6}
+            />
+          </div>
           <div className="w-12 h-[1px] bg-ink/20 mb-8 hidden md:block"></div>
           <div className="max-w-md">
             <Body
@@ -104,14 +121,13 @@ export default function Travel() {
         {/* Right column: where to stay */}
         <div style={revealStyle(200)} className="md:col-span-6 w-full flex flex-col items-center">
           <div className="relative w-full max-w-md border border-ink/15 rounded-3xl bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
-            <img
-              src="/component/16.png"
-              alt=""
-              loading="lazy"
-              draggable={false}
-              className="w-16 md:w-20 h-auto mb-6 select-none"
+            <Decor
+              name="cupid-bottle"
+              className="absolute -top-12 -right-4 md:-top-14 md:-right-10 w-20 md:w-24 z-10"
+              tilt={-10}
+              delay={1.1}
+              opacity={0.65}
             />
-
             <Heading variant="h3" className="!text-ink mb-5">
               {copy.stay.title}
             </Heading>
@@ -153,21 +169,30 @@ export default function Travel() {
             </div>
           </div>
 
-          <div className="relative mt-12 w-full max-w-sm mx-auto">
-            <div className="bg-white p-3 md:p-4 pb-12 md:pb-16 shadow-[0_15px_35px_-10px_rgba(18,48,91,0.2)] border border-ink/5 rotate-2">
-              <img
-                src="/images/portrait-hug.webp"
-                alt=""
-                loading="lazy"
-                draggable={false}
-                className="w-full aspect-[4/5] object-cover border border-ink/10 select-none"
-              />
-            </div>
+          {/* A postcard from the city, held down by a pin and a wax seal */}
+          <div className="relative mt-14 w-full max-w-lg mx-auto md:-mr-4 lg:-mr-10">
             <img
-              src="/component/ribbon.webp"
-              alt=""
+              src="/component/travel-postcard.webp"
+              alt="Postcard from Ho Chi Minh, Vietnam"
+              loading="lazy"
               draggable={false}
-              className="absolute -top-6 -left-6 w-32 md:w-40 z-10 select-none drop-shadow-md -rotate-[15deg]"
+              className="w-full h-auto select-none -rotate-2"
+            />
+            <img
+              src="/component/blue-pin.webp"
+              alt=""
+              aria-hidden
+              loading="lazy"
+              draggable={false}
+              className="absolute top-2 right-[18%] w-12 md:w-16 rotate-12 select-none pointer-events-none"
+            />
+            <img
+              src="/component/blue-seal.webp"
+              alt=""
+              aria-hidden
+              loading="lazy"
+              draggable={false}
+              className="absolute top-[44%] left-[6%] w-14 md:w-20 -rotate-6 select-none pointer-events-none"
             />
           </div>
         </div>
