@@ -92,8 +92,12 @@ export const COPY: Record<
       subtitle: string;
       title: string;
       body: string;
-      placesTitle: string;
-      places: { name: string; desc: string }[];
+      guideTitle: string;
+      guideLead: string;
+      steps: string[];
+      listsTitle: string;
+      lists: { name: string; desc: string; url: string }[];
+      outro: string;
     };
     rsvp: {
       subtitle: string;
@@ -259,8 +263,32 @@ export const COPY: Record<
       subtitle: 'FOOD GUIDE',
       title: 'Where We Eat',
       body: 'Our favourite places to eat in Ho Chi Minh City. Go hungry.',
-      placesTitle: 'Our picks',
-      places: [],
+      guideTitle: 'How to save these lists',
+      guideLead: 'Each link below opens a Google Maps list. Save it once and it stays on your phone for the whole trip.',
+      steps: [
+        'Open a list below and tap Save.',
+        'In Google Maps, open the side menu and choose Saved.',
+        'Scroll to the bottom — the lists you saved are waiting there.',
+      ],
+      listsTitle: 'The lists',
+      lists: [
+        {
+          name: 'Local Food',
+          desc: 'Where we actually eat — street stalls, rice plates and noodle shops.',
+          url: 'https://maps.app.goo.gl/L2Tvz9MVYWjUurV77',
+        },
+        {
+          name: 'Restaurants',
+          desc: 'Sit-down places, tourist friendly and gentle on a delicate stomach.',
+          url: 'https://maps.app.goo.gl/8CSZpCvtp8G8EWb59',
+        },
+        {
+          name: 'Drinks',
+          desc: 'Coffee, cocktails and everything in between.',
+          url: 'https://maps.app.goo.gl/x4qzJWTjB7VsNEKn6',
+        },
+      ],
+      outro: 'Hope you enjoy Vietnamese food the way we do ♥',
     },
     rsvp: {
       subtitle: 'RSVP',
@@ -445,8 +473,32 @@ export const COPY: Record<
       subtitle: 'GỢI Ý ĂN UỐNG',
       title: 'Tụi mình hay ăn ở đây',
       body: 'Những chỗ ăn tụi mình thường ăn nhất ở Sài Gòn. Nhớ đi lúc đói nha.',
-      placesTitle: 'Tụi mình gợi ý',
-      places: [],
+      guideTitle: 'Cách lưu các list này',
+      guideLead: 'Mỗi link bên dưới mở ra một list trên Google Maps. Lưu một lần là nó nằm sẵn trong máy bạn suốt chuyến đi.',
+      steps: [
+        'Mở một list bên dưới rồi bấm Save.',
+        'Vào Google Maps, mở menu bên trái và chọn Saved.',
+        'Kéo xuống cuối trang — list bạn vừa lưu nằm ở đó.',
+      ],
+      listsTitle: 'Ba list của tụi mình',
+      lists: [
+        {
+          name: 'Quán ruột',
+          desc: 'Chỗ tụi mình hay ăn thật — hàng quán vỉa hè, cơm tấm, bún, phở.',
+          url: 'https://maps.app.goo.gl/L2Tvz9MVYWjUurV77',
+        },
+        {
+          name: 'Nhà hàng',
+          desc: 'Quán ngồi tử tế, hợp khách nước ngoài và bụng dạ yếu.',
+          url: 'https://maps.app.goo.gl/8CSZpCvtp8G8EWb59',
+        },
+        {
+          name: 'Đồ uống',
+          desc: 'Cà phê, cocktail và mọi thứ ở giữa.',
+          url: 'https://maps.app.goo.gl/x4qzJWTjB7VsNEKn6',
+        },
+      ],
+      outro: 'Chúc bạn mê đồ ăn Việt giống như tụi mình nha ♥',
     },
     rsvp: {
       subtitle: 'XÁC NHẬN THAM DỰ',

@@ -5,6 +5,7 @@ import { useLang } from '@/hooks/useLang';
 import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Decor from '@/components/ui/Decor';
+import MapGuide from '@/components/interactive/MapGuide';
 
 // Sparkles around the postcard, as % of its box — kept to the empty corners
 const POSTCARD_SPARKS = [
@@ -21,7 +22,6 @@ export default function Food() {
   const { lang } = useLang();
   const copy = COPY[lang].food;
   const [isVisible, setIsVisible] = useState(false);
-  const [openPlace, setOpenPlace] = useState<number | null>(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -60,86 +60,46 @@ export default function Food() {
         delay={2}
         opacity={0.5}
       />
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
-        {/* Left column: the list itself */}
-        <div
-          style={revealStyle(0)}
-          className="md:col-span-6 flex flex-col items-center md:items-start text-center md:text-left"
-        >
-          <Subtitle as="div" className="mb-4">
-            {copy.subtitle}
-          </Subtitle>
-          <div className="relative w-full flex items-center justify-center md:justify-start">
-            <Heading variant="h2" className="mb-6">
-              {copy.title}
+      {/* Centred header */}
+      <div style={revealStyle(0)} className="flex flex-col items-center text-center">
+        <Subtitle as="div" className="mb-4">
+          {copy.subtitle}
+        </Subtitle>
+        <div className="relative flex items-center justify-center">
+          <Heading variant="h2" className="mb-6">
+            {copy.title}
+          </Heading>
+          <Decor
+            name="cupid-wine"
+            className="absolute -top-12 -right-14 md:-top-10 md:-right-24 w-16 md:w-20"
+            tilt={10}
+            flip
+            opacity={0.6}
+          />
+        </div>
+        <div className="w-12 h-[1px] bg-ink/20 mb-8"></div>
+        <Body variant="regular" className="max-w-md text-ink-soft leading-relaxed">
+          {copy.body}
+        </Body>
+      </div>
+
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
+        {/* Left: how to save the lists, walked through step by step */}
+        <div style={revealStyle(120)} className="md:col-span-6 w-full">
+          <div className="w-full max-w-md mx-auto border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
+            <Heading variant="h3" className="!text-ink mb-4">
+              {copy.guideTitle}
             </Heading>
-            <Decor
-              name="cupid-wine"
-              className="absolute -top-10 right-0 md:-top-8 md:-right-4 w-16 md:w-20"
-              tilt={10}
-              flip
-              opacity={0.6}
-            />
-          </div>
-          <div className="w-12 h-[1px] bg-ink/20 mb-8 hidden md:block"></div>
-          <div className="max-w-md">
-            <Body variant="regular" className="text-ink-soft leading-relaxed">
-              {copy.body}
+            <div className="w-8 h-px bg-ink/15 mb-6" />
+            <Body variant="small" className="mb-8 max-w-xs">
+              {copy.guideLead}
             </Body>
+            <MapGuide steps={copy.steps} />
           </div>
-
-          {copy.places.length > 0 && (
-            <>
-              <Subtitle as="div" className="mt-12 mb-5">
-                {copy.placesTitle}
-              </Subtitle>
-
-              <ul className="w-full max-w-md flex flex-col divide-y divide-ink/10 text-left !py-2">
-                {copy.places.map((place, idx) => {
-                  const open = openPlace === idx;
-                  return (
-                    <li key={place.name}>
-                      <button
-                        onClick={() => setOpenPlace(open ? null : idx)}
-                        className="w-full flex items-center justify-between gap-4 py-4 text-left group"
-                        aria-expanded={open}
-                      >
-                        <Heading
-                          variant="h4"
-                          as="span"
-                          className="group-hover:text-ink-soft transition-colors"
-                        >
-                          {place.name}
-                        </Heading>
-                        <span
-                          className="shrink-0 text-ink-soft text-xl font-normal transition-transform duration-300"
-                          style={{ transform: open ? 'rotate(45deg)' : 'rotate(0deg)' }}
-                          aria-hidden
-                        >
-                          +
-                        </span>
-                      </button>
-                      <div
-                        className={`grid transition-all duration-500 ease-in-out ${
-                          open ? 'grid-rows-[1fr] opacity-100 pb-5' : 'grid-rows-[0fr] opacity-0 pb-0'
-                        }`}
-                      >
-                        <div className="overflow-hidden">
-                          <Body variant="small" className="pr-8">
-                            {place.desc}
-                          </Body>
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </>
-          )}
         </div>
 
-        {/* Right column: a postcard from the city, pinned and sealed */}
-        <div style={revealStyle(200)} className="md:col-span-6 w-full flex flex-col items-center">
+        {/* Right: a postcard from the city, pinned and sealed */}
+        <div style={revealStyle(240)} className="md:col-span-6 w-full flex flex-col items-center">
           <div className="relative w-full max-w-lg mx-auto md:-mr-4 lg:-mr-10">
             <img
               src="/component/travel-postcard.webp"
@@ -183,6 +143,40 @@ export default function Food() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* The lists themselves, below the walkthrough */}
+      <div style={revealStyle(320)} className="mt-12 flex flex-col items-center">
+        <Subtitle as="div" className="mb-8">
+          {copy.listsTitle}
+        </Subtitle>
+
+        <ul className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-6">
+          {copy.lists.map((list) => (
+            <li key={list.url}>
+              <a
+                href={list.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group h-full border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 py-8 flex flex-col items-center text-center hover:border-ink/40 hover:bg-white/65 transition-colors"
+              >
+                <span className="text-gold text-[10px] mb-3" aria-hidden>
+                  ✦
+                </span>
+                <Heading variant="h4" as="span" className="group-hover:text-ink-soft transition-colors">
+                  {list.name}
+                </Heading>
+                <Body variant="small" as="span" className="mt-3">
+                  {list.desc}
+                </Body>
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <Body variant="regular" className="mt-12 italic text-center max-w-sm">
+          {copy.outro}
+        </Body>
       </div>
     </section>
   );

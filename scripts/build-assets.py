@@ -122,3 +122,24 @@ for n, out in ANGEL_PARTS.items():
     _im = _im.resize((900, round(900 * _im.height / _im.width)), Image.LANCZOS)
     _im.save(f"{OUT}/component/{out}.png", optimize=True)
     print("angel", out, _im.size)
+
+# --- Google Maps walkthrough screenshots -------------------------------------
+# All three are cropped to ONE box so the carousel never changes height as the
+# guest steps through it. The crops are chosen so the button to press stays in
+# frame; MapGuide.tsx rings it using percentages of this box.
+GUIDE_W, GUIDE_H = 438, 400
+GUIDE_CROPS = {1: None, 2: (0, 0, 440, 402), 3: (0, 552, 438, 952)}
+for n, crop in GUIDE_CROPS.items():
+    _im = Image.open(f"{SRC}/guide/map-{n}.png").convert("RGB")
+    if crop:
+        _im = _im.crop(crop)
+    if _im.width != GUIDE_W:
+        _im = _im.resize((GUIDE_W, round(GUIDE_W * _im.height / _im.width)), Image.LANCZOS)
+    if _im.height < GUIDE_H:
+        _c = Image.new("RGB", (GUIDE_W, GUIDE_H), "white")
+        _c.paste(_im, (0, 0))
+        _im = _c
+    else:
+        _im = _im.crop((0, 0, GUIDE_W, GUIDE_H))
+    _im.save(f"{OUT}/guide/step-{n}.png", optimize=True)
+    print("guide", n, _im.size)
