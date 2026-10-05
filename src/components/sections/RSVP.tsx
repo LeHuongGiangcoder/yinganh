@@ -80,7 +80,7 @@ export default function RSVP() {
             on a sheet of stationery. Kept faint so the form stays the subject. */}
         <Decor
           name="orchid"
-          className="absolute -bottom-14 -left-14 md:-bottom-16 md:-left-24 w-48 md:w-72"
+          className="absolute -bottom-14 -left-20 md:-bottom-16 md:-left-32 w-40 md:w-64"
           tilt={-4}
           delay={0.4}
           opacity={0.45}
