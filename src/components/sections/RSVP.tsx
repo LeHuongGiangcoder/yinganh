@@ -77,10 +77,14 @@ export default function RSVP() {
         />
 
         {/* An orchid laid along the bottom-left of the card, the way a sprig sits
-            on a sheet of stationery. Kept faint so the form stays the subject. */}
+            on a sheet of stationery. Kept faint so the form stays the subject.
+            How far it may hang past the card is set by how much room the card
+            itself has: on a phone that is only the section's own 20px gutter, so
+            the sprig is shrunk and pulled back flush with the screen edge, and
+            it only grows back out once the centred card leaves room for it. */}
         <Decor
           name="orchid"
-          className="absolute -bottom-14 -left-20 md:-bottom-16 md:-left-32 w-40 md:w-64"
+          className="absolute -bottom-20 -left-5 w-24 md:-bottom-16 md:-left-20 md:w-40 lg:-left-32 lg:w-64"
           tilt={-4}
           delay={0.4}
           opacity={0.45}

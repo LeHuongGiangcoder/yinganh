@@ -489,16 +489,16 @@ export const COPY: Record<
         },
         {
           name: 'Nhà hàng',
-          desc: 'Quán ngồi tử tế, hợp khách nước ngoài và bụng dạ yếu.',
+          desc: 'Không gian thoải mái, phù hợp nếu bạn không quen đồ ăn lạ.',
           url: 'https://maps.app.goo.gl/8CSZpCvtp8G8EWb59',
         },
         {
           name: 'Đồ uống',
-          desc: 'Cà phê, cocktail và mọi thứ ở giữa.',
+          desc: 'Cà phê, matcha và nhìu món đồ uống hay ho khác',
           url: 'https://maps.app.goo.gl/x4qzJWTjB7VsNEKn6',
         },
       ],
-      outro: 'Chúc bạn mê đồ ăn Việt giống như tụi mình nha ♥',
+      outro: 'Rất mong bạn mê đồ ăn Việt giống như tụi mình nha ♥',
     },
     rsvp: {
       subtitle: 'XÁC NHẬN THAM DỰ',

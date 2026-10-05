@@ -17,7 +17,7 @@ OUT = os.path.join(REPO, "public")          # what the site actually serves
 TPL = os.path.join(SRC, "template-art")     # ink drawings carried over from the template
 
 NAVY = (18, 48, 91)
-GOLD = (199, 154, 46)
+GOLD = (240, 211, 112)   # butter yellow, matching --gold in globals.css
 
 def tint(src, out, navy=NAVY, gold=GOLD, keep_red=True, gamma=1.0, size=None, trim=True):
     """Dark-ink-on-light art -> transparent art in navy (reds mapped to gold)."""
@@ -53,9 +53,22 @@ def tint(src, out, navy=NAVY, gold=GOLD, keep_red=True, gamma=1.0, size=None, tr
     art.save(out)
     print("tint", out)
 
-def photo(src, out, size=(1400, 1400), q=82, gray=False):
+def photo(src, out, size=(1400, 1400), q=82, gray=False, crop=None):
+    """crop=(aspect, focus_x) first cuts the original to that width/height ratio,
+    keeping focus_x (0-1 across the original) at the centre of the cut."""
     im = Image.open(src)
     im = ImageOps.exif_transpose(im).convert("RGB")
+    if crop:
+        ar, fx = crop
+        w, h = im.size
+        if w / h > ar:                      # too wide -> trim the sides
+            cw = round(h * ar)
+            x = min(max(round(fx * w) - cw // 2, 0), w - cw)
+            im = im.crop((x, 0, x + cw, h))
+        else:                               # too tall -> trim top and bottom
+            ch = round(w / ar)
+            y = (h - ch) // 2
+            im = im.crop((0, y, w, y + ch))
     im.thumbnail(size, Image.LANCZOS)
     if gray:
         im = ImageOps.grayscale(im).convert("RGB")
@@ -92,8 +105,12 @@ for src, out in MOMENTS:
 photo(f"{SRC}/couple pics/DSC_6670 copy.jpeg", f"{OUT}/images/portrait-hug.webp", (1000, 1500))
 
 # --- gallery strip (the ten the couple picked, numbered in their order) -----
+# The strip is a row of matching portraits, so a landscape original has to be
+# cut to 2:3 first; the second number says where across it the couple stands.
+GALLERY_CROPS = {6: (998 / 1500, 0.486)}
 for n in range(1, 11):
-    photo(f"{SRC}/gallery/{n}.jpeg", f"{OUT}/images/gallery-{n:02d}.webp", (1000, 1500))
+    photo(f"{SRC}/gallery/{n}.jpeg", f"{OUT}/images/gallery-{n:02d}.webp", (1000, 1500),
+          crop=GALLERY_CROPS.get(n))
 
 # --- line art from the template, re-inked in navy --------------------------
 for n in ["5", "6", "7", "8", "12", "13", "14", "15", "16", "left", "right", "venue"]:
