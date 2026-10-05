@@ -17,10 +17,42 @@ export default function RSVP() {
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
   const [vegetarian, setVegetarian] = useState<'yes' | 'no'>('no');
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get('name'),
+      attending,
+      guests: formData.get('guests') || '',
+      vegetarian,
+      wishes: formData.get('wishes') || '',
+    };
+
+    try {
+      // TODO: Replace with your actual Google Apps Script Web App URL
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxBsxxhaGGwOLDk3l2BvH1B8meVi25Iez3oNQcNh3TBgWEMcpkyyq9GEGMaWRpyVsAS/exec';
+
+      await fetch(scriptURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify(data),
+      });
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting form', error);
+      alert('Có lỗi xảy ra khi gửi RSVP. Vui lòng thử lại.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const fieldClass =
@@ -42,6 +74,16 @@ export default function RSVP() {
           flip
           delay={1.6}
           opacity={0.65}
+        />
+
+        {/* An orchid laid along the bottom-left of the card, the way a sprig sits
+            on a sheet of stationery. Kept faint so the form stays the subject. */}
+        <Decor
+          name="orchid"
+          className="absolute -bottom-14 -left-14 md:-bottom-16 md:-left-24 w-48 md:w-72"
+          tilt={-4}
+          delay={0.4}
+          opacity={0.45}
         />
 
         <Subtitle as="div" className="mb-6">
@@ -148,8 +190,8 @@ export default function RSVP() {
             </label>
 
             <div className="flex flex-col items-center gap-4 mt-2">
-              <Button type="submit" variant="primary">
-                {copy.submitBtn}
+              <Button type="submit" variant="primary" disabled={isSubmitting}>
+                {isSubmitting ? 'ĐANG GỬI...' : copy.submitBtn}
               </Button>
               <Body variant="small" className="italic">
                 {copy.note}

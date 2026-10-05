@@ -123,6 +123,17 @@ for n, out in ANGEL_PARTS.items():
     _im.save(f"{OUT}/component/{out}.png", optimize=True)
     print("angel", out, _im.size)
 
+# --- the orchid laid on the RSVP card ----------------------------------------
+# Arrives already inked on transparency, so it only needs trimming and sizing.
+_o = Image.open(f"{SRC}/elements/orchid.png").convert("RGBA")
+_ob = _o.getchannel("A").point(lambda v: 255 if v > 20 else 0).getbbox()
+_op = int(0.02 * max(_o.size))
+_o = _o.crop((max(0, _ob[0] - _op), max(0, _ob[1] - _op),
+              min(_o.width, _ob[2] + _op), min(_o.height, _ob[3] + _op)))
+_o.thumbnail((640, 640), Image.LANCZOS)
+_o.save(f"{OUT}/component/el-orchid.webp", "WEBP", quality=88, method=6)
+print("art", "el-orchid.webp", _o.size)
+
 # --- Google Maps walkthrough screenshots -------------------------------------
 # All three are cropped to ONE box so the carousel never changes height as the
 # guest steps through it. The crops are chosen so the button to press stays in

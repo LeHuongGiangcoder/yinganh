@@ -11,7 +11,8 @@ export type DecorName =
   | 'cupid-bowl'
   | 'cupid-glass'
   | 'cat-arrow'
-  | 'cat-heart';
+  | 'cat-heart'
+  | 'orchid';
 
 interface DecorProps {
   name: DecorName;
