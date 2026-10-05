@@ -284,7 +284,7 @@ export const COPY: Record<
         },
         {
           name: 'Drinks',
-          desc: 'Coffee, cocktails and everything in between.',
+          desc: 'Coffee, matcha and other interesting drinks.',
           url: 'https://maps.app.goo.gl/x4qzJWTjB7VsNEKn6',
         },
       ],
