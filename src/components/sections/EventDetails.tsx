@@ -11,7 +11,7 @@ import Button from '@/components/ui/Button';
 const PALETTE = [
   '#DCE8F5', '#A8C4E0', '#5B82B0',
   '#2A4C7D', '#12305B', '#F7FAFD',
-  '#F2E6C2', '#E8C86A', '#C79A2E',
+  '#FAF0D4', '#F0DC98', '#E7C965',
 ];
 
 // Ink sketch illustrating each agenda moment (public/component)
@@ -194,12 +194,15 @@ export default function EventDetails() {
           </div>
           <Divider className="mb-10" />
 
-          <Toggle
-            variant="segmented"
-            options={copy.agenda.map((g, idx) => ({ label: g.title, value: idx }))}
-            value={activeGroup}
-            onChange={setActiveGroup}
-          />
+          {/* Only worth a switch when there is more than one part to the day */}
+          {copy.agenda.length > 1 && (
+            <Toggle
+              variant="segmented"
+              options={copy.agenda.map((g, idx) => ({ label: g.title, value: idx }))}
+              value={activeGroup}
+              onChange={setActiveGroup}
+            />
+          )}
           <Subtitle as="div" className="!tracking-[0.2em] mt-4 min-h-4 max-w-sm">
             {group.venue}
           </Subtitle>

@@ -86,7 +86,7 @@ export default function ThankYou() {
         <span className="block w-10 h-px bg-ink/20" />
       </div>
       <span className="mt-3 font-body text-[11px] md:text-xs font-medium tracking-[0.35em] uppercase text-ink-soft">
-        20.12.2026 · Ho Chi Minh
+        20.12.2026 · Ho Chi Minh City
       </span>
     </section>
   );

@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useLang } from '@/hooks/useLang';
-import { FLASHBACK_IMAGES, COPY } from '@/lib/constants';
+import { GALLERY_IMAGES, COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 
-// The photographs from the entrance, laid back out as a strip so guests can
-// look at them properly once the montage has flown past.
+// The couple's photographs, laid out as a strip guests can scroll through.
+// The tilts repeat, so the run of frames never looks mechanically straight.
 const TILT = [-3, 2, -2, 3, -2.5, 2.5, -3.5];
 
 export default function Gallery() {
@@ -85,7 +85,7 @@ export default function Gallery() {
 
       <div className="w-full overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="flex items-center gap-4 md:gap-6 px-5 md:px-10 py-10 md:py-14 w-max mx-auto">
-          {FLASHBACK_IMAGES.map((src, i) => (
+          {GALLERY_IMAGES.map((src, i) => (
             <div
               key={src}
               className="shrink-0 bg-sky-light p-2 md:p-3 border border-ink/10 shadow-[0_10px_30px_-14px_rgba(18,48,91,0.5)]"

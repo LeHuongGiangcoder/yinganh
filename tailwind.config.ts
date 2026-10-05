@@ -18,8 +18,8 @@ const config: Config = {
           muted: '#5A78A3',
         },
         gold: {
-          DEFAULT: '#C79A2E',
-          light: '#E8C86A',
+          DEFAULT: '#E7C965',
+          light: '#F0DC98',
         },
       },
       fontFamily: {

@@ -15,6 +15,7 @@ export default function RSVP() {
   const copy = COPY[lang].rsvp;
 
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
+  const [vegetarian, setVegetarian] = useState<'yes' | 'no'>('no');
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,28 +104,34 @@ export default function RSVP() {
                   <Subtitle as="span" className="!tracking-[0.25em]">
                     {copy.guestsLabel}
                   </Subtitle>
+                  {/* Guests write the count and who they bring in the same line */}
+                  <Body variant="small" as="span" className="italic">
+                    {copy.guestsHint}
+                  </Body>
                   <input
-                    type="number"
+                    type="text"
                     name="guests"
-                    min={1}
-                    max={10}
-                    defaultValue={1}
                     placeholder={copy.guestsPlaceholder}
                     className={fieldClass}
                   />
                 </label>
 
-                <label className="flex flex-col gap-2 animate-fade-in">
+                <div className="flex flex-col gap-3 animate-fade-in">
                   <Subtitle as="span" className="!tracking-[0.25em]">
                     {copy.mealLabel}
                   </Subtitle>
-                  <input
-                    type="text"
-                    name="meal"
-                    placeholder={copy.mealPlaceholder}
-                    className={fieldClass}
+                  <input type="hidden" name="vegetarian" value={vegetarian} />
+                  <Toggle
+                    variant="segmented"
+                    className="self-start"
+                    options={[
+                      { label: copy.mealYes, value: 'yes' as const },
+                      { label: copy.mealNo, value: 'no' as const },
+                    ]}
+                    value={vegetarian}
+                    onChange={setVegetarian}
                   />
-                </label>
+                </div>
               </>
             )}
 

@@ -96,9 +96,11 @@ export const COPY: Record<
       attendingYes: string;
       attendingNo: string;
       guestsLabel: string;
+      guestsHint: string;
       guestsPlaceholder: string;
       mealLabel: string;
-      mealPlaceholder: string;
+      mealYes: string;
+      mealNo: string;
       wishesLabel: string;
       wishesPlaceholder: string;
       submitBtn: string;
@@ -141,7 +143,7 @@ export const COPY: Record<
     hero: {
       eyebrow: 'save the date',
       dateLine: 'Sunday, 20 December 2026',
-      location: 'Ho Chi Minh, Vietnam',
+      location: 'Ho Chi Minh City, Vietnam',
       month: 'december',
     },
     nav: {
@@ -275,10 +277,12 @@ export const COPY: Record<
       attendingLabel: 'Can you make it?',
       attendingYes: "Yes, I'll be there!",
       attendingNo: "No, can't make it ˙◠˙",
-      guestsLabel: 'How many of you?',
-      guestsPlaceholder: 'e.g. 2',
-      mealLabel: 'Dietary restrictions (optional)',
-      mealPlaceholder: 'e.g. Vegetarian, food allergies...',
+      guestsLabel: 'How many of you are coming?',
+      guestsHint: "Tell us who's joining you (partner, family, friend...).",
+      guestsPlaceholder: 'e.g. 2 — me and my partner',
+      mealLabel: 'Vegetarian?',
+      mealYes: 'Yes',
+      mealNo: 'No',
       wishesLabel: 'Leave us a note',
       wishesPlaceholder: 'A wish, a memory, anything...',
       submitBtn: 'Send it in',
@@ -287,7 +291,7 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Thank You',
-      body: "For being part of our story. We can't wait to see you in Ho Chi Minh.",
+      body: "For being part of our story. We can't wait to see you.",
     },
     eventDetails: {
       venueSubLabel: 'WHERE TO FIND US',
@@ -302,30 +306,6 @@ export const COPY: Record<
       dresscodeSubLabel: 'WHAT TO WEAR',
       dresscode: 'Dresscode',
       agenda: [
-        {
-          title: 'The Rite',
-          venue: 'Sunday, 20 December · 284/8 Nguyễn Trọng Tuyến, Phú Nhuận',
-          items: [
-            {
-              time: '09:00',
-              moment: 'vows',
-              title: 'Lễ Vu Quy',
-              description: "The wedding rite at the bride's family home",
-            },
-            {
-              time: '10:00',
-              moment: 'teaceremony',
-              title: 'Tea Ceremony',
-              description: 'Tea and gifts exchanged between the two families',
-            },
-            {
-              time: '10:30',
-              moment: 'photos',
-              title: 'Photos',
-              description: 'Pictures with family and all of you',
-            },
-          ],
-        },
         {
           title: 'The Reception',
           venue: 'Sunday, 20 December · La Scala Ballroom, The Reverie Saigon',
@@ -353,8 +333,7 @@ export const COPY: Record<
           ],
         },
       ],
-      dresscodeNote:
-        'We would love to see you in soft blues, sky and ivory, with a touch of gold — whatever makes you feel your best.',
+      dresscodeNote: 'A little color inspiration for the night. Wear what you love.',
     },
   },
   vi: {
@@ -365,7 +344,7 @@ export const COPY: Record<
     hero: {
       eyebrow: 'lưu lại ngày',
       dateLine: 'Chủ nhật, 20 tháng 12 năm 2026',
-      location: 'Hồ Chí Minh, Việt Nam',
+      location: 'TP. Hồ Chí Minh, Việt Nam',
       month: 'tháng 12',
     },
     nav: {
@@ -500,9 +479,11 @@ export const COPY: Record<
       attendingYes: 'Có chứ, mình sẽ tới!',
       attendingNo: 'Tiếc quá, mình không tới được ˙◠˙',
       guestsLabel: 'Bạn đi mấy người?',
-      guestsPlaceholder: 'VD: 2',
-      mealLabel: 'Lưu ý về ăn uống (nếu có)',
-      mealPlaceholder: 'VD: Ăn chay, dị ứng hải sản...',
+      guestsHint: 'Cho tụi mình biết bạn đi cùng ai nhé (người yêu, gia đình, bạn bè...).',
+      guestsPlaceholder: 'VD: 2 — mình và người yêu',
+      mealLabel: 'Bạn ăn chay chứ?',
+      mealYes: 'Có',
+      mealNo: 'Không',
       wishesLabel: 'Để lại đôi lời nhé',
       wishesPlaceholder: 'Một lời chúc, một kỷ niệm, gì cũng được...',
       submitBtn: 'Gửi nhé',
@@ -511,7 +492,7 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Cảm Ơn Bạn',
-      body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn ở Hồ Chí Minh.',
+      body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn nhé.',
     },
     eventDetails: {
       venueSubLabel: 'ĐỊA ĐIỂM TỔ CHỨC',
@@ -526,30 +507,6 @@ export const COPY: Record<
       dresscodeSubLabel: 'GỢI Ý TRANG PHỤC',
       dresscode: 'Trang phục',
       agenda: [
-        {
-          title: 'Hôn Lễ',
-          venue: 'Chủ nhật, 20/12 · 284/8 Nguyễn Trọng Tuyến, Phú Nhuận',
-          items: [
-            {
-              time: '09:00',
-              moment: 'vows',
-              title: 'Lễ Vu Quy',
-              description: 'Hôn lễ được cử hành tại tư gia nhà gái',
-            },
-            {
-              time: '10:00',
-              moment: 'teaceremony',
-              title: 'Trao quà',
-              description: 'Hai gia đình dâng trà và trao lễ',
-            },
-            {
-              time: '10:30',
-              moment: 'photos',
-              title: 'Chụp ảnh',
-              description: 'Chụp hình cùng gia đình và khách mời',
-            },
-          ],
-        },
         {
           title: 'Tiệc Mừng',
           venue: 'Chủ nhật, 20/12 · La Scala Ballroom, The Reverie Saigon',
@@ -577,12 +534,26 @@ export const COPY: Record<
           ],
         },
       ],
-      dresscodeNote:
-        'Chúng mình rất vui nếu bạn chọn trang phục tông xanh nhạt, xanh trời và trắng ngà, điểm chút ánh vàng — miễn là bạn thấy thoải mái và tự tin nhất.',
+      dresscodeNote: 'Gợi ý màu sắc cho buổi tiệc thêm xinh. Mặc món bạn thích nhất nhé.',
     },
   },
 };
 
+// The gallery strip: the ten photographs the couple picked, in their order
+export const GALLERY_IMAGES = [
+  '/images/gallery-01.webp',
+  '/images/gallery-02.webp',
+  '/images/gallery-03.webp',
+  '/images/gallery-04.webp',
+  '/images/gallery-05.webp',
+  '/images/gallery-06.webp',
+  '/images/gallery-07.webp',
+  '/images/gallery-08.webp',
+  '/images/gallery-09.webp',
+  '/images/gallery-10.webp',
+] as const;
+
+// The montage that flies past on the entrance
 export const FLASHBACK_IMAGES = [
   '/images/moment-01.webp',
   '/images/moment-02.webp',

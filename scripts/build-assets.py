@@ -91,6 +91,10 @@ for src, out in MOMENTS:
 
 photo(f"{SRC}/couple pics/DSC_6670 copy.jpeg", f"{OUT}/images/portrait-hug.webp", (1000, 1500))
 
+# --- gallery strip (the ten the couple picked, numbered in their order) -----
+for n in range(1, 11):
+    photo(f"{SRC}/gallery/{n}.jpeg", f"{OUT}/images/gallery-{n:02d}.webp", (1000, 1500))
+
 # --- line art from the template, re-inked in navy --------------------------
 for n in ["5", "6", "7", "8", "12", "13", "14", "15", "16", "left", "right", "venue"]:
     tint(f"{TPL}/{n}.webp", f"{OUT}/component/{n}.png", size=(900, 900))
