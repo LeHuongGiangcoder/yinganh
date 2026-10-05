@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLang } from '@/hooks/useLang';
-import { COPY, FLASHBACK_IMAGES } from '@/lib/constants';
+import { COPY } from '@/lib/constants';
 import Monogram from '@/components/ui/Monogram';
 
-type Phase = 'idle' | 'sketching' | 'revealing' | 'morphing' | 'flashback' | 'done';
+type Phase = 'idle' | 'sketching' | 'revealing' | 'morphing' | 'angels' | 'done';
 
 // The pale sky the guest scratches away to find the drawing underneath
 const VEIL = '#EAF1F9';
@@ -21,16 +21,35 @@ const POLL_MS = 350;
 const BRUSH_RADIUS_DESKTOP = 40;
 const BRUSH_RADIUS_TOUCH = 52;
 
-// Resting tilt/offset for each photo so the montage stacks like dealt prints
-const PILE_LAYOUT = [
-  { r: -6, x: -34, y: 20 },
-  { r: 5, x: 30, y: -16 },
-  { r: -4, x: 22, y: 28 },
-  { r: 7, x: -26, y: -22 },
-  { r: -7, x: 36, y: 14 },
-  { r: 5, x: -20, y: -28 },
-  { r: -6, x: 28, y: 24 },
-  { r: 5, x: -32, y: -18 },
+// The two cupids that take turns in the closing scene
+const ANGELS = ['/component/cupid-pour.png', '/component/cupid-toast.png'];
+// How long each one holds the centre before handing over, and how long the
+// whole scene runs before the page takes over.
+const ANGEL_SWAP_MS = 900;
+const ANGEL_SCENE_MS = 3000;
+
+// Sparkles and little bows scattered round the cupid, as % of its box.
+// Kept off the middle so nothing lands on the drawing itself.
+const ANGEL_DUST: { x: number; y: number; size: number; gold?: boolean; delay: number }[] = [
+  { x: 14, y: 10, size: 16, gold: true, delay: 0 },
+  { x: 33, y: 2, size: 9, delay: 1.1 },
+  { x: 57, y: 4, size: 12, gold: true, delay: 0.6 },
+  { x: 76, y: 1, size: 8, delay: 1.9 },
+  { x: 93, y: 18, size: 15, gold: true, delay: 0.3 },
+  { x: 99, y: 44, size: 9, delay: 2.2 },
+  { x: 90, y: 72, size: 12, gold: true, delay: 1.4 },
+  { x: 72, y: 94, size: 8, delay: 0.9 },
+  { x: 44, y: 99, size: 14, gold: true, delay: 2.5 },
+  { x: 16, y: 88, size: 10, delay: 1.6 },
+  { x: 2, y: 62, size: 9, gold: true, delay: 2 },
+  { x: 5, y: 34, size: 12, delay: 0.45 },
+];
+
+// Bows ride the corners of the ring, clear of the cupid inset inside it
+const ANGEL_BOWS: { x: number; y: number; w: number; tilt: number; delay: number }[] = [
+  { x: 4, y: 20, w: 3.4, tilt: -16, delay: 0 },
+  { x: 97, y: 60, w: 2.9, tilt: 13, delay: 1.3 },
+  { x: 57, y: 103, w: 2.4, tilt: -5, delay: 0.7 },
 ];
 
 interface EntranceProps {
@@ -54,7 +73,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
 
   const [phase, setPhase] = useState<Phase>('idle');
   const [hintVisible, setHintVisible] = useState(true);
-  const [flashIndex, setFlashIndex] = useState(0);
+  const [angelIndex, setAngelIndex] = useState(0);
   const [canvasReady, setCanvasReady] = useState(false);
 
   // ---- Canvas setup ----
@@ -105,7 +124,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
 
   // Preload + decode the photos up front so they don't pop/flash when dealt
   useEffect(() => {
-    [...FLASHBACK_IMAGES, '/images/after-sketch.webp'].forEach((src) => {
+    [...ANGELS, '/images/after-sketch.webp'].forEach((src) => {
       const img = new Image();
       img.src = src;
       img.decode?.().catch(() => {});
@@ -219,30 +238,21 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
 
     if (phase === 'morphing') {
       // Hold the drawing, then crossfade with blur into the photograph it was drawn from
-      const t = setTimeout(() => setPhase('flashback'), 2400);
+      const t = setTimeout(() => setPhase('angels'), 2400);
       return () => clearTimeout(t);
     }
 
-    if (phase === 'flashback') {
-      // Cycle through moments with variable timing
-      let i = 0;
-      let timeoutId: ReturnType<typeof setTimeout>;
-
-      const next = () => {
-        i++;
-        if (i >= FLASHBACK_IMAGES.length) {
-          setPhase('done');
-        } else {
-          setFlashIndex(i);
-          const isLast = i === FLASHBACK_IMAGES.length - 1;
-          const delay = isLast ? 1200 : 650;
-          timeoutId = setTimeout(next, delay);
-        }
+    if (phase === 'angels') {
+      // The two cupids take turns in the centre until the scene's time is up
+      const swap = window.setInterval(
+        () => setAngelIndex((i) => (i + 1) % ANGELS.length),
+        ANGEL_SWAP_MS
+      );
+      const t = setTimeout(() => setPhase('done'), ANGEL_SCENE_MS);
+      return () => {
+        window.clearInterval(swap);
+        clearTimeout(t);
       };
-
-      timeoutId = setTimeout(next, 650);
-
-      return () => clearTimeout(timeoutId);
     }
 
     if (phase === 'done') {
@@ -282,7 +292,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{
           opacity:
-            !canvasReady || phase === 'morphing' || phase === 'flashback' || phase === 'done' ? 0 : 1,
+            !canvasReady || phase === 'morphing' || phase === 'angels' || phase === 'done' ? 0 : 1,
           filter: phase === 'morphing' ? 'blur(12px)' : 'blur(0px)',
           transition: 'opacity 1600ms var(--ease-smooth), filter 1600ms var(--ease-smooth)',
         }}
@@ -299,12 +309,13 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
         style={{
-          opacity: phase === 'morphing' || phase === 'flashback' || phase === 'done' ? 1 : 0,
-          filter:
-            phase === 'morphing' || phase === 'flashback' || phase === 'done'
-              ? 'blur(0px)'
-              : 'blur(12px)',
-          transition: 'opacity 1600ms var(--ease-smooth), filter 1600ms var(--ease-smooth)',
+          opacity: phase === 'morphing' ? 1 : 0,
+          filter: phase === 'morphing' || phase === 'angels' || phase === 'done' ? 'blur(0px)' : 'blur(12px)',
+          // Slow to arrive, quick to leave: the cupids get the full scene to themselves
+          transition:
+            phase === 'morphing'
+              ? 'opacity 1600ms var(--ease-smooth), filter 1600ms var(--ease-smooth)'
+              : 'opacity 600ms var(--ease-smooth), filter 600ms var(--ease-smooth)',
         }}
       >
         {/* Gallery mat: pale passe-partout + thin ink keyline, lifted off the page */}
@@ -318,35 +329,70 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
         </div>
       </div>
 
-      {/* Layer 3: Flashback images stacked, only active during flashback phase */}
-      <div className="absolute inset-0 pointer-events-none">
-        {FLASHBACK_IMAGES.map((src, i) => {
-          const dealt = (phase === 'flashback' || phase === 'done') && flashIndex >= i;
-          const t = PILE_LAYOUT[i % PILE_LAYOUT.length];
-          return (
-            <div key={src} className="absolute inset-0 flex items-center justify-center">
-              {/* Gallery mat dealt onto the pile: drops in from above with a tilt, then settles */}
-              <div
-                className="bg-sky-light p-3 md:p-5 border border-ink/10 shadow-[0_10px_30px_-10px_rgba(18,48,91,0.45)]"
-                style={{
-                  opacity: dealt ? 1 : 0,
-                  transform: dealt
-                    ? `translate(${t.x}px, ${t.y}px) rotate(${t.r}deg)`
-                    : `translate(${t.x}px, ${t.y - 78}px) rotate(${t.r + (t.r >= 0 ? 10 : -10)}deg) scale(1.1)`,
-                  transition:
-                    'opacity 520ms var(--ease-smooth), transform 600ms cubic-bezier(0.34, 1.4, 0.5, 1)',
-                }}
+      {/* Layer 3: the two cupids, taking turns in the middle of the screen */}
+      <div
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6"
+        style={{
+          opacity: phase === 'angels' || phase === 'done' ? 1 : 0,
+          transition: 'opacity 700ms var(--ease-smooth)',
+        }}
+      >
+        <div className="relative w-[58vw] max-w-[19rem] aspect-square animate-angel-sway">
+          {/* The cupid sits inset, leaving the outer ring free for the trimmings */}
+          {ANGELS.map((src, i) => (
+            <img
+              key={src}
+              src={src}
+              alt=""
+              draggable={false}
+              className="absolute inset-[15%] w-[70%] h-[70%] object-contain select-none"
+              style={{
+                opacity: angelIndex === i ? 1 : 0,
+                transition: 'opacity 420ms var(--ease-smooth)',
+              }}
+            />
+          ))}
+
+          {/* Blink-blink around the cupid, in the page's own sparkle style */}
+          {ANGEL_DUST.map((d, i) => (
+            <span
+              key={i}
+              aria-hidden
+              className="absolute -translate-x-1/2 -translate-y-1/2 pointer-events-none select-none"
+              style={{ left: `${d.x}%`, top: `${d.y}%` }}
+            >
+              <span
+                className={`block animate-twinkle leading-none ${d.gold ? 'text-gold' : 'text-ink-muted'}`}
+                style={{ fontSize: d.size, animationDelay: `${d.delay}s` }}
               >
-                <img
-                  src={src}
-                  alt=""
-                  className="block h-[64vh] w-auto aspect-[2/3] object-cover object-center border border-ink/15"
-                  draggable={false}
-                />
-              </div>
-            </div>
-          );
-        })}
+                ✦
+              </span>
+            </span>
+          ))}
+
+          {/* Little watercolour bows, drifting on their own gentle beat */}
+          {ANGEL_BOWS.map((b, i) => (
+            <img
+              key={i}
+              src="/component/ribbon-bow.png"
+              alt=""
+              aria-hidden
+              draggable={false}
+              className="absolute -translate-x-1/2 -translate-y-1/2 h-auto select-none pointer-events-none animate-bow-drift"
+              style={{
+                left: `${b.x}%`,
+                top: `${b.y}%`,
+                width: `${b.w}rem`,
+                rotate: `${b.tilt}deg`,
+                animationDelay: `${b.delay}s`,
+              }}
+            />
+          ))}
+        </div>
+
+        <p className="mt-10 font-display italic text-ink/85 text-[clamp(1.15rem,3.6vw,1.75rem)] tracking-wide text-center max-w-md">
+          {copy.angels}
+        </p>
       </div>
 
       {/* Layer 4: Canvas (the veil the guest erases) */}
@@ -400,6 +446,23 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
         @keyframes breathe {
           0%, 100% { opacity: 0.6; transform: translateY(0); }
           50% { opacity: 1; transform: translateY(-2px); }
+        }
+        @keyframes angelSway {
+          0%, 100% { transform: translateY(0) rotate(-2deg); }
+          50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        .animate-angel-sway {
+          animation: angelSway 3.4s ease-in-out infinite;
+        }
+        @keyframes bowDrift {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0); opacity: 0.7; }
+          50% { transform: translate(-50%, -50%) translateY(-5px); opacity: 1; }
+        }
+        .animate-bow-drift {
+          animation: bowDrift 4.2s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-angel-sway, .animate-bow-drift { animation: none; }
         }
         @keyframes float {
           0%, 100% { transform: translateY(0) rotate(-8deg); }

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLang } from '@/hooks/useLang';
-import { COPY } from '@/lib/constants';
+import { COPY, WEDDING } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
 import Decor from '@/components/ui/Decor';
@@ -102,6 +102,31 @@ export default function Visa() {
         <InfoBlock title={copy.whatYouNeed.title} items={copy.whatYouNeed.items} />
         <InfoBlock title={copy.afterApproval.title} items={copy.afterApproval.items} />
         <InfoBlock title={copy.arrivalTips.title} items={copy.arrivalTips.items} />
+      </div>
+
+      {/* Fast track sits with the arrival notes — it is the next thing a guest
+          does after clearing the visa itself */}
+      <div className="max-w-2xl mx-auto mt-14 border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-10 py-10 flex flex-col items-center text-center">
+        <Heading variant="h3" className="!text-ink mb-5">
+          {copy.fastTrack.title}
+        </Heading>
+        <div className="w-8 h-px bg-ink/15 mb-6" />
+        <Body variant="regular" className="max-w-md">
+          {copy.fastTrack.body}
+        </Body>
+        <div className="w-full border-y border-ink/10 py-5 mt-6">
+          <Body variant="regular" className="!text-ink italic">
+            {copy.fastTrack.note}
+          </Body>
+        </div>
+        <a
+          href={WEDDING.fastTrackUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-7"
+        >
+          <Button variant="primary">{copy.fastTrack.btn}</Button>
+        </a>
       </div>
     </section>
   );

@@ -19,6 +19,11 @@ export const WEDDING = {
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=The+Reverie+Saigon+57-69F+Dong+Khoi',
   homeMapsUrl:
     'https://www.google.com/maps/search/?api=1&query=284%2F8+Nguyen+Trong+Tuyen+Phu+Nhuan+Ho+Chi+Minh+City',
+  // The Reverie's booking engine, pre-loaded with the wedding promo code
+  stayBookingUrl:
+    'https://be.synxis.com/?adult=1&arrive=2026-02-05&chain=24447&child=0&currency=VND&depart=2026-02-06&hotel=7060&level=hotel&locale=en-US&productcurrency=VND&promo=TRSWEDDINGSP&rooms=1',
+  fastTrackUrl:
+    'https://www.klook.com/en-CA/activity/227975-open-date-vip-fast-track-service-for-immigration-at-ho-chi-minh-city/',
 } as const;
 
 type Family = {
@@ -36,14 +41,15 @@ type Family = {
 export const COPY: Record<
   Lang,
   {
-    entrance: { hint: string; whisper: string };
+    entrance: { hint: string; whisper: string; angels: string };
     hero: { eyebrow: string; dateLine: string; location: string; month: string };
     nav: {
       venue: string;
       schedule: string;
       dresscode: string;
       visa: string;
-      travel: string;
+      stay: string;
+      food: string;
       rsvp: string;
     };
     gallery: {
@@ -69,22 +75,25 @@ export const COPY: Record<
       whatYouNeed: { title: string; items: string[] };
       afterApproval: { title: string; items: string[] };
       arrivalTips: { title: string; items: string[] };
+      fastTrack: { title: string; body: string; note: string; btn: string };
     };
-    travel: {
+    stay: {
+      subtitle: string;
+      title: string;
+      lead: string;
+      rate: string;
+      booking: string;
+      bookBtn: string;
+      areaTitle: string;
+      areaLead: string;
+      areas: string[];
+    };
+    food: {
       subtitle: string;
       title: string;
       body: string;
       placesTitle: string;
       places: { name: string; desc: string }[];
-      stay: {
-        title: string;
-        lead: string;
-        rate: string;
-        booking: string;
-        areaTitle: string;
-        areaLead: string;
-        areas: string[];
-      };
     };
     rsvp: {
       subtitle: string;
@@ -139,6 +148,7 @@ export const COPY: Record<
     entrance: {
       hint: "Let's sketch with us",
       whisper: 'draw anywhere on the screen',
+      angels: 'The angels are sending our love to you.',
     },
     hero: {
       eyebrow: 'save the date',
@@ -151,7 +161,8 @@ export const COPY: Record<
       schedule: 'Schedule',
       dresscode: 'Dresscode',
       visa: 'Visa',
-      travel: 'Travel',
+      stay: 'Stay',
+      food: 'Food',
       rsvp: 'RSVP',
     },
     gallery: {
@@ -226,47 +237,30 @@ export const COPY: Record<
           'Keep both digital and printed copies of your visa handy',
         ],
       },
-    },
-    travel: {
-      subtitle: 'TRAVEL GUIDE',
-      title: 'Ho Chi Minh',
-      body: 'Ho Chi Minh City. Ten million people, a river, and <strong><em>the best iced coffee on Earth</em></strong> on every corner.',
-      placesTitle: 'While you are here',
-      places: [
-        {
-          name: 'Nguyen Hue Walking Street',
-          desc: 'A wide pedestrian boulevard running from the old City Hall to the river. Busiest and best after dark.',
-        },
-        {
-          name: 'Dong Khoi Street',
-          desc: 'The old rue Catinat. Opera House, Notre-Dame, the Central Post Office and the Reverie all sit on or beside it — you can walk the lot in an afternoon.',
-        },
-        {
-          name: 'Ben Thanh Market',
-          desc: 'Fabric, coffee beans, dried mango, lacquerware. Haggle cheerfully, then eat at the food stalls out back.',
-        },
-        {
-          name: 'The Cafe Apartments, 42 Nguyen Hue',
-          desc: 'A 1960s block where every flat is now a tiny cafe or boutique. Take the lift up, walk the balconies down.',
-        },
-        {
-          name: 'War Remnants Museum',
-          desc: 'Heavy, honest and essential if you want to understand the city you are standing in.',
-        },
-        {
-          name: 'Binh Tay Market & Cho Lon',
-          desc: "Ho Chi Minh's Chinatown, 20 minutes west. Temples thick with incense coils and the best com tam in town.",
-        },
-      ],
-      stay: {
-        title: 'Where to stay',
-        lead: 'The Reverie Saigon — our wedding venue — is offering a special accommodation rate for wedding guests.',
-        rate: 'Deluxe rooms start from 4,400,000 VND per night (~ $170 USD) for 2 guests, including breakfast.',
-        booking: 'Please contact the bride and groom for the booking link.',
-        areaTitle: 'If you would rather stay elsewhere',
-        areaLead: 'We recommend staying in District 1. Look for hotels along:',
-        areas: ['Dong Khoi Street', 'Nguyen Hue Walking Street', 'Ben Nghe Ward'],
+      fastTrack: {
+        title: 'Fast Track',
+        body: 'Immigration at Tan Son Nhat can be slow after a long flight. A VIP fast-track service walks you through the queue — worth it if you land in the evening.',
+        note: 'When booking, please select “Non-Vietnamese”.',
+        btn: 'Book Fast Track',
       },
+    },
+    stay: {
+      subtitle: 'WHERE TO STAY',
+      title: 'Accommodation',
+      lead: 'The Reverie Saigon — our wedding venue — is offering a special accommodation rate for wedding guests.',
+      rate: 'Deluxe rooms start from 4,400,000 VND per night (~ $170 USD) for 2 guests, including breakfast.',
+      booking: 'The wedding rate is already applied in the link below.',
+      bookBtn: 'Book Here',
+      areaTitle: 'If you would rather stay elsewhere',
+      areaLead: 'We recommend staying in District 1. Look for hotels along:',
+      areas: ['Dong Khoi Street', 'Nguyen Hue Walking Street', 'Ben Nghe Ward'],
+    },
+    food: {
+      subtitle: 'FOOD GUIDE',
+      title: 'Where We Eat',
+      body: 'Our favourite places to eat in Ho Chi Minh City. Go hungry.',
+      placesTitle: 'Our picks',
+      places: [],
     },
     rsvp: {
       subtitle: 'RSVP',
@@ -340,6 +334,7 @@ export const COPY: Record<
     entrance: {
       hint: 'Cùng phác hoạ với chúng mình',
       whisper: 'hãy vẽ tự do trên màn hình',
+      angels: 'Các thiên thần đang mang yêu thương của chúng mình đến bạn.',
     },
     hero: {
       eyebrow: 'lưu lại ngày',
@@ -352,7 +347,8 @@ export const COPY: Record<
       schedule: 'Lịch trình',
       dresscode: 'Trang phục',
       visa: 'Visa',
-      travel: 'Du lịch',
+      stay: 'Lưu trú',
+      food: 'Ăn uống',
       rsvp: 'Xác nhận',
     },
     gallery: {
@@ -427,47 +423,30 @@ export const COPY: Record<
           'Luôn mang theo cả bản kỹ thuật số và bản in của visa',
         ],
       },
-    },
-    travel: {
-      subtitle: 'HƯỚNG DẪN DU LỊCH',
-      title: 'Hồ Chí Minh',
-      body: 'Thành phố Hồ Chí Minh. Mười triệu người, một dòng sông, và <strong><em>ly cà phê sữa đá ngon nhất hành tinh</em></strong> ở mọi góc phố.',
-      placesTitle: 'Ghé thăm khi bạn đến',
-      places: [
-        {
-          name: 'Phố đi bộ Nguyễn Huệ',
-          desc: 'Đại lộ đi bộ chạy từ trụ sở UBND Thành phố ra tới bờ sông. Đông vui và đẹp nhất là sau khi trời tối.',
-        },
-        {
-          name: 'Đường Đồng Khởi',
-          desc: 'Con đường Catinat ngày xưa. Nhà hát Thành phố, Nhà thờ Đức Bà, Bưu điện Trung tâm và cả The Reverie đều nằm quanh đây — đi bộ một buổi chiều là hết.',
-        },
-        {
-          name: 'Chợ Bến Thành',
-          desc: 'Vải vóc, cà phê hạt, xoài sấy, đồ sơn mài. Trả giá vui vẻ, rồi ra khu hàng ăn phía sau.',
-        },
-        {
-          name: 'Chung cư cà phê 42 Nguyễn Huệ',
-          desc: 'Toà chung cư thập niên 60 nay mỗi căn hộ là một quán cà phê hay cửa hiệu nhỏ. Đi thang máy lên, rồi thong thả đi bộ xuống.',
-        },
-        {
-          name: 'Bảo tàng Chứng tích Chiến tranh',
-          desc: 'Nặng lòng, chân thật, và rất nên ghé nếu bạn muốn hiểu thành phố này.',
-        },
-        {
-          name: 'Chợ Bình Tây & Chợ Lớn',
-          desc: 'Khu người Hoa, cách trung tâm 20 phút. Những ngôi chùa nghi ngút khói nhang và cơm tấm ngon nhất thành phố.',
-        },
-      ],
-      stay: {
-        title: 'Nơi lưu trú',
-        lead: 'The Reverie Saigon — nơi tổ chức tiệc cưới — có mức giá phòng ưu đãi dành riêng cho khách mời.',
-        rate: 'Phòng Deluxe từ 4.400.000 VND/đêm (~170 USD) cho 2 khách, đã bao gồm bữa sáng.',
-        booking: 'Bạn vui lòng liên hệ cô dâu chú rể để nhận link đặt phòng nhé.',
-        areaTitle: 'Nếu bạn muốn ở nơi khác',
-        areaLead: 'Chúng mình gợi ý bạn ở Quận 1, tìm khách sạn quanh:',
-        areas: ['Đường Đồng Khởi', 'Phố đi bộ Nguyễn Huệ', 'Phường Bến Nghé'],
+      fastTrack: {
+        title: 'Fast Track',
+        body: 'Thủ tục nhập cảnh ở Tân Sơn Nhất có thể khá lâu sau một chuyến bay dài. Dịch vụ Fast Track sẽ có người đón và đưa bạn qua cửa ưu tiên — rất đáng nếu bạn hạ cánh vào buổi tối.',
+        note: 'Khi đặt, vui lòng chọn “Non-Vietnamese”.',
+        btn: 'Đặt Fast Track',
       },
+    },
+    stay: {
+      subtitle: 'CHỖ NGHỈ',
+      title: 'Nơi lưu trú',
+      lead: 'The Reverie Saigon — nơi tổ chức tiệc cưới — có mức giá phòng ưu đãi dành riêng cho khách mời.',
+      rate: 'Phòng Deluxe từ 4.400.000 VND/đêm (~170 USD) cho 2 khách, đã bao gồm bữa sáng.',
+      booking: 'Giá ưu đãi đã được áp sẵn trong link bên dưới.',
+      bookBtn: 'Đặt phòng',
+      areaTitle: 'Nếu bạn muốn ở nơi khác',
+      areaLead: 'Chúng mình gợi ý bạn ở Quận 1, tìm khách sạn quanh:',
+      areas: ['Đường Đồng Khởi', 'Phố đi bộ Nguyễn Huệ', 'Phường Bến Nghé'],
+    },
+    food: {
+      subtitle: 'GỢI Ý ĂN UỐNG',
+      title: 'Tụi mình hay ăn ở đây',
+      body: 'Những chỗ ăn tụi mình thường ăn nhất ở Sài Gòn. Nhớ đi lúc đói nha.',
+      placesTitle: 'Tụi mình gợi ý',
+      places: [],
     },
     rsvp: {
       subtitle: 'XÁC NHẬN THAM DỰ',
@@ -551,15 +530,4 @@ export const GALLERY_IMAGES = [
   '/images/gallery-08.webp',
   '/images/gallery-09.webp',
   '/images/gallery-10.webp',
-] as const;
-
-// The montage that flies past on the entrance
-export const FLASHBACK_IMAGES = [
-  '/images/moment-01.webp',
-  '/images/moment-02.webp',
-  '/images/moment-03.webp',
-  '/images/moment-04.webp',
-  '/images/moment-05.webp',
-  '/images/moment-06.webp',
-  '/images/moment-07.webp',
 ] as const;

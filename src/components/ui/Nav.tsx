@@ -48,7 +48,8 @@ export default function Nav() {
     { href: '#schedule', label: nav.schedule },
     { href: '#dresscode', label: nav.dresscode },
     { href: '#visa', label: nav.visa },
-    { href: '#travel', label: nav.travel },
+    { href: '#stay', label: nav.stay },
+    { href: '#food', label: nav.food },
     { href: '#rsvp', label: nav.rsvp },
   ];
 

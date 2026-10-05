@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import Entrance from '@/components/interactive/Entrance';
+import Fireworks from '@/components/interactive/Fireworks';
 import Nav from '@/components/ui/Nav';
 import Hero from '@/components/sections/Hero';
 import Gallery from '@/components/sections/Gallery';
 import EventDetails from '@/components/sections/EventDetails';
 import Visa from '@/components/sections/Visa';
-import Travel from '@/components/sections/Travel';
+import Stay from '@/components/sections/Stay';
+import Food from '@/components/sections/Food';
 import RSVP from '@/components/sections/RSVP';
 import ThankYou from '@/components/sections/ThankYou';
 import Decor from '@/components/ui/Decor';
@@ -43,6 +45,9 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
       {!entranceDone && (
         <Entrance onDone={() => setEntranceDone(true)} onReveal={() => setRevealContent(true)} />
       )}
+
+      {/* Shells go off over the hero the instant the entrance hands the page over */}
+      <Fireworks active={revealContent} />
 
       {/* Everything else stays hidden until the entrance starts fading out, so the
           sketch overlay owns the whole screen (no content peeking on mobile), then
@@ -97,7 +102,8 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
           <Decor name="cat-heart" className="w-24 md:w-32" tilt={-7} opacity={0.6} />
         </OrnamentRow>
 
-        <Travel />
+        <Stay />
+        <Food />
 
         <RSVP />
         <ThankYou />
