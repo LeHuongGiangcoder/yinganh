@@ -62,20 +62,6 @@ def photo(src, out, size=(1400, 1400), q=82, gray=False):
     im.save(out, "WEBP", quality=q, method=6)
     print("photo", out, im.size)
 
-def trim_art(src, out, size=(900, 900)):
-    """Art that already arrives inked on transparency: just crop and downscale."""
-    im = Image.open(src).convert("RGBA")
-    box = im.getchannel("A").point(lambda v: 255 if v > 25 else 0).getbbox()
-    if box:
-        pad = int(0.02 * max(im.size))
-        im = im.crop((
-            max(0, box[0] - pad), max(0, box[1] - pad),
-            min(im.width, box[2] + pad), min(im.height, box[3] + pad),
-        ))
-    im.thumbnail(size, Image.LANCZOS)
-    im.save(out, optimize=True)
-    print("art", out, im.size)
-
 def passthrough(src, out, size=(1400, 1400), q=80):
     im = Image.open(src).convert("RGB")
     im.thumbnail(size, Image.LANCZOS)
@@ -119,6 +105,20 @@ tint(f"{SRC}/3.png", f"{OUT}/component/champagne.png", size=(1400, 1400))
 tint(f"{SRC}/4.png", f"{OUT}/component/gifts.png", size=(1400, 1400))
 tint(f"{SRC}/5.png", f"{OUT}/component/table.png", size=(1400, 1400))
 
-# --- the two cupids that close the entrance (already inked on transparency) --
-trim_art(f"{SRC}/elements/19.png", f"{OUT}/component/cupid-pour.png")
-trim_art(f"{SRC}/elements/20.png", f"{OUT}/component/cupid-toast.png")
+# --- the cupid that closes the entrance --------------------------------------
+# The pouring cupid arrives split into wings / bottle / body so each part can be
+# animated on its own. They must share ONE crop box, or the parts stop lining up.
+ANGEL_PARTS = {"24": "angel-wings", "25": "angel-bottle", "26": "angel-body"}
+_stack = None
+for n in ANGEL_PARTS:
+    _part = Image.open(f"{SRC}/elements/{n}.png").convert("RGBA")
+    _stack = _part.copy() if _stack is None else (_stack.alpha_composite(_part) or _stack)
+_b = _stack.getchannel("A").point(lambda v: 255 if v > 20 else 0).getbbox()
+_pad = 12
+_box = (max(0, _b[0] - _pad), max(0, _b[1] - _pad),
+        min(_stack.width, _b[2] + _pad), min(_stack.height, _b[3] + _pad))
+for n, out in ANGEL_PARTS.items():
+    _im = Image.open(f"{SRC}/elements/{n}.png").convert("RGBA").crop(_box)
+    _im = _im.resize((900, round(900 * _im.height / _im.width)), Image.LANCZOS)
+    _im.save(f"{OUT}/component/{out}.png", optimize=True)
+    print("angel", out, _im.size)

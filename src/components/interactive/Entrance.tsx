@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import { useLang } from '@/hooks/useLang';
 import { COPY } from '@/lib/constants';
 import Monogram from '@/components/ui/Monogram';
+import AngelLayers from '@/components/interactive/AngelLayers';
 
 type Phase = 'idle' | 'sketching' | 'revealing' | 'morphing' | 'angels' | 'done';
 
@@ -21,35 +22,34 @@ const POLL_MS = 350;
 const BRUSH_RADIUS_DESKTOP = 40;
 const BRUSH_RADIUS_TOUCH = 52;
 
-// The two cupids that take turns in the closing scene
-const ANGELS = ['/component/cupid-pour.png', '/component/cupid-toast.png'];
-// How long each one holds the centre before handing over, and how long the
-// whole scene runs before the page takes over.
-const ANGEL_SWAP_MS = 900;
+// The cupid holds the centre for the whole closing scene — long enough for its
+// wings to beat through a few cycles (see AngelLayers).
 const ANGEL_SCENE_MS = 3000;
 
 // Sparkles and little bows scattered round the cupid, as % of its box.
 // Kept off the middle so nothing lands on the drawing itself.
-const ANGEL_DUST: { x: number; y: number; size: number; gold?: boolean; delay: number }[] = [
-  { x: 14, y: 10, size: 16, gold: true, delay: 0 },
-  { x: 33, y: 2, size: 9, delay: 1.1 },
-  { x: 57, y: 4, size: 12, gold: true, delay: 0.6 },
-  { x: 76, y: 1, size: 8, delay: 1.9 },
-  { x: 93, y: 18, size: 15, gold: true, delay: 0.3 },
-  { x: 99, y: 44, size: 9, delay: 2.2 },
-  { x: 90, y: 72, size: 12, gold: true, delay: 1.4 },
-  { x: 72, y: 94, size: 8, delay: 0.9 },
-  { x: 44, y: 99, size: 14, gold: true, delay: 2.5 },
-  { x: 16, y: 88, size: 10, delay: 1.6 },
-  { x: 2, y: 62, size: 9, gold: true, delay: 2 },
-  { x: 5, y: 34, size: 12, delay: 0.45 },
+// Each one blinks on its own period as well as its own delay, so the ring
+// never pulses in unison.
+const ANGEL_DUST: { x: number; y: number; size: number; gold?: boolean; delay: number; period: number }[] = [
+  { x: 14, y: 10, size: 16, gold: true, delay: 0, period: 2.4 },
+  { x: 33, y: 2, size: 9, delay: 1.1, period: 3.1 },
+  { x: 57, y: 4, size: 12, gold: true, delay: 0.6, period: 2.7 },
+  { x: 76, y: 1, size: 8, delay: 1.9, period: 3.6 },
+  { x: 93, y: 18, size: 15, gold: true, delay: 0.3, period: 2.2 },
+  { x: 99, y: 44, size: 9, delay: 2.2, period: 3.3 },
+  { x: 90, y: 72, size: 12, gold: true, delay: 1.4, period: 2.6 },
+  { x: 72, y: 94, size: 8, delay: 0.9, period: 3.8 },
+  { x: 44, y: 99, size: 14, gold: true, delay: 2.5, period: 2.9 },
+  { x: 16, y: 88, size: 10, delay: 1.6, period: 3.4 },
+  { x: 2, y: 62, size: 9, gold: true, delay: 2, period: 2.5 },
+  { x: 5, y: 34, size: 12, delay: 0.45, period: 3 },
 ];
 
 // Bows ride the corners of the ring, clear of the cupid inset inside it
-const ANGEL_BOWS: { x: number; y: number; w: number; tilt: number; delay: number }[] = [
-  { x: 4, y: 20, w: 3.4, tilt: -16, delay: 0 },
-  { x: 97, y: 60, w: 2.9, tilt: 13, delay: 1.3 },
-  { x: 57, y: 103, w: 2.4, tilt: -5, delay: 0.7 },
+const ANGEL_BOWS: { x: number; y: number; w: number; tilt: number; delay: number; period: number }[] = [
+  { x: 4, y: 20, w: 3.4, tilt: -16, delay: 0, period: 4.2 },
+  { x: 97, y: 60, w: 2.9, tilt: 13, delay: 1.3, period: 5.1 },
+  { x: 57, y: 103, w: 2.4, tilt: -5, delay: 0.7, period: 3.6 },
 ];
 
 interface EntranceProps {
@@ -73,7 +73,6 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
 
   const [phase, setPhase] = useState<Phase>('idle');
   const [hintVisible, setHintVisible] = useState(true);
-  const [angelIndex, setAngelIndex] = useState(0);
   const [canvasReady, setCanvasReady] = useState(false);
 
   // ---- Canvas setup ----
@@ -124,7 +123,12 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
 
   // Preload + decode the photos up front so they don't pop/flash when dealt
   useEffect(() => {
-    [...ANGELS, '/images/after-sketch.webp'].forEach((src) => {
+    [
+      '/component/angel-wings.png',
+      '/component/angel-bottle.png',
+      '/component/angel-body.png',
+      '/images/after-sketch.webp',
+    ].forEach((src) => {
       const img = new Image();
       img.src = src;
       img.decode?.().catch(() => {});
@@ -243,16 +247,8 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
     }
 
     if (phase === 'angels') {
-      // The two cupids take turns in the centre until the scene's time is up
-      const swap = window.setInterval(
-        () => setAngelIndex((i) => (i + 1) % ANGELS.length),
-        ANGEL_SWAP_MS
-      );
       const t = setTimeout(() => setPhase('done'), ANGEL_SCENE_MS);
-      return () => {
-        window.clearInterval(swap);
-        clearTimeout(t);
-      };
+      return () => clearTimeout(t);
     }
 
     if (phase === 'done') {
@@ -337,21 +333,12 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
           transition: 'opacity 700ms var(--ease-smooth)',
         }}
       >
-        <div className="relative w-[58vw] max-w-[19rem] aspect-square animate-angel-sway">
-          {/* The cupid sits inset, leaving the outer ring free for the trimmings */}
-          {ANGELS.map((src, i) => (
-            <img
-              key={src}
-              src={src}
-              alt=""
-              draggable={false}
-              className="absolute inset-[15%] w-[70%] h-[70%] object-contain select-none"
-              style={{
-                opacity: angelIndex === i ? 1 : 0,
-                transition: 'opacity 420ms var(--ease-smooth)',
-              }}
-            />
-          ))}
+        <div className="relative w-[58vw] max-w-[19rem] aspect-square">
+          {/* The cupid sits inset, leaving the ring free for the trimmings.
+              It carries its own motion — nothing is animated at this level. */}
+          <div className="absolute inset-[15%]">
+            <AngelLayers className="w-full h-full" />
+          </div>
 
           {/* Blink-blink around the cupid, in the page's own sparkle style */}
           {ANGEL_DUST.map((d, i) => (
@@ -363,7 +350,11 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
             >
               <span
                 className={`block animate-twinkle leading-none ${d.gold ? 'text-gold' : 'text-ink-muted'}`}
-                style={{ fontSize: d.size, animationDelay: `${d.delay}s` }}
+                style={{
+                  fontSize: d.size,
+                  animationDelay: `${d.delay}s`,
+                  animationDuration: `${d.period}s`,
+                }}
               >
                 ✦
               </span>
@@ -385,6 +376,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
                 width: `${b.w}rem`,
                 rotate: `${b.tilt}deg`,
                 animationDelay: `${b.delay}s`,
+                animationDuration: `${b.period}s`,
               }}
             />
           ))}
@@ -447,13 +439,6 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
           0%, 100% { opacity: 0.6; transform: translateY(0); }
           50% { opacity: 1; transform: translateY(-2px); }
         }
-        @keyframes angelSway {
-          0%, 100% { transform: translateY(0) rotate(-2deg); }
-          50% { transform: translateY(-10px) rotate(2deg); }
-        }
-        .animate-angel-sway {
-          animation: angelSway 3.4s ease-in-out infinite;
-        }
         @keyframes bowDrift {
           0%, 100% { transform: translate(-50%, -50%) translateY(0); opacity: 0.7; }
           50% { transform: translate(-50%, -50%) translateY(-5px); opacity: 1; }
@@ -462,7 +447,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
           animation: bowDrift 4.2s ease-in-out infinite;
         }
         @media (prefers-reduced-motion: reduce) {
-          .animate-angel-sway, .animate-bow-drift { animation: none; }
+          .animate-bow-drift { animation: none; }
         }
         @keyframes float {
           0%, 100% { transform: translateY(0) rotate(-8deg); }
