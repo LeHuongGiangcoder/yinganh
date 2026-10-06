@@ -287,7 +287,7 @@ export const COPY: Record<
       title: 'Vietnam',
       body: 'A long, narrow country with a capital at one end and our wedding at the other. Here is where the two sit.',
       hint: 'Tap a light on the map',
-      focusHint: 'Tap to open',
+      focusHint: 'Two cities are lit on the map. Tap either one to read about it.',
       watchLabel: 'While you are in the city',
       closeLabel: 'Close',
       places: {
@@ -522,7 +522,7 @@ export const COPY: Record<
       title: 'Việt Nam',
       body: 'Một dải đất dài, thủ đô ở đầu này và đám cưới của tụi mình ở đầu kia. Đây là vị trí của hai nơi đó.',
       hint: 'Bấm vào một điểm sáng trên bản đồ',
-      focusHint: 'Bấm để xem',
+      focusHint: 'Hai thành phố đang sáng trên bản đồ. Bấm vào một điểm để xem nhé.',
       watchLabel: 'Đi chơi gì ở Sài Gòn',
       closeLabel: 'Đóng',
       places: {

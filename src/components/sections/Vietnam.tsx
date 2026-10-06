@@ -76,14 +76,22 @@ export default function Vietnam() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // Negative margins on all but the middle tenth of the viewport, so this
-  // reports only while the map is crossing the centre of the screen.
+  // The notice waits until the drawing is properly on screen — not merely
+  // touching it — so it arrives once the guest is actually looking at the map.
+  // It latches on: the map is taller than half a phone screen, so a ratio read
+  // live would cross the mark back and forth as the page scrolls and the card
+  // would blink. Once it is up it stays up until a pin is pressed.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     const observer = new IntersectionObserver(
-      ([entry]) => setCentred(entry.isIntersecting),
-      { rootMargin: '-45% 0px -45% 0px' }
+      ([entry]) => {
+        if (entry.intersectionRatio >= 0.5) {
+          setCentred(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: [0, 0.5, 0.75, 1] }
     );
     observer.observe(map);
     return () => observer.disconnect();
@@ -103,8 +111,6 @@ export default function Vietnam() {
 
   const openPin = PINS.find((p) => p.id === active);
   const place = openPin ? copy.places[openPin.id] : null;
-  // The tag rides the wedding city's bead — the pin worth opening first
-  const hintPin = PINS.find((p) => p.id === 'hcmc')!;
   const hinting = centred && !used && !active;
 
   return (
@@ -186,15 +192,15 @@ export default function Vietnam() {
           })}
 
           {hinting && (
-            <span
-              className="map-hint"
-              style={
-                { '--pin-x': `${hintPin.x}%`, '--pin-y': `${hintPin.y}%` } as React.CSSProperties
-              }
-              aria-hidden
+            <button
+              type="button"
+              className="map-notice"
+              onClick={() => setUsed(true)}
+              aria-label={copy.closeLabel}
             >
-              {copy.focusHint}
-            </span>
+              <span className="map-pin-bead map-notice-bead" aria-hidden />
+              <span className="map-notice-text">{copy.focusHint}</span>
+            </button>
           )}
 
           {openPin && place && (
