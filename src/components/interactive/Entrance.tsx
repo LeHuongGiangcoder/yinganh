@@ -8,8 +8,9 @@ import AngelLayers from '@/components/interactive/AngelLayers';
 
 type Phase = 'idle' | 'sketching' | 'revealing' | 'morphing' | 'angels' | 'done';
 
-// The pale sky the guest scratches away to find the drawing underneath
-const VEIL = '#EAF1F9';
+// The pale sheet the guest scratches away to find the drawing underneath. It is
+// the blue paper's own colour, so the part still unscratched reads as the page.
+const VEIL = '#EAF5FD';
 const GRID_COLS = 20;
 const GRID_ROWS = 30;
 // Threshold is % of full viewport cells touched. Kept low because the centered
@@ -283,6 +284,9 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
       style={{ backgroundColor: VEIL }}
       aria-label="Sketch entrance"
     >
+      {/* Layer 0: the blue paper the whole entrance is printed on */}
+      <div className="paper-sheet" aria-hidden />
+
       {/* Layer 1: the drawing of the couple */}
       <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"

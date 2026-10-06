@@ -7,13 +7,6 @@ import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Toggle from '@/components/ui/Toggle';
 import Button from '@/components/ui/Button';
 
-// Dresscode palette: sky and ivory, warming into gold
-const PALETTE = [
-  '#DCE8F5', '#A8C4E0', '#5B82B0',
-  '#2A4C7D', '#12305B', '#F7FAFD',
-  '#FAF0D4', '#F0DC98', '#E7C965',
-];
-
 // Ink sketch illustrating each agenda moment (public/component)
 const MOMENT_ART: Record<AgendaMoment, string> = {
   vows: '/component/7.png',
@@ -66,7 +59,8 @@ function Divider({ className = '' }: { className?: string }) {
   return <div className={`w-8 h-[1px] bg-ink/10 ${className}`}></div>;
 }
 
-// Venue, schedule & dresscode, shown to everyone right after the hero
+// Venue and the run of the day, shown to everyone right after the hero.
+// The dresscode used to sit here too; it has its own section now.
 export default function EventDetails() {
   const { lang } = useLang();
   const copy = COPY[lang].eventDetails;
@@ -108,7 +102,7 @@ export default function EventDetails() {
   return (
     <section
       id="event-details"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 section-y"
+      className="w-full max-w-7xl mx-auto px-5 md:px-10"
     >
       <div className="max-w-xl mx-auto px-4 md:px-0 flex flex-col items-center text-center gap-16">
         {/* Venue */}
@@ -274,48 +268,6 @@ export default function EventDetails() {
               })}
             </ol>
           </div>
-        </div>
-
-        {/* Dresscode */}
-        <div id="dresscode" className="w-full pt-16 border-t border-ink/10 flex flex-col items-center scroll-mt-16">
-          <Subtitle as="div" className="mb-4">
-            {copy.dresscodeSubLabel}
-          </Subtitle>
-          <div className="flex items-center justify-center gap-4 md:gap-6 mb-4">
-            <img
-              src="/component/13.png"
-              alt=""
-              loading="lazy"
-              draggable={false}
-              className="w-12 md:w-16 h-auto -scale-x-100"
-            />
-            <Heading variant="h2" className="text-center">
-              {copy.dresscode}
-            </Heading>
-            <img
-              src="/component/13.png"
-              alt=""
-              loading="lazy"
-              draggable={false}
-              className="w-12 md:w-16 h-auto"
-            />
-          </div>
-          <Divider className="mb-8" />
-
-          <div className="grid grid-cols-3 gap-3 md:gap-4 w-full max-w-[280px] md:max-w-xs">
-            {PALETTE.map((color) => (
-              <div
-                key={color}
-                className="aspect-[3/4] rounded-2xl border border-ink/10"
-                style={{ backgroundColor: color }}
-                aria-hidden
-              />
-            ))}
-          </div>
-
-          <Body variant="regular" className="mt-6 max-w-sm text-center italic">
-            {copy.dresscodeNote}
-          </Body>
         </div>
       </div>
     </section>

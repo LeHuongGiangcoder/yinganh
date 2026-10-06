@@ -6,14 +6,17 @@ import { COPY, WEDDING } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
 import Decor from '@/components/ui/Decor';
+import { useStepper, StepperControls } from '@/components/ui/Stepper';
 
-// Where guests sleep: the venue's own wedding rate, and the streets to look
-// along if they would rather book elsewhere.
+// Where guests sleep. Both answers live in one card the guest pages through:
+// the venue's own wedding rate first, the streets to look along if they would
+// rather book elsewhere second.
 export default function Stay() {
   const { lang } = useLang();
   const copy = COPY[lang].stay;
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const { index, setIndex, go, swipeHandlers } = useStepper(2);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -42,7 +45,7 @@ export default function Stay() {
     <section
       id="stay"
       ref={sectionRef}
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y overflow-hidden border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 scroll-mt-20"
     >
       <div style={revealStyle(0)} className="flex flex-col items-center text-center">
         <Subtitle as="div" className="mb-4">
@@ -63,64 +66,76 @@ export default function Stay() {
         <div className="w-12 h-[1px] bg-ink/20 mb-10"></div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start px-4 md:px-0">
-        {/* The venue's own rooms, at the wedding rate */}
-        <div style={revealStyle(120)} className="md:col-span-7 w-full flex justify-center">
-          <div className="relative w-full max-w-md border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
-            <Heading variant="h3" className="!text-ink mb-5">
-              {WEDDING.venue}
-            </Heading>
-            <div className="w-8 h-px bg-ink/15 mb-6" />
+      {/* One card, two pages: the venue, then everywhere else */}
+      <div style={revealStyle(120)} className="w-full max-w-lg mx-auto px-4 md:px-0">
+        <div className="stepper-frame" {...swipeHandlers}>
+          <div className="stepper-stack px-6 md:px-10 py-10">
+            {/* Page 1 — the venue's own rooms, at the wedding rate */}
+            <div className={`stepper-page flex flex-col items-center justify-center text-center ${index === 0 ? 'is-active' : ''}`}>
+              <Heading variant="h3" className="!text-ink mb-5">
+                {WEDDING.venue}
+              </Heading>
+              <div className="w-8 h-px bg-ink/15 mb-6" />
 
-            <Body variant="regular" className="mb-5">
-              {copy.lead}
-            </Body>
-
-            <div className="w-full border-y border-ink/10 py-5 my-1">
-              <Body variant="regular" className="!text-ink italic">
-                {copy.rate}
+              <Body variant="regular" className="mb-5">
+                {copy.lead}
               </Body>
+
+              <div className="w-full border-y border-ink/10 py-5 my-1">
+                <Body variant="regular" className="!text-ink italic">
+                  {copy.rate}
+                </Body>
+              </div>
+
+              <Body variant="small" className="mt-5 italic">
+                {copy.booking}
+              </Body>
+
+              <a
+                href={WEDDING.stayBookingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6"
+                tabIndex={index === 0 ? undefined : -1}
+              >
+                <Button variant="primary">{copy.bookBtn}</Button>
+              </a>
             </div>
 
-            <Body variant="small" className="mt-5 italic">
-              {copy.booking}
-            </Body>
-
-            <a
-              href={WEDDING.stayBookingUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6"
-            >
-              <Button variant="primary">{copy.bookBtn}</Button>
-            </a>
+            {/* Page 2 — somewhere else in District 1 */}
+            <div className={`stepper-page flex flex-col items-center justify-center text-center ${index === 1 ? 'is-active' : ''}`}>
+              <Heading variant="h3" className="!text-ink mb-5 max-w-xs">
+                {copy.areaTitle}
+              </Heading>
+              <div className="w-8 h-px bg-ink/15 mb-6" />
+              <Body variant="regular" className="mb-8 max-w-xs">
+                {copy.areaLead}
+              </Body>
+              <ul className="flex flex-col gap-3.5">
+                {copy.areas.map((area) => (
+                  <li key={area} className="flex items-center justify-center gap-3">
+                    <span className="text-gold text-[8px]" aria-hidden>
+                      ✦
+                    </span>
+                    <Heading variant="h4" as="span">
+                      {area}
+                    </Heading>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
-        {/* Somewhere else in District 1 */}
-        <div style={revealStyle(240)} className="md:col-span-5 w-full flex justify-center">
-          <div className="w-full max-w-md border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
-            <Subtitle as="div" className="mb-3 !tracking-[0.25em]">
-              {copy.areaTitle}
-            </Subtitle>
-            <Body variant="small" className="mb-6 max-w-xs">
-              {copy.areaLead}
-            </Body>
-            <ul className="flex flex-col gap-2.5">
-              {copy.areas.map((area) => (
-                <li key={area} className="flex items-center justify-center gap-3">
-                  <span className="text-gold text-[8px]" aria-hidden>
-                    ✦
-                  </span>
-                  <Heading variant="h4" as="span">
-                    {area}
-                  </Heading>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <StepperControls
+          index={index}
+          count={2}
+          go={go}
+          setIndex={setIndex}
+          label="Option"
+        />
       </div>
+
     </section>
   );
 }

@@ -26,6 +26,23 @@ export const WEDDING = {
     'https://www.klook.com/en-CA/activity/227975-open-date-vip-fast-track-service-for-immigration-at-ho-chi-minh-city/',
 } as const;
 
+// Two city guides the couple likes, hung off the Ho Chi Minh City pin on the
+// map. Titles stay in the video's own language — they are what YouTube prints.
+export const HCMC_VIDEOS = [
+  {
+    id: 'PYNRmHRVxDE',
+    url: 'https://youtu.be/PYNRmHRVxDE',
+    title: 'Ho Chi Minh City Diaries: Where to Eat and Shop',
+    author: 'Christine Le',
+  },
+  {
+    id: 'WisjwmQHPRQ',
+    url: 'https://youtu.be/WisjwmQHPRQ',
+    title: 'Ho Chi Minh City in 4 Days (for cafés, food & vintage architecture)',
+    author: 'Mei Time',
+  },
+] as const;
+
 type Family = {
   side: string;
   father: string;
@@ -76,6 +93,20 @@ export const COPY: Record<
       afterApproval: { title: string; items: string[] };
       arrivalTips: { title: string; items: string[] };
       fastTrack: { title: string; body: string; note: string; btn: string };
+    };
+    vietnam: {
+      subtitle: string;
+      title: string;
+      body: string;
+      hint: string;
+      watchLabel: string;
+      closeLabel: string;
+      // `pin` is the short form written beside the bead on the map, where a
+      // full city name would run across the drawing
+      places: {
+        hanoi: { name: string; pin: string; role: string; note: string };
+        hcmc: { name: string; pin: string; role: string; note: string };
+      };
     };
     stay: {
       subtitle: string;
@@ -246,6 +277,28 @@ export const COPY: Record<
         body: 'Immigration at Tan Son Nhat can be slow after a long flight. A VIP fast-track service walks you through the queue — worth it if you land in the evening.',
         note: 'When booking, please select “Non-Vietnamese”.',
         btn: 'Book Fast Track',
+      },
+    },
+    vietnam: {
+      subtitle: 'WELCOME TO',
+      title: 'Vietnam',
+      body: 'A long, narrow country with a capital at one end and our wedding at the other. Here is where the two sit.',
+      hint: 'Tap a light on the map',
+      watchLabel: 'While you are in the city',
+      closeLabel: 'Close',
+      places: {
+        hanoi: {
+          name: 'Hanoi',
+          pin: 'Hanoi',
+          role: 'The capital',
+          note: 'Up north, two hours by plane. Old quarter streets, lakes and the best cold weather the country has — worth a few days if you have them.',
+        },
+        hcmc: {
+          name: 'Ho Chi Minh City',
+          pin: 'Saigon',
+          role: 'Where we are getting married',
+          note: 'Saigon to everyone who lives here. Warm all year, awake all night, and the whole wedding happens within a few streets of District 1.',
+        },
       },
     },
     stay: {
@@ -456,6 +509,28 @@ export const COPY: Record<
         body: 'Thủ tục nhập cảnh ở Tân Sơn Nhất có thể khá lâu sau một chuyến bay dài. Dịch vụ Fast Track sẽ có người đón và đưa bạn qua cửa ưu tiên — rất đáng nếu bạn hạ cánh vào buổi tối.',
         note: 'Khi đặt, vui lòng chọn “Non-Vietnamese”.',
         btn: 'Đặt Fast Track',
+      },
+    },
+    vietnam: {
+      subtitle: 'CHÀO MỪNG ĐẾN',
+      title: 'Việt Nam',
+      body: 'Một dải đất dài, thủ đô ở đầu này và đám cưới của tụi mình ở đầu kia. Đây là vị trí của hai nơi đó.',
+      hint: 'Bấm vào một điểm sáng trên bản đồ',
+      watchLabel: 'Đi chơi gì ở Sài Gòn',
+      closeLabel: 'Đóng',
+      places: {
+        hanoi: {
+          name: 'Hà Nội',
+          pin: 'Hà Nội',
+          role: 'Thủ đô',
+          note: 'Ở phía Bắc, bay chừng hai tiếng. Phố cổ, hồ và tiết trời mát nhất nước — rất đáng ở lại vài ngày nếu bạn có thời gian.',
+        },
+        hcmc: {
+          name: 'Thành phố Hồ Chí Minh',
+          pin: 'Sài Gòn',
+          role: 'Nơi tụi mình làm đám cưới',
+          note: 'Người ở đây vẫn gọi là Sài Gòn. Nắng quanh năm, thức cả đêm, và toàn bộ đám cưới nằm gọn trong vài con đường ở Quận 1.',
+        },
       },
     },
     stay: {

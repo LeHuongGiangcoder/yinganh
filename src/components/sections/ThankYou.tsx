@@ -29,7 +29,7 @@ export default function ThankYou() {
   return (
     <section
       id="thank-you"
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y flex flex-col items-center justify-center text-center border-t border-ink/10"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 flex flex-col items-center justify-center text-center"
     >
       {SPARKS.map((s, i) => (
         <span

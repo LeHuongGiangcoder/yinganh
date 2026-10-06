@@ -61,7 +61,7 @@ export default function RSVP() {
   return (
     <section
       id="rsvp"
-      className="w-full max-w-7xl mx-auto px-5 md:px-10 section-y scroll-mt-20"
+      className="w-full max-w-7xl mx-auto px-5 md:px-10 scroll-mt-20"
     >
       {/* Two cupids perch on the corners of the card */}
       {/* Sits on its own frosted card: the form was disappearing into the sky

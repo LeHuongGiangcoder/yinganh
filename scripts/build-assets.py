@@ -75,15 +75,22 @@ def photo(src, out, size=(1400, 1400), q=82, gray=False, crop=None):
     im.save(out, "WEBP", quality=q, method=6)
     print("photo", out, im.size)
 
-def passthrough(src, out, size=(1400, 1400), q=80):
+# --- paper backgrounds -----------------------------------------------------
+# The page is printed on two sheets of textured paper, blue and cream, that take
+# turns down its length. Each sheet is tiled vertically, so the tile is stacked
+# with a mirrored copy of itself: the seam where one repeat meets the next is
+# then a reflection rather than a cut, and never reads as a line.
+def paper(src, out, width=760, q=72):
     im = Image.open(src).convert("RGB")
-    im.thumbnail(size, Image.LANCZOS)
-    im.save(out, "WEBP", quality=q, method=6)
-    print("bg", out, im.size)
+    im = im.resize((width, round(width * im.height / im.width)), Image.LANCZOS)
+    tile = Image.new("RGB", (width, im.height * 2))
+    tile.paste(im, (0, 0))
+    tile.paste(ImageOps.flip(im), (0, im.height))
+    tile.save(out, "WEBP", quality=q, method=6)
+    print("paper", out, tile.size)
 
-# --- backgrounds -----------------------------------------------------------
-passthrough(f"{SRC}/background/2.webp", f"{OUT}/images/bg-sky.webp", (1100, 1900))
-passthrough(f"{SRC}/background/4.webp", f"{OUT}/images/bg-cloud.webp", (1100, 1900))
+paper(f"{SRC}/background/paper-blue.png", f"{OUT}/images/paper-blue.webp")
+paper(f"{SRC}/background/paper-beige.png", f"{OUT}/images/paper-beige.webp")
 
 # --- entrance --------------------------------------------------------------
 tint(f"{SRC}/sketch.png", f"{OUT}/images/sketch-portrait.png", gamma=1.15, size=(1100, 1650), trim=False)
@@ -171,3 +178,9 @@ for n, crop in GUIDE_CROPS.items():
         _im = _im.crop((0, 0, GUIDE_W, GUIDE_H))
     _im.save(f"{OUT}/guide/step-{n}.png", optimize=True)
     print("guide", n, _im.size)
+
+# --- the map of Vietnam ------------------------------------------------------
+# Drawn as pencil on white like the rest of the line art, so it is re-inked in
+# navy on transparency. Trimmed to the drawing itself — Vietnam.tsx pins Hanoi
+# and Ho Chi Minh City by percentage of the trimmed box.
+tint(f"{SRC}/vietnam.png", f"{OUT}/component/vietnam-map.png", size=(1100, 1100))

@@ -5,9 +5,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Pale sky the whole invitation sits on
+        // The blue paper the whole invitation is printed on
         sky: {
-          DEFAULT: '#EAF1F9',
+          DEFAULT: '#EAF5FD',
           deep: '#D6E4F2',
           light: '#F7FAFD',
         },

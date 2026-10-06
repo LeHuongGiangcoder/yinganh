@@ -51,7 +51,7 @@ export default function Food() {
     <section
       id="food"
       ref={sectionRef}
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y overflow-hidden border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 scroll-mt-20"
     >
       <Decor
         name="cat-heart"

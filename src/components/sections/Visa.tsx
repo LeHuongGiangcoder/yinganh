@@ -14,7 +14,7 @@ export default function Visa() {
   return (
     <section
       id="visa"
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 section-y border-t border-ink/10 scroll-mt-20"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 scroll-mt-20"
     >
       {/* A cat rides an arrow in, a cupid toasts on the way out */}
       <Decor
