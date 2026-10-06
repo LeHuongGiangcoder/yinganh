@@ -300,7 +300,14 @@ export default function Vietnam() {
           )}
         </div>
 
-        <Body variant="small" className="mt-7 italic">
+        {/* The quiet standing caption. It steps aside while the notice is up,
+            rather than saying the same thing twice, and keeps its space so
+            nothing below it moves. */}
+        <Body
+          variant="small"
+          className="mt-7 italic"
+          style={{ opacity: hinting ? 0 : 1, transition: 'opacity 400ms var(--ease-smooth)' }}
+        >
           {copy.hint}
         </Body>
       </div>
