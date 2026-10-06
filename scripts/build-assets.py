@@ -75,6 +75,20 @@ def photo(src, out, size=(1400, 1400), q=82, gray=False, crop=None):
     im.save(out, "WEBP", quality=q, method=6)
     print("photo", out, im.size)
 
+def cutout(src, out, size=(900, 900), q=86):
+    """A dish already knocked out of its background. The uploads are phone-sized
+    canvases with the dish floating somewhere in them, so the transparent margin
+    is trimmed away first: every cut-out then fills its own box edge to edge and
+    the layout can size the three against each other rather than against the
+    empty space each happened to be saved with."""
+    im = Image.open(src).convert("RGBA")
+    box = im.getchannel("A").point(lambda v: 255 if v > 8 else 0).getbbox()
+    if box:
+        im = im.crop(box)
+    im.thumbnail(size, Image.LANCZOS)
+    im.save(out, "WEBP", quality=q, method=6, lossless=False, exact=False)
+    print("cutout", out, im.size)
+
 # --- paper backgrounds -----------------------------------------------------
 # The page is printed on two sheets of textured paper, blue and cream, that take
 # turns down its length. Each sheet is tiled vertically, so the tile is stacked
@@ -192,9 +206,10 @@ tint(f"{SRC}/vietnam.png", f"{OUT}/component/vietnam-map.png", size=(1100, 1100)
 photo(f"{SRC}/photos/reverie-1.jpg", f"{OUT}/images/stay-01.webp", (1000, 1000), crop=(4/3, 0.5))
 photo(f"{SRC}/photos/reverie-2.jpg", f"{OUT}/images/stay-02.webp", (1000, 1000), crop=(4/5, 0.5))
 
-# Square, because the three hang as an overlapping row of prints
+# The food tour hangs as three cut-out dishes rather than framed prints, so
+# these arrive already knocked out of their backgrounds and keep their alpha.
 for n in (1, 2, 3):
-    photo(f"{SRC}/photos/food-{n}.webp", f"{OUT}/images/food-{n:02d}.webp", (800, 800), crop=(1, 0.5))
+    cutout(f"{SRC}/photos/food-cut-{n}.png", f"{OUT}/images/food-{n:02d}.webp")
 
 photo(f"{SRC}/photos/hanoi-1.jpg", f"{OUT}/images/hanoi-01.webp", (700, 700), crop=(3/2, 0.5))
 photo(f"{SRC}/photos/hanoi-2.jpeg", f"{OUT}/images/hanoi-02.webp", (700, 700), crop=(3/2, 0.5))

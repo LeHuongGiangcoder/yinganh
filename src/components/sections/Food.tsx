@@ -6,18 +6,20 @@ import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Decor from '@/components/ui/Decor';
 import MapGuide from '@/components/interactive/MapGuide';
-import Photo from '@/components/ui/Photo';
 
-// Three plates from the lists below, in an even row. They used to be dropped
-// on the table at their own angles, with the third hung at half width under
-// the other two — three sizes and three angles in one block, which read as
-// mess rather than as snapshots. One shape, one line, one gap; only the drop-in
-// beat is still staggered.
+// The three dishes the couple sends people out for, knocked out of their
+// backgrounds and laid as a cluster rather than a row: two across the top and
+// the third slung underneath, overlapping both. They are cut-outs, not prints,
+// so they hang with no frame — a soft shadow is all that lifts them off the
+// paper. Each one is placed as a % of the cluster box so the arrangement holds
+// at every width. `w` is the share of the box the dish spans.
 const PLATES = [
-  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake', tilt: -5 },
-  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs', tilt: 3.5 },
-  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa', tilt: -2.5 },
+  { src: '/images/food-01.webp', alt: 'Banh mi from Huynh Hoa, cut in half', x: 0, y: 0, w: 56, tilt: -4, z: 1 },
+  { src: '/images/food-02.webp', alt: 'Banh xeo on a bamboo tray with herbs', x: 44, y: 6, w: 56, tilt: 3, z: 1 },
+  { src: '/images/food-03.webp', alt: 'A bowl of hu tieu with prawns and pork', x: 22, y: 38, w: 52, tilt: -2, z: 2 },
 ];
+// Height of the cluster box as a % of its width, so the bottom dish has room
+const PLATES_RATIO = 92;
 
 // Sparkles around the postcard, as % of its box — kept to the empty corners
 const POSTCARD_SPARKS = [
@@ -96,24 +98,32 @@ export default function Food() {
       </div>
 
       {/* What that actually looks like, before the lists themselves */}
-      {/* Three square prints dealt across the page, each overlapping the one
-          before it. The middle print sits on top, which is what makes the row
-          read as a stack rather than a grid. */}
-      <ul className="mt-12 md:mt-16 flex items-center justify-center max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-4 md:px-0">
+      <div
+        className="relative mt-12 md:mt-16 w-full max-w-sm sm:max-w-lg md:max-w-xl mx-auto"
+        style={{ aspectRatio: `100 / ${PLATES_RATIO}` }}
+      >
         {PLATES.map((plate, i) => (
-          <li
+          <img
             key={plate.src}
-            className="relative w-1/3"
+            src={plate.src}
+            alt={plate.alt}
+            loading="lazy"
+            draggable={false}
+            className="absolute select-none h-auto"
             style={{
               ...revealStyle(120 + i * 110),
-              marginLeft: i ? '-6%' : 0,
-              zIndex: i === 1 ? 2 : 1,
+              left: `${plate.x}%`,
+              top: `${plate.y}%`,
+              width: `${plate.w}%`,
+              zIndex: plate.z,
+              // The reveal already drives transform, so the resting tilt rides
+              // along with it rather than fighting it for the property.
+              transform: `${isVisible ? 'translateY(0)' : 'translateY(24px)'} rotate(${plate.tilt}deg)`,
+              filter: 'drop-shadow(0 10px 18px rgba(18, 48, 91, 0.18))',
             }}
-          >
-            <Photo src={plate.src} alt={plate.alt} ratio="1 / 1" tilt={plate.tilt} />
-          </li>
+          />
         ))}
-      </ul>
+      </div>
 
       <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
         {/* Left: how to save the lists, walked through step by step */}

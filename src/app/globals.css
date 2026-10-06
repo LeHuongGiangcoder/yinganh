@@ -6,10 +6,10 @@
   /* The two sheets the invitation is printed on, as flat colours. Each is the
      mean of its paper texture, so anything that has to sit flush with the page
      (the entrance veil, a solid fallback) matches the sheet behind it. */
-  --paper-blue: #EAF5FD;
-  --paper-beige: #FCF9F1;
+  --paper-blue: #C9E6FB;
+  --paper-beige: #F7F7F7;
 
-  --bg: #EAF5FD;
+  --bg: #C9E6FB;
   --bg-deep: #D6E4F2;
   --bg-light: #F7FAFD;
   --ink: #12305B;
@@ -200,6 +200,28 @@ body.entrance-locked {
     #000 calc(100% - var(--paper-seam) * 2),
     transparent 100%
   );
+  pointer-events: none;
+}
+
+/* The blue sheet is strong enough to compete with a block that is mostly text
+   and cards. Where that happens the blue is thinned through the middle — a soft
+   white wash over the centre column, fading out well before the edges — so the
+   sheet still reads as blue down both margins while the content sits on paper
+   pale enough to carry it. The wash is a child layer, not a filter, so the
+   paper grain underneath survives. */
+.paper-block-airy::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(
+      120% 70% at 50% 50%,
+      rgba(255, 255, 255, 0.82) 0%,
+      rgba(255, 255, 255, 0.62) 38%,
+      rgba(255, 255, 255, 0.18) 72%,
+      rgba(255, 255, 255, 0) 100%
+    );
   pointer-events: none;
 }
 

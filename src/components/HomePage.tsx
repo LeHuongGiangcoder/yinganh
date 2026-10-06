@@ -62,7 +62,9 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         {/* The page is a stack of blocks, blue and cream taking turns. Each
             block is one band — a section plus the ornament that closes it —
             and owns its own sheet of paper, edge to edge. The hero opens on
-            the blue sheet the whole page sits on. */}
+            the blue sheet the whole page sits on. Blue blocks that are mostly
+            text carry .paper-block-airy, which thins the blue through the
+            middle so the writing is not read against the full sheet. */}
         <Hero startAnimation={revealContent} />
 
         <div className="paper-block paper-block-beige">
@@ -93,7 +95,7 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
         </div>
 
         {/* The venue and the run of the day belong together */}
-        <div className="paper-block">
+        <div className="paper-block paper-block-airy">
           <EventDetails />
         </div>
 
@@ -111,7 +113,7 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
           </OrnamentRow>
         </div>
 
-        <div className="paper-block">
+        <div className="paper-block paper-block-airy">
           <Visa />
 
           {/* Breather between the visa guide and the travel notes */}
@@ -133,7 +135,7 @@ export default function HomePage({ skipIntro = false }: { skipIntro?: boolean })
           <Food />
         </div>
 
-        <div className="paper-block">
+        <div className="paper-block paper-block-airy">
           <RSVP />
         </div>
 
