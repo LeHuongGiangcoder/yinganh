@@ -67,7 +67,7 @@ export default function Hero({ startAnimation }: HeroProps) {
           style={revealStyle(2)}
           className="mt-4 md:mt-2 text-center font-signature font-normal text-ink leading-[1.35] pb-3"
         >
-          <span className="block" style={{ fontSize: 'clamp(4.6rem, 16.5vw, 10rem)' }}>
+          <span className="block" style={{ fontSize: 'clamp(4.0rem, 14.5vw, 8.5rem)' }}>
             Ying <span className="text-ink-soft">&amp;</span> Anh
           </span>
         </h1>
