@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // Ink and butter-gold, so the bursts read as part of the invitation's palette
-const SPARK_COLORS = ['#F0D370', '#F8EAB6', '#12305B', '#2A4C7D', '#A8C4E0'];
+const SPARK_COLORS = ['#FBE688', '#FDF3C2', '#12305B', '#2A4C7D', '#A8C4E0'];
 
 // When each shell goes off (ms from the start), and where it opens as a
 // fraction of the canvas — all in the upper half, so the fall is visible.

@@ -8,12 +8,15 @@ import Decor from '@/components/ui/Decor';
 import MapGuide from '@/components/interactive/MapGuide';
 import Photo from '@/components/ui/Photo';
 
-// Three plates from the lists below, laid out like snapshots on a table.
-// Each rests at its own angle and drops in on its own beat.
+// Three plates from the lists below, in an even row. They used to be dropped
+// on the table at their own angles, with the third hung at half width under
+// the other two — three sizes and three angles in one block, which read as
+// mess rather than as snapshots. One shape, one line, one gap; only the drop-in
+// beat is still staggered.
 const PLATES = [
-  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake', tilt: -3 },
-  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs', tilt: 2 },
-  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa', tilt: -1.5 },
+  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake' },
+  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs' },
+  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa' },
 ];
 
 // Sparkles around the postcard, as % of its box — kept to the empty corners
@@ -93,14 +96,15 @@ export default function Food() {
       </div>
 
       {/* What that actually looks like, before the lists themselves */}
-      <ul className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-8 max-w-3xl mx-auto px-4 md:px-0">
+      <ul className="mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 max-w-3xl mx-auto px-4 md:px-0">
         {PLATES.map((plate, i) => (
-          <li
-            key={plate.src}
-            style={revealStyle(120 + i * 110)}
-            className={i === 2 ? 'col-span-2 md:col-span-1 max-w-[50%] mx-auto md:max-w-none' : ''}
-          >
-            <Photo src={plate.src} alt={plate.alt} ratio="4 / 3" tilt={plate.tilt} />
+          <li key={plate.src} style={revealStyle(120 + i * 110)}>
+            <Photo
+              src={plate.src}
+              alt={plate.alt}
+              ratio="4 / 3"
+              className="photo-frame--flat"
+            />
           </li>
         ))}
       </ul>

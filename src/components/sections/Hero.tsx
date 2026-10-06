@@ -59,11 +59,18 @@ export default function Hero({ startAnimation }: HeroProps) {
           <span className="block w-16 md:w-24 h-px bg-ink/30" />
         </div>
 
-        <Heading variant="h1" style={revealStyle(2)} className="mt-6 md:mt-5 text-center">
-          <span className="block" style={{ fontSize: 'clamp(3.6rem, 13vw, 8rem)' }}>
-            Ying <span className="italic font-light text-ink-soft">&amp;</span> Anh
+        {/* The names are the one thing on the page that is written by hand
+            rather than set in type, so they get the signature face. Sacramento
+            carries a small x-height for its em, hence the larger size and the
+            extra line box for its descenders. */}
+        <h1
+          style={revealStyle(2)}
+          className="mt-4 md:mt-2 text-center font-signature font-normal text-ink leading-[1.25] pb-3"
+        >
+          <span className="block" style={{ fontSize: 'clamp(4.6rem, 16.5vw, 10rem)' }}>
+            Ying <span className="text-ink-soft">&amp;</span> Anh
           </span>
-        </Heading>
+        </h1>
 
         {/* The champagne tower the couple drew — their toast, at the top of the page */}
         <div style={revealStyle(3)} className="mt-8 md:mt-10">

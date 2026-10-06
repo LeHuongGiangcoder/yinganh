@@ -18,14 +18,15 @@ const config: Config = {
           muted: '#5A78A3',
         },
         gold: {
-          DEFAULT: '#E7C965',
-          light: '#F0DC98',
+          DEFAULT: '#FBE688',
+          light: '#FDF3C2',
         },
       },
       fontFamily: {
         display: ['var(--font-display)', 'serif'],
         body: ['var(--font-body)', 'sans-serif'],
         script: ['var(--font-script)', 'cursive'],
+        signature: ['var(--font-signature)', 'cursive'],
       },
       letterSpacing: {
         widest: '0.25em',

@@ -79,7 +79,7 @@ export default function Stay() {
               alt="Inside The Reverie Saigon"
               ratio="4 / 3"
               tilt={-2.5}
-              className="w-full"
+              className="w-full photo-frame--flat"
             />
             {/* The portrait rests on the corner of the one behind it */}
             <Photo
@@ -87,7 +87,7 @@ export default function Stay() {
               alt="The entrance to The Reverie Saigon"
               ratio="4 / 5"
               tilt={4}
-              className="absolute -bottom-2 right-0 sm:-right-4 w-32 sm:w-40 md:w-44"
+              className="absolute -bottom-2 right-0 sm:-right-4 w-32 sm:w-40 md:w-44 photo-frame--flat"
             />
           </div>
         </div>

@@ -15,8 +15,8 @@
   --ink: #12305B;
   --ink-soft: #2A4C7D;
   --ink-muted: #5A78A3;
-  --gold: #F0D370;
-  --gold-light: #F8EAB6;
+  --gold: #FBE688;
+  --gold-light: #FDF3C2;
 
   --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -98,8 +98,8 @@ body.entrance-locked {
 }
 
 @keyframes markerPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(231, 201, 101, 0.55); }
-  50% { box-shadow: 0 0 0 6px rgba(231, 201, 101, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(251, 230, 136, 0.6); }
+  50% { box-shadow: 0 0 0 6px rgba(251, 230, 136, 0); }
 }
 .animate-marker-pulse {
   animation: markerPulse 2s ease-out infinite;
@@ -332,7 +332,7 @@ body.entrance-locked {
   height: 0.5rem;
   border-radius: 9999px;
   background: var(--gold);
-  box-shadow: 0 0 8px 2px rgba(240, 211, 112, 0.85);
+  box-shadow: 0 0 8px 2px rgba(251, 230, 136, 0.85);
   transition: box-shadow 300ms var(--ease-smooth), transform 300ms var(--ease-smooth);
 }
 .map-pin-bead::after {
@@ -345,7 +345,7 @@ body.entrance-locked {
 }
 .map-pin[aria-pressed='true'] .map-pin-bead {
   transform: scale(1.35);
-  box-shadow: 0 0 14px 4px rgba(240, 211, 112, 1);
+  box-shadow: 0 0 14px 4px rgba(251, 230, 136, 1);
 }
 .map-pin[aria-pressed='true'] .map-pin-bead::after {
   animation-duration: 1.8s;
@@ -505,6 +505,14 @@ body.entrance-locked {
   border: 1px solid rgba(18, 48, 91, 0.15);
 }
 
+/* Flat: the mat and keyline without the drop shadow, for photos laid out as
+   an even grid rather than as snapshots dropped on a table. The shadow is what
+   sells the hand-laid look, and in a tidy row it only muddies the gaps. */
+.photo-frame--flat,
+.photo-frame--flat:hover {
+  box-shadow: none;
+}
+
 /* A frame that answers to the pointer — for photos that are also links */
 a.photo-frame,
 .photo-frame-hover {
@@ -569,7 +577,7 @@ a.photo-frame:hover,
 
 /* While the tag is up, both beads beat harder so they read as the thing to press */
 .is-hinting .map-pin-bead {
-  box-shadow: 0 0 14px 4px rgba(240, 211, 112, 1);
+  box-shadow: 0 0 14px 4px rgba(251, 230, 136, 1);
 }
 .is-hinting .map-pin-bead::after {
   animation-duration: 1.4s;

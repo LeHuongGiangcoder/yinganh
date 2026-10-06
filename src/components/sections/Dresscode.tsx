@@ -8,7 +8,7 @@ import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 const PALETTE = [
   '#DCE8F5', '#A8C4E0', '#5B82B0',
   '#2A4C7D', '#12305B', '#F7FAFD',
-  '#FAF0D4', '#F0DC98', '#E7C965',
+  '#FDF3C2', '#FBE688', '#EBCF6A',
 ];
 
 // What to wear. It sat with the venue and the run of the day until those two

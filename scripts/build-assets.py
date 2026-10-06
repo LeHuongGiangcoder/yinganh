@@ -17,7 +17,7 @@ OUT = os.path.join(REPO, "public")          # what the site actually serves
 TPL = os.path.join(SRC, "template-art")     # ink drawings carried over from the template
 
 NAVY = (18, 48, 91)
-GOLD = (240, 211, 112)   # butter yellow, matching --gold in globals.css
+GOLD = (251, 230, 136)   # butter yellow, matching --gold in globals.css
 
 def tint(src, out, navy=NAVY, gold=GOLD, keep_red=True, gamma=1.0, size=None, trim=True):
     """Dark-ink-on-light art -> transparent art in navy (reds mapped to gold)."""
