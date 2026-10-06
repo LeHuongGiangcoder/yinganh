@@ -140,8 +140,10 @@ export const COPY: Record<
       attendingYes: string;
       attendingNo: string;
       guestsLabel: string;
-      guestsHint: string;
       guestsPlaceholder: string;
+      companionsLabel: string;
+      companionsHint: string;
+      companionsPlaceholder: string;
       mealLabel: string;
       mealYes: string;
       mealNo: string;
@@ -353,8 +355,10 @@ export const COPY: Record<
       attendingYes: "Yes, I'll be there!",
       attendingNo: "No, can't make it ˙◠˙",
       guestsLabel: 'How many of you are coming?',
-      guestsHint: "Tell us who's joining you (partner, family, friend...).",
-      guestsPlaceholder: 'e.g. 2 — me and my partner',
+      guestsPlaceholder: 'e.g. 1, 2...',
+      companionsLabel: 'Tell us who',
+      companionsHint: "Tell us who's joining you (partner, family, friend...).",
+      companionsPlaceholder: 'e.g. me and my partner',
       mealLabel: 'Vegetarian?',
       mealYes: 'Yes',
       mealNo: 'No',
@@ -585,8 +589,10 @@ export const COPY: Record<
       attendingYes: 'Có chứ, mình sẽ tới!',
       attendingNo: 'Tiếc quá, mình không tới được ˙◠˙',
       guestsLabel: 'Bạn đi mấy người?',
-      guestsHint: 'Cho tụi mình biết bạn đi cùng ai nhé (người yêu, gia đình, bạn bè...).',
-      guestsPlaceholder: 'VD: 2 — mình và người yêu',
+      guestsPlaceholder: 'VD: 1, 2...',
+      companionsLabel: 'Bạn đi cùng ai?',
+      companionsHint: 'Cho tụi mình biết bạn đi cùng ai nhé (người yêu, gia đình, bạn bè...).',
+      companionsPlaceholder: 'VD: người yêu mình',
       mealLabel: 'Bạn ăn chay chứ?',
       mealYes: 'Có',
       mealNo: 'Không',

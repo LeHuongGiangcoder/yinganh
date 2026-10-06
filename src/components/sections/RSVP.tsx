@@ -16,6 +16,7 @@ export default function RSVP() {
 
   const [attending, setAttending] = useState<'yes' | 'no'>('yes');
   const [vegetarian, setVegetarian] = useState<'yes' | 'no'>('no');
+  const [guestsCount, setGuestsCount] = useState<string>('');
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -30,6 +31,7 @@ export default function RSVP() {
       name: formData.get('name'),
       attending,
       guests: formData.get('guests') || '',
+      companions: formData.get('companions') || '',
       vegetarian,
       wishes: formData.get('wishes') || '',
     };
@@ -150,17 +152,33 @@ export default function RSVP() {
                   <Subtitle as="span" className="!tracking-[0.25em]">
                     {copy.guestsLabel}
                   </Subtitle>
-                  {/* Guests write the count and who they bring in the same line */}
-                  <Body variant="small" as="span" className="italic">
-                    {copy.guestsHint}
-                  </Body>
                   <input
-                    type="text"
+                    type="number"
+                    min="1"
                     name="guests"
                     placeholder={copy.guestsPlaceholder}
                     className={fieldClass}
+                    value={guestsCount}
+                    onChange={(e) => setGuestsCount(e.target.value)}
                   />
                 </label>
+
+                {parseInt(guestsCount) > 1 && (
+                  <label className="flex flex-col gap-2 animate-fade-in">
+                    <Subtitle as="span" className="!tracking-[0.25em]">
+                      {copy.companionsLabel}
+                    </Subtitle>
+                    <Body variant="small" as="span" className="italic">
+                      {copy.companionsHint}
+                    </Body>
+                    <input
+                      type="text"
+                      name="companions"
+                      placeholder={copy.companionsPlaceholder}
+                      className={fieldClass}
+                    />
+                  </label>
+                )}
 
                 <div className="flex flex-col gap-3 animate-fade-in">
                   <Subtitle as="span" className="!tracking-[0.25em]">

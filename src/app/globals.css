@@ -375,8 +375,8 @@ body.entrance-locked {
    The card that opens off a lit pin, anchored to the bead so there is nothing
    to scroll to. A pin in the top half of the map drops its card downward, one
    in the bottom half lifts it upward, so the card always stays over the
-   drawing. On a phone it spans the map; from md up it hangs off the side the
-   pin points to, out over the paper beside the drawing. Both --pin-x and
+   drawing. On a phone and a tablet it spans the map; from lg up it hangs off
+   the side the pin points to, out over the paper beside the drawing. Both --pin-x and
    --pin-y are the bead's own position, as a % of the map box. */
 .map-callout {
   position: absolute;
@@ -389,7 +389,9 @@ body.entrance-locked {
 }
 /* On a phone the card sits clear of the bead — below it for a pin in the top
    half of the map, above it for one in the bottom half — so the bead and its
-   name are never buried under the card they opened. */
+   name are never buried under the card they opened. Tablets keep this layout
+   too: a card hung off the side needs about 1024px of window before it stops
+   running off the edge. */
 .map-callout[data-vside='top'] {
   top: calc(var(--pin-y) + 1.1rem);
 }
@@ -425,7 +427,7 @@ body.entrance-locked {
   bottom: -0.35rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .map-callout {
     width: 21rem;
   }
