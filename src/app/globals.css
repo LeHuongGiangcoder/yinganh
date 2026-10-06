@@ -142,13 +142,20 @@ body.entrance-locked {
   --tail-gap: 2rem;
   /* Half the depth of the seam where two sheets meet. The cream sheet bleeds
      this far past its block on each side and ramps over twice it, so the
-     crossfade is centred on the join and stays hairline-thin. */
-  --paper-seam: 0.75rem;
+     crossfade is always centred exactly on the join. It is deliberately deep —
+     the two papers are close enough in tone that a short ramp reads as a band
+     rather than a join, while over this distance one sheet dissolves into the
+     other and the eye never finds the edge. It lands inside the neighbouring
+     block's padding, so no text is ever set on the moving part of the fade. */
+  --paper-seam: 3.25rem;
 }
 @media (min-width: 768px) {
   :root {
     --block-py: 6.5rem;
     --tail-gap: 2.5rem;
+    /* Taller blocks and more scroll per screen, so the fade is given room to
+       match — it stays the same fraction of a block as it is on a phone. */
+    --paper-seam: 5rem;
   }
 }
 @media (max-width: 767px) {
@@ -172,8 +179,12 @@ body.entrance-locked {
   padding-bottom: var(--block-py);
 }
 
-/* Lays the cream sheet over the blue one for this block's height, softening
-   only the last few pixels at either end */
+/* Lays the cream sheet over the blue one for this block's height, dissolving
+   it into the blue at either end. A straight ramp between two papers this
+   close in tone still shows its two ends as faint lines, so the alpha is
+   eased instead — slow to leave transparent, slow to reach opaque, steepest
+   across the middle — which is what turns the join into a blend rather than
+   a very soft edge. 50% alpha falls exactly on the block boundary. */
 .paper-block-beige::before {
   content: "";
   position: absolute;
@@ -188,17 +199,37 @@ body.entrance-locked {
   background-size: 100% var(--paper-band);
   -webkit-mask-image: linear-gradient(
     to bottom,
-    transparent 0,
-    #000 calc(var(--paper-seam) * 2),
-    #000 calc(100% - var(--paper-seam) * 2),
-    transparent 100%
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0.09) calc(var(--paper-seam) * 0.3),
+    rgba(0, 0, 0, 0.28) calc(var(--paper-seam) * 0.6),
+    rgba(0, 0, 0, 0.5) var(--paper-seam),
+    rgba(0, 0, 0, 0.72) calc(var(--paper-seam) * 1.4),
+    rgba(0, 0, 0, 0.91) calc(var(--paper-seam) * 1.7),
+    rgba(0, 0, 0, 1) calc(var(--paper-seam) * 2),
+    rgba(0, 0, 0, 1) calc(100% - var(--paper-seam) * 2),
+    rgba(0, 0, 0, 0.91) calc(100% - var(--paper-seam) * 1.7),
+    rgba(0, 0, 0, 0.72) calc(100% - var(--paper-seam) * 1.4),
+    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam)),
+    rgba(0, 0, 0, 0.28) calc(100% - var(--paper-seam) * 0.6),
+    rgba(0, 0, 0, 0.09) calc(100% - var(--paper-seam) * 0.3),
+    rgba(0, 0, 0, 0) 100%
   );
   mask-image: linear-gradient(
     to bottom,
-    transparent 0,
-    #000 calc(var(--paper-seam) * 2),
-    #000 calc(100% - var(--paper-seam) * 2),
-    transparent 100%
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0.09) calc(var(--paper-seam) * 0.3),
+    rgba(0, 0, 0, 0.28) calc(var(--paper-seam) * 0.6),
+    rgba(0, 0, 0, 0.5) var(--paper-seam),
+    rgba(0, 0, 0, 0.72) calc(var(--paper-seam) * 1.4),
+    rgba(0, 0, 0, 0.91) calc(var(--paper-seam) * 1.7),
+    rgba(0, 0, 0, 1) calc(var(--paper-seam) * 2),
+    rgba(0, 0, 0, 1) calc(100% - var(--paper-seam) * 2),
+    rgba(0, 0, 0, 0.91) calc(100% - var(--paper-seam) * 1.7),
+    rgba(0, 0, 0, 0.72) calc(100% - var(--paper-seam) * 1.4),
+    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam)),
+    rgba(0, 0, 0, 0.28) calc(100% - var(--paper-seam) * 0.6),
+    rgba(0, 0, 0, 0.09) calc(100% - var(--paper-seam) * 0.3),
+    rgba(0, 0, 0, 0) 100%
   );
   pointer-events: none;
 }

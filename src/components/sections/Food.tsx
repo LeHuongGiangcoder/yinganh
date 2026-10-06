@@ -99,7 +99,7 @@ export default function Food() {
 
       {/* What that actually looks like, before the lists themselves */}
       <div
-        className="relative mt-12 md:mt-16 w-full max-w-sm sm:max-w-lg md:max-w-xl mx-auto"
+        className="relative mt-10 md:mt-12 w-full max-w-[200px] sm:max-w-[260px] md:max-w-xs mx-auto"
         style={{ aspectRatio: `100 / ${PLATES_RATIO}` }}
       >
         {PLATES.map((plate, i) => (
@@ -125,7 +125,7 @@ export default function Food() {
         ))}
       </div>
 
-      <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
+      <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
         {/* Left: how to save the lists, walked through step by step */}
         <div style={revealStyle(120)} className="md:col-span-6 w-full">
           <div className="w-full max-w-md mx-auto border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">
