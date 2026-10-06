@@ -8,9 +8,19 @@ import AngelLayers from '@/components/interactive/AngelLayers';
 
 type Phase = 'idle' | 'sketching' | 'revealing' | 'morphing' | 'angels' | 'done';
 
-// The pale sheet the guest scratches away to find the drawing underneath. It is
-// the blue paper's own colour, so the part still unscratched reads as the page.
-const VEIL = '#EAF5FD';
+// The pale sheet the guest scratches away to find the drawing underneath. It has
+// to be the blue paper's own colour, or the part still unscratched stops reading
+// as the page. That colour lives in one place — --paper-blue in globals.css, the
+// mean of the paper texture itself — so it is read from there rather than copied
+// here, where it would silently go stale the next time the paper is reprinted.
+// The literal is only the fallback for a server render, where there is no
+// computed style to ask.
+const VEIL_FALLBACK = '#C9E6FB';
+const veilColor = () =>
+  (typeof window === 'undefined'
+    ? ''
+    : getComputedStyle(document.documentElement).getPropertyValue('--paper-blue').trim()) ||
+  VEIL_FALLBACK;
 const GRID_COLS = 20;
 const GRID_ROWS = 30;
 // Threshold is % of full viewport cells touched. Kept low because the centered
@@ -89,7 +99,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
     canvas.style.height = `${h}px`;
     const ctx = canvas.getContext('2d', { alpha: true })!;
     ctx.scale(dpr, dpr);
-    ctx.fillStyle = VEIL;
+    ctx.fillStyle = veilColor();
     ctx.fillRect(0, 0, w, h);
     ctxRef.current = ctx;
     cellSizeRef.current = { w: w / GRID_COLS, h: h / GRID_ROWS };
@@ -281,7 +291,7 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
     <div
       ref={rootRef}
       className="fixed inset-0 z-50 overflow-hidden no-select h-[100vh] w-[100vw]"
-      style={{ backgroundColor: VEIL }}
+      style={{ backgroundColor: 'var(--paper-blue)' }}
       aria-label="Sketch entrance"
     >
       {/* Layer 0: the blue paper the whole entrance is printed on */}
