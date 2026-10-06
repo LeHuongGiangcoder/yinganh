@@ -299,9 +299,9 @@ export const COPY: Record<
         },
         hcmc: {
           name: 'Ho Chi Minh City',
-          pin: 'Saigon',
+          pin: 'Ho Chi Minh',
           role: 'Where we are getting married',
-          note: 'Saigon to everyone who lives here. Warm all year, awake all night, and the whole wedding happens within a few streets of District 1.',
+          note: 'The big, loud, friendly city of the south. Warm all year, awake all night, and the whole wedding happens within a few streets of District 1.',
         },
       },
     },
@@ -523,7 +523,7 @@ export const COPY: Record<
       body: 'Một dải đất dài, thủ đô ở đầu này và đám cưới của tụi mình ở đầu kia. Đây là vị trí của hai nơi đó.',
       hint: 'Bấm vào một điểm sáng trên bản đồ',
       focusHint: 'Hai thành phố đang sáng trên bản đồ. Bấm vào một điểm để xem nhé.',
-      watchLabel: 'Đi chơi gì ở Sài Gòn',
+      watchLabel: 'Đi chơi gì ở TP.HCM',
       closeLabel: 'Đóng',
       places: {
         hanoi: {
@@ -534,9 +534,9 @@ export const COPY: Record<
         },
         hcmc: {
           name: 'Thành phố Hồ Chí Minh',
-          pin: 'Sài Gòn',
+          pin: 'TP.HCM',
           role: 'Nơi tụi mình làm đám cưới',
-          note: 'Người ở đây vẫn gọi là Sài Gòn. Nắng quanh năm, thức cả đêm, và toàn bộ đám cưới nằm gọn trong vài con đường ở Quận 1.',
+          note: 'Thành phố lớn nhất miền Nam. Nắng quanh năm, thức cả đêm, và toàn bộ đám cưới nằm gọn trong vài con đường ở Quận 1.',
         },
       },
     },
@@ -554,7 +554,7 @@ export const COPY: Record<
     food: {
       subtitle: 'GỢI Ý ĂN UỐNG',
       title: 'Tụi mình hay ăn ở đây',
-      body: 'Những chỗ ăn tụi mình thường ăn nhất ở Sài Gòn. Nhớ đi lúc đói nha.',
+      body: 'Những chỗ ăn tụi mình thường ăn nhất ở TP.HCM. Nhớ đi lúc đói nha.',
       guideTitle: 'Cách lưu các list này',
       guideLead: 'Mỗi link bên dưới mở ra một list trên Google Maps. Lưu một lần là nó nằm sẵn trong máy bạn suốt chuyến đi.',
       steps: [

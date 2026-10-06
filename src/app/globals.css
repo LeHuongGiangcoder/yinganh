@@ -319,11 +319,27 @@ body.entrance-locked {
    its own card is open. */
 .map-pin {
   position: absolute;
-  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
+  /* The bead is what sits on the city, not the box around it. Centring the
+     whole box on the coordinate would let the name's width shove the bead off
+     the place it marks — and by a different amount for every name — so the box
+     is pulled back by half a bead instead. */
+  transform: translate(-0.25rem, -50%);
+}
+/* Name on the left, which puts the bead at the far end of the box */
+.map-pin-flip {
+  flex-direction: row-reverse;
+  transform: translate(calc(-100% + 0.25rem), -50%);
+}
+/* Name stacked above the bead, for a pin with no clear room either side of it */
+.map-pin-stack {
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 0.3rem;
+  transform: translate(-50%, calc(-100% + 0.25rem));
 }
 .map-pin-bead {
   position: relative;

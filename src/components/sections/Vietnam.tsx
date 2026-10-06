@@ -32,9 +32,14 @@ const PINS: {
   y: number;
   hside: 'left' | 'right';
   vside: 'top' | 'bottom';
+  // Where the city's name hangs off its bead. Ho Chi Minh City stacks its name
+  // above, because at that latitude the drawing already prints "Truong Sa" to
+  // the right and "Phu Quoc" to the left, and a name run out to either side
+  // collides with one of them.
+  label: 'left' | 'right' | 'above';
 }[] = [
-  { id: 'hanoi', x: 39.8, y: 17.0, hside: 'left', vside: 'top' },
-  { id: 'hcmc', x: 49.3, y: 82.9, hside: 'right', vside: 'bottom' },
+  { id: 'hanoi', x: 39.8, y: 17.0, hside: 'left', vside: 'top', label: 'left' },
+  { id: 'hcmc', x: 49.3, y: 82.9, hside: 'right', vside: 'bottom', label: 'above' },
 ];
 
 // The map opens with nothing selected, so the drawing is seen whole; a tag
@@ -172,7 +177,9 @@ export default function Vietnam() {
                 type="button"
                 onClick={() => open(isOpen ? null : pin.id)}
                 aria-pressed={isOpen}
-                className={`map-pin z-20 ${pin.hside === 'left' ? 'flex-row-reverse' : ''}`}
+                className={`map-pin z-20 ${
+                  pin.label === 'left' ? 'map-pin-flip' : pin.label === 'above' ? 'map-pin-stack' : ''
+                }`}
                 style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
               >
                 <span className="map-pin-bead" aria-hidden />
