@@ -429,7 +429,7 @@ body.entrance-locked {
 
 @media (min-width: 1024px) {
   .map-callout {
-    width: 21rem;
+    width: 23rem;
   }
   .map-callout[data-hside='right'] {
     left: calc(var(--pin-x) + 2.25rem);
@@ -477,4 +477,105 @@ body.entrance-locked {
 }
 @media (prefers-reduced-motion: reduce) {
   .map-callout { animation: none; }
+}
+
+/* ---- Photo frame ---------------------------------------------------------
+   Every photograph on the page is mounted the same way: a pale mat, a thin ink
+   keyline round the mat and a second one round the picture itself, lifted off
+   the paper by a soft navy shadow. It is the treatment the gallery strip and
+   the entrance portrait already wore; this is that frame made reusable, so a
+   photo dropped into any section hangs like the ones beside it.
+   --photo-tilt rests the frame at a slight angle, as if laid down by hand. */
+.photo-frame {
+  display: block;
+  background: var(--bg-light);
+  padding: 0.5rem;
+  border: 1px solid rgba(18, 48, 91, 0.1);
+  box-shadow: 0 10px 30px -14px rgba(18, 48, 91, 0.5);
+  transform: rotate(var(--photo-tilt, 0deg));
+}
+@media (min-width: 768px) {
+  .photo-frame { padding: 0.75rem; }
+}
+.photo-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid rgba(18, 48, 91, 0.15);
+}
+
+/* A frame that answers to the pointer — for photos that are also links */
+a.photo-frame,
+.photo-frame-hover {
+  transition: transform 500ms var(--ease-smooth), box-shadow 500ms var(--ease-smooth);
+}
+a.photo-frame:hover,
+.photo-frame-hover:hover {
+  transform: rotate(var(--photo-tilt, 0deg)) translateY(-4px);
+  box-shadow: 0 18px 40px -16px rgba(18, 48, 91, 0.55);
+}
+
+/* Inside a callout the mat is thinner — the card is small enough already */
+.map-callout .photo-frame {
+  padding: 0.3rem;
+  box-shadow: 0 6px 18px -10px rgba(18, 48, 91, 0.5);
+}
+
+/* ---- Map hint ------------------------------------------------------------
+   Shown once the map has scrolled to the middle of the screen and the guest
+   has not opened a pin yet: a tag over the bead that says to press it, and a
+   harder beat on both beads while it is up. It goes for good on the first
+   press. */
+.map-hint {
+  position: absolute;
+  z-index: 25;
+  left: var(--pin-x);
+  top: var(--pin-y);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding: 0.3rem 0.6rem;
+  background: var(--ink);
+  color: var(--bg-light);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow: 0 10px 24px -12px rgba(18, 48, 91, 0.8);
+  pointer-events: none;
+  animation: hintIn 500ms var(--ease-out-quart) backwards, hintBob 2.2s ease-in-out 500ms infinite;
+}
+/* The point of the tag, aimed down at the bead it belongs to */
+.map-hint::after {
+  content: "";
+  position: absolute;
+  bottom: -0.3rem;
+  left: 50%;
+  margin-left: -0.3rem;
+  border-left: 0.3rem solid transparent;
+  border-right: 0.3rem solid transparent;
+  border-top: 0.35rem solid var(--ink);
+}
+
+@keyframes hintIn {
+  from { opacity: 0; transform: translate(-50%, -2rem); }
+  to { opacity: 1; transform: translate(-50%, -2.7rem); }
+}
+@keyframes hintBob {
+  0%, 100% { transform: translate(-50%, -2.7rem); }
+  50% { transform: translate(-50%, -3.1rem); }
+}
+
+/* While the tag is up, both beads beat harder so they read as the thing to press */
+.is-hinting .map-pin-bead {
+  box-shadow: 0 0 14px 4px rgba(240, 211, 112, 1);
+}
+.is-hinting .map-pin-bead::after {
+  animation-duration: 1.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-hint { animation: none; transform: translate(-50%, -2.7rem); }
+  .is-hinting .map-pin-bead::after { animation: none; }
 }

@@ -7,6 +7,7 @@ import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Button from '@/components/ui/Button';
 import Decor from '@/components/ui/Decor';
 import { useStepper, StepperControls } from '@/components/ui/Stepper';
+import Photo from '@/components/ui/Photo';
 
 // Where guests sleep. Both answers live in one card the guest pages through:
 // the venue's own wedding rate first, the streets to look along if they would
@@ -66,8 +67,36 @@ export default function Stay() {
         <div className="w-12 h-[1px] bg-ink/20 mb-10"></div>
       </div>
 
-      {/* One card, two pages: the venue, then everywhere else */}
-      <div style={revealStyle(120)} className="w-full max-w-lg mx-auto px-4 md:px-0">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center px-4 md:px-0">
+        {/* The hotel itself, two photographs laid down at an angle */}
+        <div
+          style={revealStyle(120)}
+          className="lg:col-span-6 w-full flex justify-center"
+        >
+          <div className="relative w-full max-w-sm lg:max-w-md pb-16 sm:pb-20">
+            <Photo
+              src="/images/stay-01.webp"
+              alt="Inside The Reverie Saigon"
+              ratio="4 / 3"
+              tilt={-2.5}
+              className="w-full"
+            />
+            {/* The portrait rests on the corner of the one behind it */}
+            <Photo
+              src="/images/stay-02.webp"
+              alt="The entrance to The Reverie Saigon"
+              ratio="4 / 5"
+              tilt={4}
+              className="absolute -bottom-2 right-0 sm:-right-4 w-32 sm:w-40 md:w-44"
+            />
+          </div>
+        </div>
+
+        {/* One card, two pages: the venue, then everywhere else */}
+        <div
+          style={revealStyle(240)}
+          className="lg:col-span-6 w-full max-w-lg mx-auto"
+        >
         <div className="stepper-frame" {...swipeHandlers}>
           <div className="stepper-stack px-6 md:px-10 py-10">
             {/* Page 1 — the venue's own rooms, at the wedding rate */}
@@ -127,15 +156,9 @@ export default function Stay() {
           </div>
         </div>
 
-        <StepperControls
-          index={index}
-          count={2}
-          go={go}
-          setIndex={setIndex}
-          label="Option"
-        />
+          <StepperControls index={index} count={2} go={go} setIndex={setIndex} label="Option" />
+        </div>
       </div>
-
     </section>
   );
 }

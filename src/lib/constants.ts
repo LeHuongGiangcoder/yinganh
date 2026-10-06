@@ -99,6 +99,7 @@ export const COPY: Record<
       title: string;
       body: string;
       hint: string;
+      focusHint: string;
       watchLabel: string;
       closeLabel: string;
       // `pin` is the short form written beside the bead on the map, where a
@@ -153,7 +154,7 @@ export const COPY: Record<
       successMsg: string;
       note: string;
     };
-    thankYou: { title: string; body: string };
+    thankYou: { title: string; body: string[] };
     eventDetails: {
       venueSubLabel: string;
       venueLabel: string;
@@ -286,6 +287,7 @@ export const COPY: Record<
       title: 'Vietnam',
       body: 'A long, narrow country with a capital at one end and our wedding at the other. Here is where the two sit.',
       hint: 'Tap a light on the map',
+      focusHint: 'Tap to open',
       watchLabel: 'While you are in the city',
       closeLabel: 'Close',
       places: {
@@ -370,7 +372,7 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Thank You',
-      body: "For being part of our story. We can't wait to see you.",
+      body: ['For being part of our story.', "We can't wait to see you."],
     },
     eventDetails: {
       venueSubLabel: 'WHERE TO FIND US',
@@ -520,6 +522,7 @@ export const COPY: Record<
       title: 'Việt Nam',
       body: 'Một dải đất dài, thủ đô ở đầu này và đám cưới của tụi mình ở đầu kia. Đây là vị trí của hai nơi đó.',
       hint: 'Bấm vào một điểm sáng trên bản đồ',
+      focusHint: 'Bấm để xem',
       watchLabel: 'Đi chơi gì ở Sài Gòn',
       closeLabel: 'Đóng',
       places: {
@@ -604,7 +607,7 @@ export const COPY: Record<
     },
     thankYou: {
       title: 'Cảm Ơn Bạn',
-      body: 'Vì đã là một phần trong câu chuyện của chúng mình. Hẹn gặp bạn nhé.',
+      body: ['Vì đã là một phần trong câu chuyện của chúng mình.', 'Hẹn gặp bạn nhé.'],
     },
     eventDetails: {
       venueSubLabel: 'ĐỊA ĐIỂM TỔ CHỨC',

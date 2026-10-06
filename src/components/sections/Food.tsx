@@ -6,6 +6,15 @@ import { COPY } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Decor from '@/components/ui/Decor';
 import MapGuide from '@/components/interactive/MapGuide';
+import Photo from '@/components/ui/Photo';
+
+// Three plates from the lists below, laid out like snapshots on a table.
+// Each rests at its own angle and drops in on its own beat.
+const PLATES = [
+  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake', tilt: -3 },
+  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs', tilt: 2 },
+  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa', tilt: -1.5 },
+];
 
 // Sparkles around the postcard, as % of its box — kept to the empty corners
 const POSTCARD_SPARKS = [
@@ -83,7 +92,20 @@ export default function Food() {
         </Body>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
+      {/* What that actually looks like, before the lists themselves */}
+      <ul className="mt-12 md:mt-14 grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-8 max-w-3xl mx-auto px-4 md:px-0">
+        {PLATES.map((plate, i) => (
+          <li
+            key={plate.src}
+            style={revealStyle(120 + i * 110)}
+            className={i === 2 ? 'col-span-2 md:col-span-1 max-w-[50%] mx-auto md:max-w-none' : ''}
+          >
+            <Photo src={plate.src} alt={plate.alt} ratio="4 / 3" tilt={plate.tilt} />
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start px-4 md:px-0">
         {/* Left: how to save the lists, walked through step by step */}
         <div style={revealStyle(120)} className="md:col-span-6 w-full">
           <div className="w-full max-w-md mx-auto border border-ink/15 bg-white/45 backdrop-blur-[2px] px-6 md:px-8 py-10 flex flex-col items-center text-center">

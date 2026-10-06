@@ -29,7 +29,7 @@ export default function ThankYou() {
   return (
     <section
       id="thank-you"
-      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 flex flex-col items-center justify-center text-center"
+      className="relative w-full max-w-7xl mx-auto px-5 md:px-10 pt-16 md:pt-24 flex flex-col items-center justify-center text-center"
     >
       {SPARKS.map((s, i) => (
         <span
@@ -74,10 +74,12 @@ export default function ThankYou() {
         {copy.title}
       </Heading>
 
-      <div className="max-w-md mx-auto">
-        <Body variant="regular" className="text-ink-soft leading-relaxed">
-          {copy.body}
-        </Body>
+      <div className="max-w-md mx-auto flex flex-col gap-1">
+        {copy.body.map((line, i) => (
+          <Body key={i} variant="regular" className="text-ink-soft leading-relaxed">
+            {line}
+          </Body>
+        ))}
       </div>
 
       <div className="mt-16 flex items-center gap-3 text-ink-muted">

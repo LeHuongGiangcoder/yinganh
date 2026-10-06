@@ -5,8 +5,16 @@ import { useLang } from '@/hooks/useLang';
 import { COPY, HCMC_VIDEOS } from '@/lib/constants';
 import { Heading, Subtitle, Body } from '@/components/ui/Typography';
 import Decor from '@/components/ui/Decor';
+import Photo from '@/components/ui/Photo';
 
 type PlaceId = 'hanoi' | 'hcmc';
+
+// Two looks at the capital, shown inside its own callout the way the city
+// guides are shown inside Ho Chi Minh City's
+const HANOI_PHOTOS = [
+  { src: '/images/hanoi-01.webp', alt: 'A lantern-strung street in the old quarter of Hanoi', tilt: -2 },
+  { src: '/images/hanoi-02.webp', alt: 'Turtle Tower on Hoan Kiem Lake, Hanoi', tilt: 2 },
+];
 
 // Where each city sits on the drawing, as % of the trimmed map box. These are
 // not eyeballed: the drawing's own outline was fitted to real coordinates
@@ -29,13 +37,20 @@ const PINS: {
   { id: 'hcmc', x: 49.3, y: 82.9, hside: 'right', vside: 'bottom' },
 ];
 
-// The city the wedding is in opens first — it is the one every guest needs.
+// The map opens with nothing selected, so the drawing is seen whole; a tag
+// over the Ho Chi Minh City bead offers the first press once the map reaches
+// the middle of the screen.
 export default function Vietnam() {
   const { lang } = useLang();
   const copy = COPY[lang].vietnam;
-  const [active, setActive] = useState<PlaceId | null>('hcmc');
+  const [active, setActive] = useState<PlaceId | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+  // Whether the map is sitting in the middle of the screen right now, and
+  // whether the guest has already pressed a pin (after which the tag is done)
+  const [centred, setCentred] = useState(false);
+  const [used, setUsed] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -61,6 +76,24 @@ export default function Vietnam() {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // Negative margins on all but the middle tenth of the viewport, so this
+  // reports only while the map is crossing the centre of the screen.
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setCentred(entry.isIntersecting),
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+    observer.observe(map);
+    return () => observer.disconnect();
+  }, []);
+
+  const open = (id: PlaceId | null) => {
+    setActive(id);
+    if (id) setUsed(true);
+  };
+
   const revealStyle = (delay: number): React.CSSProperties => ({
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(24px)',
@@ -70,6 +103,9 @@ export default function Vietnam() {
 
   const openPin = PINS.find((p) => p.id === active);
   const place = openPin ? copy.places[openPin.id] : null;
+  // The tag rides the wedding city's bead — the pin worth opening first
+  const hintPin = PINS.find((p) => p.id === 'hcmc')!;
+  const hinting = centred && !used && !active;
 
   return (
     <section
@@ -100,7 +136,10 @@ export default function Vietnam() {
       </div>
 
       <div style={revealStyle(120)} className="mt-12 md:mt-16 flex flex-col items-center">
-        <div className="relative w-full max-w-[19rem] md:max-w-[20rem]">
+        <div
+          ref={mapRef}
+          className={`relative w-full max-w-[19rem] md:max-w-[21rem] ${hinting ? 'is-hinting' : ''}`}
+        >
           <img
             src="/component/vietnam-map.png"
             alt="A drawn map of Vietnam"
@@ -114,7 +153,7 @@ export default function Vietnam() {
             <button
               type="button"
               aria-label={copy.closeLabel}
-              onClick={() => setActive(null)}
+              onClick={() => open(null)}
               className="absolute inset-0 z-10 cursor-default"
             />
           )}
@@ -125,7 +164,7 @@ export default function Vietnam() {
               <button
                 key={pin.id}
                 type="button"
-                onClick={() => setActive(isOpen ? null : pin.id)}
+                onClick={() => open(isOpen ? null : pin.id)}
                 aria-pressed={isOpen}
                 className={`map-pin z-20 ${pin.hside === 'left' ? 'flex-row-reverse' : ''}`}
                 style={{ left: `${pin.x}%`, top: `${pin.y}%` }}
@@ -146,6 +185,18 @@ export default function Vietnam() {
             );
           })}
 
+          {hinting && (
+            <span
+              className="map-hint"
+              style={
+                { '--pin-x': `${hintPin.x}%`, '--pin-y': `${hintPin.y}%` } as React.CSSProperties
+              }
+              aria-hidden
+            >
+              {copy.focusHint}
+            </span>
+          )}
+
           {openPin && place && (
             <div
               className="map-callout"
@@ -162,7 +213,7 @@ export default function Vietnam() {
               <div className="map-callout-body px-5 py-5 text-left">
                 <button
                   type="button"
-                  onClick={() => setActive(null)}
+                  onClick={() => open(null)}
                   aria-label={copy.closeLabel}
                   className="absolute top-2.5 right-2.5 w-7 h-7 flex items-center justify-center text-ink-muted hover:text-ink transition-colors"
                 >
@@ -186,6 +237,17 @@ export default function Vietnam() {
                 <Body variant="small" className="leading-relaxed">
                   {place.note}
                 </Body>
+
+                {/* A look at the capital, under its note */}
+                {openPin.id === 'hanoi' && (
+                  <ul className="mt-5 pt-4 border-t border-ink/10 grid grid-cols-2 gap-3">
+                    {HANOI_PHOTOS.map((photo) => (
+                      <li key={photo.src}>
+                        <Photo src={photo.src} alt={photo.alt} ratio="3 / 2" tilt={photo.tilt} />
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {/* The two city guides hang off the Ho Chi Minh City bead */}
                 {openPin.id === 'hcmc' && (
