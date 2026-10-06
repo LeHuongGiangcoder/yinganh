@@ -14,9 +14,9 @@ import Photo from '@/components/ui/Photo';
 // mess rather than as snapshots. One shape, one line, one gap; only the drop-in
 // beat is still staggered.
 const PLATES = [
-  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake' },
-  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs' },
-  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa' },
+  { src: '/images/food-01.webp', alt: 'Banh xeo, a crisp turmeric pancake', tilt: -5 },
+  { src: '/images/food-02.webp', alt: 'A bowl of noodles with prawns and herbs', tilt: 3.5 },
+  { src: '/images/food-03.webp', alt: 'Banh mi from Huynh Hoa', tilt: -2.5 },
 ];
 
 // Sparkles around the postcard, as % of its box — kept to the empty corners
@@ -96,15 +96,21 @@ export default function Food() {
       </div>
 
       {/* What that actually looks like, before the lists themselves */}
-      <ul className="mt-12 md:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-8 max-w-3xl mx-auto px-4 md:px-0">
+      {/* Three square prints dealt across the page, each overlapping the one
+          before it. The middle print sits on top, which is what makes the row
+          read as a stack rather than a grid. */}
+      <ul className="mt-12 md:mt-16 flex items-center justify-center max-w-sm sm:max-w-xl md:max-w-2xl mx-auto px-4 md:px-0">
         {PLATES.map((plate, i) => (
-          <li key={plate.src} style={revealStyle(120 + i * 110)}>
-            <Photo
-              src={plate.src}
-              alt={plate.alt}
-              ratio="4 / 3"
-              className="photo-frame--flat"
-            />
+          <li
+            key={plate.src}
+            className="relative w-1/3"
+            style={{
+              ...revealStyle(120 + i * 110),
+              marginLeft: i ? '-6%' : 0,
+              zIndex: i === 1 ? 2 : 1,
+            }}
+          >
+            <Photo src={plate.src} alt={plate.alt} ratio="1 / 1" tilt={plate.tilt} />
           </li>
         ))}
       </ul>

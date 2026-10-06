@@ -192,8 +192,9 @@ tint(f"{SRC}/vietnam.png", f"{OUT}/component/vietnam-map.png", size=(1100, 1100)
 photo(f"{SRC}/photos/reverie-1.jpg", f"{OUT}/images/stay-01.webp", (1000, 1000), crop=(4/3, 0.5))
 photo(f"{SRC}/photos/reverie-2.jpg", f"{OUT}/images/stay-02.webp", (1000, 1000), crop=(4/5, 0.5))
 
+# Square, because the three hang as an overlapping row of prints
 for n in (1, 2, 3):
-    photo(f"{SRC}/photos/food-{n}.webp", f"{OUT}/images/food-{n:02d}.webp", (800, 800), crop=(4/3, 0.5))
+    photo(f"{SRC}/photos/food-{n}.webp", f"{OUT}/images/food-{n:02d}.webp", (800, 800), crop=(1, 0.5))
 
 photo(f"{SRC}/photos/hanoi-1.jpg", f"{OUT}/images/hanoi-01.webp", (700, 700), crop=(3/2, 0.5))
 photo(f"{SRC}/photos/hanoi-2.jpeg", f"{OUT}/images/hanoi-02.webp", (700, 700), crop=(3/2, 0.5))

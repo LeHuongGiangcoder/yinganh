@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useLang } from '@/hooks/useLang';
 import { COPY } from '@/lib/constants';
-import { Heading, Subtitle } from '@/components/ui/Typography';
+import { Subtitle } from '@/components/ui/Typography';
 
 interface HeroProps {
   startAnimation: boolean;
@@ -65,7 +65,7 @@ export default function Hero({ startAnimation }: HeroProps) {
             extra line box for its descenders. */}
         <h1
           style={revealStyle(2)}
-          className="mt-4 md:mt-2 text-center font-signature font-normal text-ink leading-[1.25] pb-3"
+          className="mt-4 md:mt-2 text-center font-signature font-normal text-ink leading-[1.35] pb-3"
         >
           <span className="block" style={{ fontSize: 'clamp(4.6rem, 16.5vw, 10rem)' }}>
             Ying <span className="text-ink-soft">&amp;</span> Anh
