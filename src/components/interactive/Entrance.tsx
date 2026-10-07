@@ -294,8 +294,14 @@ export default function Entrance({ onDone, onSketchStart, onReveal }: EntrancePr
       style={{ backgroundColor: 'var(--paper-blue)' }}
       aria-label="Sketch entrance"
     >
-      {/* Layer 0: the blue paper the whole entrance is printed on */}
-      <div className="paper-sheet" aria-hidden />
+      {/* Layer 0: the blue paper the whole entrance is printed on. It stays
+          hidden until the veil above it has actually been painted: the server
+          render reaches the screen about a second before hydration fills the
+          canvas, and in that gap the bare texture would show through and then
+          be covered by the flat veil — reading as a gradient that snaps to a
+          solid colour. The root's flat --paper-blue carries that first frame
+          instead, so there is nothing to snap. */}
+      <div className="paper-sheet" aria-hidden style={{ opacity: canvasReady ? 1 : 0 }} />
 
       {/* Layer 1: the drawing of the couple */}
       <div
