@@ -119,7 +119,6 @@ export default function Food() {
               // The reveal already drives transform, so the resting tilt rides
               // along with it rather than fighting it for the property.
               transform: `${isVisible ? 'translateY(0)' : 'translateY(24px)'} rotate(${plate.tilt}deg)`,
-              filter: 'drop-shadow(0 10px 18px rgba(18, 48, 91, 0.18))',
             }}
           />
         ))}

@@ -123,9 +123,10 @@ body.entrance-locked {
    The invitation is printed on two sheets of textured paper, blue and cream,
    and the page is a stack of blocks that take turns between them. A block is
    one band of the page: a section, plus whatever ornament closes it. Each
-   block carries its own sheet edge to edge, and the two papers meet on a seam
-   only a few pixels deep — just enough to take the hard line off the join,
-   never enough to read as a gradient.
+   block carries its own sheet edge to edge, and the two papers dissolve into
+   each other over a long seam — deep enough that the eye never finds a join,
+   with the steep part of the fade kept short so it still reads as two sheets
+   meeting rather than one long gradient.
 
    Blue is the sheet the whole page sits on (.paper-sheet), so only the cream
    blocks lay anything over it. */
@@ -145,9 +146,11 @@ body.entrance-locked {
      crossfade is always centred exactly on the join. It is deliberately deep —
      the two papers are close enough in tone that a short ramp reads as a band
      rather than a join, while over this distance one sheet dissolves into the
-     other and the eye never finds the edge. It lands inside the neighbouring
-     block's padding, so no text is ever set on the moving part of the fade. */
-  --paper-seam: 3.25rem;
+     other and the eye never finds the edge. The tails run past the neighbouring
+     block's padding, but they carry almost no alpha out there — only the inner
+     stretch around the boundary does real work, so text is never set on a part
+     of the fade that visibly moves. */
+  --paper-seam: 5rem;
 }
 @media (min-width: 768px) {
   :root {
@@ -155,7 +158,7 @@ body.entrance-locked {
     --tail-gap: 2.5rem;
     /* Taller blocks and more scroll per screen, so the fade is given room to
        match — it stays the same fraction of a block as it is on a phone. */
-    --paper-seam: 5rem;
+    --paper-seam: 7.5rem;
   }
 }
 @media (max-width: 767px) {
@@ -181,10 +184,11 @@ body.entrance-locked {
 
 /* Lays the cream sheet over the blue one for this block's height, dissolving
    it into the blue at either end. A straight ramp between two papers this
-   close in tone still shows its two ends as faint lines, so the alpha is
-   eased instead — slow to leave transparent, slow to reach opaque, steepest
-   across the middle — which is what turns the join into a blend rather than
-   a very soft edge. 50% alpha falls exactly on the block boundary. */
+   close in tone still shows its two ends as faint lines, so the alpha follows
+   a smoothstep instead: it leaves transparent and arrives at opaque with zero
+   slope, so neither end of the ramp can be found, while the middle stays close
+   enough to linear that the fade uses its whole depth rather than collapsing
+   into a short, visible step. 50% alpha falls exactly on the block boundary. */
 .paper-block-beige::before {
   content: "";
   position: absolute;
@@ -199,37 +203,77 @@ body.entrance-locked {
   background-size: 100% var(--paper-band);
   -webkit-mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.09) calc(var(--paper-seam) * 0.3),
-    rgba(0, 0, 0, 0.28) calc(var(--paper-seam) * 0.6),
-    rgba(0, 0, 0, 0.5) var(--paper-seam),
-    rgba(0, 0, 0, 0.72) calc(var(--paper-seam) * 1.4),
-    rgba(0, 0, 0, 0.91) calc(var(--paper-seam) * 1.7),
-    rgba(0, 0, 0, 1) calc(var(--paper-seam) * 2),
-    rgba(0, 0, 0, 1) calc(100% - var(--paper-seam) * 2),
-    rgba(0, 0, 0, 0.91) calc(100% - var(--paper-seam) * 1.7),
-    rgba(0, 0, 0, 0.72) calc(100% - var(--paper-seam) * 1.4),
-    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam)),
-    rgba(0, 0, 0, 0.28) calc(100% - var(--paper-seam) * 0.6),
-    rgba(0, 0, 0, 0.09) calc(100% - var(--paper-seam) * 0.3),
-    rgba(0, 0, 0, 0) 100%
+    rgba(0, 0, 0, 0.0) 0,
+    rgba(0, 0, 0, 0.0112) calc(var(--paper-seam) * 0.125),
+    rgba(0, 0, 0, 0.043) calc(var(--paper-seam) * 0.25),
+    rgba(0, 0, 0, 0.0923) calc(var(--paper-seam) * 0.375),
+    rgba(0, 0, 0, 0.1562) calc(var(--paper-seam) * 0.5),
+    rgba(0, 0, 0, 0.2319) calc(var(--paper-seam) * 0.625),
+    rgba(0, 0, 0, 0.3164) calc(var(--paper-seam) * 0.75),
+    rgba(0, 0, 0, 0.4067) calc(var(--paper-seam) * 0.875),
+    rgba(0, 0, 0, 0.5) calc(var(--paper-seam) * 1.0),
+    rgba(0, 0, 0, 0.5933) calc(var(--paper-seam) * 1.125),
+    rgba(0, 0, 0, 0.6836) calc(var(--paper-seam) * 1.25),
+    rgba(0, 0, 0, 0.7681) calc(var(--paper-seam) * 1.375),
+    rgba(0, 0, 0, 0.8438) calc(var(--paper-seam) * 1.5),
+    rgba(0, 0, 0, 0.9077) calc(var(--paper-seam) * 1.625),
+    rgba(0, 0, 0, 0.957) calc(var(--paper-seam) * 1.75),
+    rgba(0, 0, 0, 0.9888) calc(var(--paper-seam) * 1.875),
+    rgba(0, 0, 0, 1.0) calc(var(--paper-seam) * 2.0),
+    rgba(0, 0, 0, 1.0) calc(100% - var(--paper-seam) * 2.0),
+    rgba(0, 0, 0, 0.9888) calc(100% - var(--paper-seam) * 1.875),
+    rgba(0, 0, 0, 0.957) calc(100% - var(--paper-seam) * 1.75),
+    rgba(0, 0, 0, 0.9077) calc(100% - var(--paper-seam) * 1.625),
+    rgba(0, 0, 0, 0.8438) calc(100% - var(--paper-seam) * 1.5),
+    rgba(0, 0, 0, 0.7681) calc(100% - var(--paper-seam) * 1.375),
+    rgba(0, 0, 0, 0.6836) calc(100% - var(--paper-seam) * 1.25),
+    rgba(0, 0, 0, 0.5933) calc(100% - var(--paper-seam) * 1.125),
+    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam) * 1.0),
+    rgba(0, 0, 0, 0.4067) calc(100% - var(--paper-seam) * 0.875),
+    rgba(0, 0, 0, 0.3164) calc(100% - var(--paper-seam) * 0.75),
+    rgba(0, 0, 0, 0.2319) calc(100% - var(--paper-seam) * 0.625),
+    rgba(0, 0, 0, 0.1562) calc(100% - var(--paper-seam) * 0.5),
+    rgba(0, 0, 0, 0.0923) calc(100% - var(--paper-seam) * 0.375),
+    rgba(0, 0, 0, 0.043) calc(100% - var(--paper-seam) * 0.25),
+    rgba(0, 0, 0, 0.0112) calc(100% - var(--paper-seam) * 0.125),
+    rgba(0, 0, 0, 0.0) 100%
   );
   mask-image: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.09) calc(var(--paper-seam) * 0.3),
-    rgba(0, 0, 0, 0.28) calc(var(--paper-seam) * 0.6),
-    rgba(0, 0, 0, 0.5) var(--paper-seam),
-    rgba(0, 0, 0, 0.72) calc(var(--paper-seam) * 1.4),
-    rgba(0, 0, 0, 0.91) calc(var(--paper-seam) * 1.7),
-    rgba(0, 0, 0, 1) calc(var(--paper-seam) * 2),
-    rgba(0, 0, 0, 1) calc(100% - var(--paper-seam) * 2),
-    rgba(0, 0, 0, 0.91) calc(100% - var(--paper-seam) * 1.7),
-    rgba(0, 0, 0, 0.72) calc(100% - var(--paper-seam) * 1.4),
-    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam)),
-    rgba(0, 0, 0, 0.28) calc(100% - var(--paper-seam) * 0.6),
-    rgba(0, 0, 0, 0.09) calc(100% - var(--paper-seam) * 0.3),
-    rgba(0, 0, 0, 0) 100%
+    rgba(0, 0, 0, 0.0) 0,
+    rgba(0, 0, 0, 0.0112) calc(var(--paper-seam) * 0.125),
+    rgba(0, 0, 0, 0.043) calc(var(--paper-seam) * 0.25),
+    rgba(0, 0, 0, 0.0923) calc(var(--paper-seam) * 0.375),
+    rgba(0, 0, 0, 0.1562) calc(var(--paper-seam) * 0.5),
+    rgba(0, 0, 0, 0.2319) calc(var(--paper-seam) * 0.625),
+    rgba(0, 0, 0, 0.3164) calc(var(--paper-seam) * 0.75),
+    rgba(0, 0, 0, 0.4067) calc(var(--paper-seam) * 0.875),
+    rgba(0, 0, 0, 0.5) calc(var(--paper-seam) * 1.0),
+    rgba(0, 0, 0, 0.5933) calc(var(--paper-seam) * 1.125),
+    rgba(0, 0, 0, 0.6836) calc(var(--paper-seam) * 1.25),
+    rgba(0, 0, 0, 0.7681) calc(var(--paper-seam) * 1.375),
+    rgba(0, 0, 0, 0.8438) calc(var(--paper-seam) * 1.5),
+    rgba(0, 0, 0, 0.9077) calc(var(--paper-seam) * 1.625),
+    rgba(0, 0, 0, 0.957) calc(var(--paper-seam) * 1.75),
+    rgba(0, 0, 0, 0.9888) calc(var(--paper-seam) * 1.875),
+    rgba(0, 0, 0, 1.0) calc(var(--paper-seam) * 2.0),
+    rgba(0, 0, 0, 1.0) calc(100% - var(--paper-seam) * 2.0),
+    rgba(0, 0, 0, 0.9888) calc(100% - var(--paper-seam) * 1.875),
+    rgba(0, 0, 0, 0.957) calc(100% - var(--paper-seam) * 1.75),
+    rgba(0, 0, 0, 0.9077) calc(100% - var(--paper-seam) * 1.625),
+    rgba(0, 0, 0, 0.8438) calc(100% - var(--paper-seam) * 1.5),
+    rgba(0, 0, 0, 0.7681) calc(100% - var(--paper-seam) * 1.375),
+    rgba(0, 0, 0, 0.6836) calc(100% - var(--paper-seam) * 1.25),
+    rgba(0, 0, 0, 0.5933) calc(100% - var(--paper-seam) * 1.125),
+    rgba(0, 0, 0, 0.5) calc(100% - var(--paper-seam) * 1.0),
+    rgba(0, 0, 0, 0.4067) calc(100% - var(--paper-seam) * 0.875),
+    rgba(0, 0, 0, 0.3164) calc(100% - var(--paper-seam) * 0.75),
+    rgba(0, 0, 0, 0.2319) calc(100% - var(--paper-seam) * 0.625),
+    rgba(0, 0, 0, 0.1562) calc(100% - var(--paper-seam) * 0.5),
+    rgba(0, 0, 0, 0.0923) calc(100% - var(--paper-seam) * 0.375),
+    rgba(0, 0, 0, 0.043) calc(100% - var(--paper-seam) * 0.25),
+    rgba(0, 0, 0, 0.0112) calc(100% - var(--paper-seam) * 0.125),
+    rgba(0, 0, 0, 0.0) 100%
   );
   pointer-events: none;
 }
